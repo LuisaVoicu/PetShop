@@ -14,11 +14,11 @@
 
 <form  th:action="@{/products/update-details}" method="post" th:object="${product}" class="px-4">
 
-    <div class="mb-3 row">
-        <label for="id" class="col-sm-2 col-form-label">Id</label>
-        <div class="col-sm-6">
+    <div hidden class="mb-3 row invisible">
+        <label  for="id" class="col-sm-2 col-form-label ">Id</label>
+        <div  class="col-sm-6">
             <input type="text" id="id" autofocus="autofocus"
-                   class="form-control" required  name="id" th:field="*{id}">
+                   class="form-control" required  name="id" th:field="*{id}" readonly>
         </div>
     </div>
 
@@ -50,6 +50,19 @@
     <!--            </select>-->
     <!--        </label>-->
     <!--    </div>-->
+
+    <div class="mb-3 row">
+        <label>Category
+            <select th:field="${product.category}">
+                <option th:each="category : ${categories}"
+                        th:value="${category.id}"
+                        th:text="${category.name}"
+                ></option>
+                <p class="error" th:errors="${product.category}"></p>
+            </select>
+        </label>
+    </div>
+
 
     <div>
         <button type="submit" class="btn btn-success">Edit Product</button>

@@ -18,7 +18,7 @@
     </tr>
     </thead>
     <tr th:each="product : ${products}">
-        <td><a th:href="'/products/update-details?id=' + ${product.id}" th:text="${product.name} ${product.description}"></a> </td>
+        <td><a th:href="'/products/update-details?id=' + ${product.id}" th:text="${product.name}"></a> </td>
     </tr>
 </table>
 

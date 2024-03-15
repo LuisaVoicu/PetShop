@@ -25,6 +25,7 @@ public class ProductController {
     @GetMapping("/products/create")
     public String displayCreateProductForm(Model model){
         model.addAttribute("product", new Product());
+        model.addAttribute("categories", productService.findAllCategory());
         return "/product/create";
     }
 
@@ -71,6 +72,7 @@ public class ProductController {
 
         model.addAttribute("name", productDto.name() + " Details");
         model.addAttribute("product", productDto);
+        model.addAttribute("categories", productService.findAllCategory());
 
         return "product/update-details";
     }

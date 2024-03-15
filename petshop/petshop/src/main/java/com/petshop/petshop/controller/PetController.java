@@ -72,6 +72,8 @@ public class PetController {
     public String displayEditPetForm(Model model) {
         model.addAttribute("title", "Edit pets");
         model.addAttribute("pets", this.petService.getAllPetDtos());
+        model.addAttribute("petTypes", petTypeService.findAllPetTypes());
+
         return "pet/update";
     }
 

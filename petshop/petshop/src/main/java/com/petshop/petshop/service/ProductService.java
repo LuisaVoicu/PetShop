@@ -1,6 +1,8 @@
 package com.petshop.petshop.service;
 
 import com.petshop.petshop.mappper.dto.ProductDto;
+import com.petshop.petshop.model.Category;
+import com.petshop.petshop.model.PetType;
 import com.petshop.petshop.model.Product;
 
 import java.util.List;
@@ -18,6 +20,8 @@ public interface ProductService {
     public ProductDto createProductDto(Product category);
 
     public ProductDto updateProductDto(Product category);
+
+    public List<Category> findAllCategory();
 
     public Product updateProduct(Product product);
     public void deleteProduct(Product category);

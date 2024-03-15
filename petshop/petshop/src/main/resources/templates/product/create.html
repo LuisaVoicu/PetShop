@@ -9,6 +9,7 @@
 <div th:replace="~{fragments :: header}"></div>
 
 
+
 <h1>Create Product</h1>
 
 
@@ -30,25 +31,20 @@
         </div>
     </div>
 
-<!--    <div class="mb-3 row">
-        <label for="category" class="col-sm-2 col-form-label">Weight</label>
-        <div class="col-sm-6">
-            <input type="text"  id="category" autofocus="autofocus"
-                   class="form-control" required name="category" th:field="*{category}" >
-        </div>
-    </div>-->
 
-<!--    <div class="mb-3 row">
-        <label>Product Type
-            <select th:field="${product.productType}">
-                <option th:each="product_type : ${productTypes}"
-                        th:value="${product_type.id}"
-                        th:text="${product_type.name}"
+    <div class="mb-3 row">
+        <label>Category
+            <select th:field="${product.category}">
+                <option th:each="category : ${categories}"
+                        th:value="${category.id}"
+                        th:text="${category.name}"
                 ></option>
-                <p class="error" th:errors="${product.productType}"></p>
+                <p class="error" th:errors="${product.category}"></p>
             </select>
         </label>
-    </div>-->
+    </div>
+
+
 
     <div>
         <button type="submit" class="btn btn-success">Create Product</button>

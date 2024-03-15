@@ -2,7 +2,9 @@ package com.petshop.petshop.service;
 
 import com.petshop.petshop.mappper.ProductMapper;
 import com.petshop.petshop.mappper.dto.ProductDto;
+import com.petshop.petshop.model.Category;
 import com.petshop.petshop.model.Product;
+import com.petshop.petshop.repository.CategoryRepository;
 import com.petshop.petshop.repository.ProductRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,7 @@ import java.util.List;
 public class ProductServiceImpl implements ProductService{
 
     private final ProductRepository productRepository;
+    private final CategoryRepository categoryRepository;
     private final ProductMapper productMapper;
 
     @Override
@@ -44,6 +47,11 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public ProductDto updateProductDto(Product product) {
         return productMapper.productEntityToDto(productRepository.save(product));
+    }
+
+    @Override
+    public List<Category> findAllCategory() {
+        return categoryRepository.findAll();
     }
 
     @Override

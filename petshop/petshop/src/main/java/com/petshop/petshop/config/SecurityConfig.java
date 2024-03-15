@@ -27,11 +27,12 @@ public class SecurityConfig {
                     authConfig.requestMatchers(HttpMethod.POST, "/createUser").permitAll();
                     authConfig.requestMatchers(HttpMethod.GET, "/user").hasAuthority("CUSTOMER");
                     authConfig.requestMatchers(HttpMethod.GET, "/admin").hasAuthority("ADMIN");
-                    authConfig.requestMatchers(HttpMethod.GET, "/roles").hasAuthority("ADMIN");
-                    authConfig.requestMatchers(HttpMethod.GET, "/developer").hasAuthority("PET_FOSTER");
-                    authConfig.requestMatchers(HttpMethod.GET, "/users").hasAnyAuthority("ADMIN", "CUSTOMER", "PET_FOSTER");
-                    authConfig.requestMatchers(HttpMethod.GET, "/product").hasAnyAuthority("ADMIN", "CUSTOMER",  "PET_FOSTER");
-                    authConfig.requestMatchers(HttpMethod.GET, "/products").hasAnyAuthority("ADMIN", "CUSTOMER", "PET_FOSTER");
+                    authConfig.requestMatchers(HttpMethod.GET, "/role").hasAuthority("ADMIN");
+                    authConfig.requestMatchers(HttpMethod.GET, "/user").hasAnyAuthority("ADMIN", "CUSTOMER", "PET_FOSTER");
+                    authConfig.requestMatchers(HttpMethod.GET, "/product").hasAnyAuthority("ADMIN", "CUSTOMER",  "PET_FOSTER", "SELLER");
+                    authConfig.requestMatchers(HttpMethod.GET, "/products").hasAnyAuthority("ADMIN", "CUSTOMER", "PET_FOSTER", "SELLER");
+                    authConfig.requestMatchers(HttpMethod.GET, "/category").hasAnyAuthority("ADMIN", "CUSTOMER", "PET_FOSTER", "SELLER");
+                    authConfig.requestMatchers(HttpMethod.GET, "/categories").hasAnyAuthority("ADMIN", "CUSTOMER", "PET_FOSTER", "SELLER");
                     authConfig.requestMatchers(HttpMethod.GET, "/authorities").hasAnyAuthority("ADMIN");
                     authConfig.anyRequest().authenticated();
                 })
