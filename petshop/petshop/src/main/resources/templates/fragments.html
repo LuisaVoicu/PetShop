@@ -15,24 +15,24 @@
         <a class="header" href="/logout"><span sec:authorize="isAuthenticated()">Logout</span></a>
         <a class="header" href="/"><span sec:authorize="isAuthenticated()">Home</span></a>
         <a class="header" href="/"><span sec:authorize="isAuthenticated() and hasAuthority('USER')">User</span></a>
-        <a class="header" href="/users"><span sec:authorize="isAuthenticated() and hasAuthority('ADMIN')">Get Users</span></a>
-        <a class="header" href="/users/create"><span sec:authorize="isAuthenticated() and hasAuthority('ADMIN')">Create User</span></a>
-        <a class="header" href="/users/delete"><span sec:authorize="isAuthenticated() and hasAuthority('ADMIN')">Delete Users</span></a>
-        <a class="header" href="/users/update"><span sec:authorize="isAuthenticated() and hasAuthority('ADMIN')">Update User</span></a>
-        <a class="header" href="/pets"><span sec:authorize="isAuthenticated() and (hasAuthority('ADMIN') or hasAuthority('PET_FOSTER') or hasAuthority('CUSTOMER') or hasAuthority('SELLER'))">Get Pets</span></a>
-        <a class="header" href="/pets/create"><span sec:authorize="isAuthenticated() and (hasAuthority('ADMIN') or hasAuthority('PET_FOSTER'))">Create Pet</span></a>
-        <a class="header" href="/pets/delete"><span sec:authorize="isAuthenticated() and (hasAuthority('ADMIN') or hasAuthority('PET_FOSTER'))">Delete Pet</span></a>
-        <a class="header" href="/pets/update"><span sec:authorize="isAuthenticated() and (hasAuthority('ADMIN') or hasAuthority('PET_FOSTER'))">Update Pets</span></a>
-        <a class="header" href="/roles"><span sec:authorize="isAuthenticated() and (hasAuthority('ADMIN') )">Roles</span></a></p>
-        <a class="header" href="/petTypes"><span sec:authorize="isAuthenticated() and (hasAuthority('ADMIN') or hasAuthority('PET_FOSTER'))">Pet Types</span></a></p>
-        <a class="header" href="/categories"><span sec:authorize="isAuthenticated() and (hasAuthority('ADMIN') or hasAuthority('SELLER') or hasAuthority('CUSTOMER'))">Get Category</span></a></p>
-        <a class="header" href="/categories/create"><span sec:authorize="isAuthenticated() and (hasAuthority('ADMIN') or hasAuthority('SELLER'))">Create Category</span></a></p>
-        <a class="header" href="/categories/delete"><span sec:authorize="isAuthenticated() and (hasAuthority('ADMIN') or hasAuthority('SELLER'))">Delete Category</span></a></p>
-        <a class="header" href="/categories/update"><span sec:authorize="isAuthenticated() and (hasAuthority('ADMIN') or hasAuthority('SELLER'))">Update Category</span></a></p>
-        <a class="header" href="/products"><span sec:authorize="isAuthenticated() and (hasAuthority('ADMIN') or hasAuthority('CUSTOMER') or hasAuthority('SELLER'))">Get Products</span></a></p>
-        <a class="header" href="/products/create"><span sec:authorize="isAuthenticated() and (hasAuthority('ADMIN') or hasAuthority('SELLER'))">Create Products</span></a></p>
-        <a class="header" href="/products/delete"><span sec:authorize="isAuthenticated() and (hasAuthority('ADMIN') or hasAuthority('SELLER'))">Delete Products</span></a></p>
-        <a class="header" href="/products/update"><span sec:authorize="isAuthenticated() and (hasAuthority('ADMIN') or hasAuthority('SELLER'))">Update Products</span></a></p>
+        <a class="header" href="/user"><span sec:authorize="isAuthenticated() and hasAuthority('ADMIN')">Get Users</span></a>
+        <a class="header" href="/user/create"><span sec:authorize="isAuthenticated() and hasAuthority('ADMIN')">Create User</span></a>
+        <a class="header" href="/user/delete"><span sec:authorize="isAuthenticated() and hasAuthority('ADMIN')">Delete Users</span></a>
+        <a class="header" href="/user/update"><span sec:authorize="isAuthenticated() and hasAuthority('ADMIN')">Update User</span></a>
+        <a class="header" href="/pet"><span sec:authorize="isAuthenticated() and (hasAuthority('ADMIN') or hasAuthority('PET_FOSTER') or hasAuthority('CUSTOMER') or hasAuthority('SELLER'))">Get Pets</span></a>
+        <a class="header" href="/pet/create"><span sec:authorize="isAuthenticated() and (hasAuthority('ADMIN') or hasAuthority('PET_FOSTER'))">Create Pet</span></a>
+        <a class="header" href="/pet/delete"><span sec:authorize="isAuthenticated() and (hasAuthority('ADMIN') or hasAuthority('PET_FOSTER'))">Delete Pet</span></a>
+        <a class="header" href="/pet/update"><span sec:authorize="isAuthenticated() and (hasAuthority('ADMIN') or hasAuthority('PET_FOSTER'))">Update Pets</span></a>
+        <a class="header" href="/role"><span sec:authorize="isAuthenticated() and (hasAuthority('ADMIN') )">Roles</span></a></p>
+        <a class="header" href="/petType"><span sec:authorize="isAuthenticated() and (hasAuthority('ADMIN') or hasAuthority('PET_FOSTER'))">Pet Types</span></a></p>
+        <a class="header" href="/category"><span sec:authorize="isAuthenticated() and (hasAuthority('ADMIN') or hasAuthority('SELLER') or hasAuthority('CUSTOMER'))">Get Category</span></a></p>
+        <a class="header" href="/category/create"><span sec:authorize="isAuthenticated() and (hasAuthority('ADMIN') or hasAuthority('SELLER'))">Create Category</span></a></p>
+        <a class="header" href="/category/delete"><span sec:authorize="isAuthenticated() and (hasAuthority('ADMIN') or hasAuthority('SELLER'))">Delete Category</span></a></p>
+        <a class="header" href="/category/update"><span sec:authorize="isAuthenticated() and (hasAuthority('ADMIN') or hasAuthority('SELLER'))">Update Category</span></a></p>
+        <a class="header" href="/product"><span sec:authorize="isAuthenticated() and (hasAuthority('ADMIN') or hasAuthority('CUSTOMER') or hasAuthority('SELLER'))">Get Products</span></a></p>
+        <a class="header" href="/product/create"><span sec:authorize="isAuthenticated() and (hasAuthority('ADMIN') or hasAuthority('SELLER'))">Create Products</span></a></p>
+        <a class="header" href="/product/delete"><span sec:authorize="isAuthenticated() and (hasAuthority('ADMIN') or hasAuthority('SELLER'))">Delete Products</span></a></p>
+        <a class="header" href="/product/update"><span sec:authorize="isAuthenticated() and (hasAuthority('ADMIN') or hasAuthority('SELLER'))">Update Products</span></a></p>
     <p></p>
 </div>
 

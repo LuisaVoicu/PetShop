@@ -1,9 +1,10 @@
-package com.petshop.petshop.service;
+package com.petshop.petshop.service.impl;
 
 import com.petshop.petshop.mappper.RoleMapper;
 import com.petshop.petshop.mappper.dto.RoleDto;
 import com.petshop.petshop.model.Role;
 import com.petshop.petshop.repository.RoleRepository;
+import com.petshop.petshop.service.RoleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +12,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class RoleServiceImpl implements RoleService{
+public class RoleServiceImpl implements RoleService {
 
     private final RoleRepository roleRepository;
 

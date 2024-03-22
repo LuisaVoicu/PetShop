@@ -17,7 +17,7 @@ public class PetTypeController {
 
     private final PetTypeService petTypeService;
 
-    @GetMapping("/petTypes")
+    @GetMapping("/petType")
     public String getPetTypes(Model model){
         List<PetTypeDto> petTypes = petTypeService.getAllPetTypeDtos();
 
@@ -27,7 +27,7 @@ public class PetTypeController {
         return "petTypes";
     }
 
-    @GetMapping("/petTypes/{id}")
+    @GetMapping("/petType/{id}")
     public PetTypeDto getPetTypeById(@PathVariable Long id){
         return petTypeService.getPetTypeDtoById(id);
     }

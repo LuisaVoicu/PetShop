@@ -16,7 +16,7 @@ public class RoleController {
 
     private final RoleService roleService;
 
-    @GetMapping("/roles")
+    @GetMapping("/role")
     public String getRoles(Model model){
         List<RoleDto> roles = roleService.getAllRoleDtos();
 
@@ -26,7 +26,7 @@ public class RoleController {
         return "roles";
     }
 
-    @GetMapping("/roles/{id}")
+    @GetMapping("/role/{id}")
     public RoleDto getRoleById(@PathVariable Long id){
         return roleService.getRoleDtoById(id);
     }

@@ -24,7 +24,7 @@ public class UserController {
 
 
     // CREATE
-    @GetMapping({"/users/create"})
+    @GetMapping({"/user/create"})
     public String displayCreateUserForm(@RequestParam(value="registrationSuccess", required = false) String success, Model model) {
 
         model.addAttribute("title", "Register");
@@ -35,7 +35,7 @@ public class UserController {
         return "/user/create";
     }
 
-    @PostMapping({"/users/create"})
+    @PostMapping({"/user/create"})
     public String processCreateUsersForm(@ModelAttribute("user") RegistrationRequest registrationRequest, RedirectAttributes redirectAttributes ) {
 
         UserDto userDto = userService.registerUser(registrationRequest);
@@ -49,7 +49,7 @@ public class UserController {
 
     // RETRIEVE
 
-    @GetMapping("/users")
+    @GetMapping("/user")
     public String getUsers(Model model){
         List<UserDto> userDtos = userService.getAllUserDtos();
         model.addAttribute("title", "Users");
@@ -57,7 +57,7 @@ public class UserController {
         return "users";
     }
 
-    @GetMapping("/users/{id}")
+    @GetMapping("/user/{id}")
     public UserDto getUserById(@PathVariable Long id){
         return userService.getUserDtoById(id);
     }
@@ -66,7 +66,7 @@ public class UserController {
     // UPDATE
 
 
-    @GetMapping({"/users/update"})
+    @GetMapping({"/user/update"})
     public String displayEditUserForm(Model model) {
         model.addAttribute("title", "Edit users");
         model.addAttribute("users", this.userService.getAllUserDtos());
@@ -74,7 +74,7 @@ public class UserController {
     }
 
 
-    @GetMapping({"users/update-details"})
+    @GetMapping({"user/update-details"})
     public String displayUserEditDetails(@RequestParam String username, Model model) {
         Optional<User> userOpt = this.userService.findByUsername(username);
         if (userOpt.isEmpty()) {
@@ -91,7 +91,7 @@ public class UserController {
         return "user/update-details";
     }
 
-    @PostMapping({"users/update-details"})
+    @PostMapping({"user/update-details"})
     public String processEditUserForm(@ModelAttribute("user") User editedUser, Errors errors, Model model) {
 
         if (errors.hasErrors()) {
@@ -118,14 +118,14 @@ public class UserController {
 
 
     // DELETE
-    @GetMapping("/users/delete")
+    @GetMapping("/user/delete")
     public String displayDeleteUserForm(Model model) {
         model.addAttribute("title", "Delete User");
         model.addAttribute("users", this.userService.getAllUserDtos());
         return "user/delete";
     }
 
-    @PostMapping("/users/delete")
+    @PostMapping("/user/delete")
     public String processDeleteUserForm(@ModelAttribute("userUsernames") String[] userUsernames) {
 
         if (userUsernames != null) {

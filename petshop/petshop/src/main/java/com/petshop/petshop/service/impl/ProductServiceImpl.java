@@ -1,4 +1,4 @@
-package com.petshop.petshop.service;
+package com.petshop.petshop.service.impl;
 
 import com.petshop.petshop.mappper.ProductMapper;
 import com.petshop.petshop.mappper.dto.ProductDto;
@@ -6,6 +6,7 @@ import com.petshop.petshop.model.Category;
 import com.petshop.petshop.model.Product;
 import com.petshop.petshop.repository.CategoryRepository;
 import com.petshop.petshop.repository.ProductRepository;
+import com.petshop.petshop.service.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +14,7 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class ProductServiceImpl implements ProductService{
+public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;

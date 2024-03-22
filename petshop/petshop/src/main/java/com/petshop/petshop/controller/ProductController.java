@@ -22,14 +22,14 @@ public class ProductController {
     private final ProductService productService;
 
     // CREATE
-    @GetMapping("/products/create")
+    @GetMapping("/product/create")
     public String displayCreateProductForm(Model model){
         model.addAttribute("product", new Product());
         model.addAttribute("categories", productService.findAllCategory());
         return "/product/create";
     }
 
-    @PostMapping({"/products/create"})
+    @PostMapping({"/product/create"})
     public String processCreateProductForm(@ModelAttribute("product") Product product, RedirectAttributes redirectAttributes){
 
         ProductDto productDto = productService.createProductDto(product);
@@ -40,7 +40,7 @@ public class ProductController {
 
     // RETRIEVE
 
-    @GetMapping("/products")
+    @GetMapping("/product")
     public String getProducts (Model model){
         List<ProductDto> productDtos = productService.getAllProductDtos();
         model.addAttribute("title", "Products");
@@ -49,7 +49,7 @@ public class ProductController {
         return "products";
     }
 
-    @GetMapping("/products/{id}")
+    @GetMapping("/product/{id}")
     public ProductDto getProductsById(@PathVariable Long id){
         return productService.getProductDtoById(id);
     }
@@ -57,7 +57,7 @@ public class ProductController {
 
     // UPDATE
 
-    @GetMapping({"/products/update"})
+    @GetMapping({"/product/update"})
     public String displayEditUserForm(Model model) {
         model.addAttribute("title", "Edit products");
         model.addAttribute("products", this.productService.getAllProductDtos());
@@ -65,7 +65,7 @@ public class ProductController {
     }
 
 
-    @GetMapping({"products/update-details"})
+    @GetMapping({"product/update-details"})
     public String displayProductEditDetails(@RequestParam Long id, Model model) {
 
         ProductDto productDto = this.productService.getProductDtoById(id);
@@ -77,7 +77,7 @@ public class ProductController {
         return "product/update-details";
     }
 
-    @PostMapping({"products/update-details"})
+    @PostMapping({"product/update-details"})
     public String processEditProductForm(@ModelAttribute("product") Product editedProduct, Errors errors, Model model) {
 
 
@@ -104,14 +104,14 @@ public class ProductController {
 
     // DELETE
 
-    @GetMapping("/products/delete")
+    @GetMapping("/product/delete")
     public String displayDeleteProductsForm(Model model){
         model.addAttribute("title", "Delete Products");
         model.addAttribute("products", this.productService.getAllProducts());
         return "product/delete";
     }
 
-    @PostMapping("/products/delete")
+    @PostMapping("/product/delete")
     public String processDeleteProductsForm(@ModelAttribute("id") Long[] productIds){
         if(productIds != null){
             System.out.println("'not null list of products': ");

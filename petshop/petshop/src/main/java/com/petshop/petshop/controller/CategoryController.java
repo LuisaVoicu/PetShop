@@ -21,13 +21,13 @@ public class CategoryController {
     private final CategoryService categoryService;
 
     // CREATE
-    @GetMapping("/categories/create")
+    @GetMapping("/category/create")
     public String displayCreateCategoryForm(Model model){
         model.addAttribute("category", new Category());
         return "/category/create";
     }
 
-    @PostMapping({"/categories/create"})
+    @PostMapping({"/category/create"})
     public String processCreateCategoryForm(@ModelAttribute("category") Category category, RedirectAttributes redirectAttributes){
 
         List<Product> products = new ArrayList<>();
@@ -41,7 +41,7 @@ public class CategoryController {
 
     // RETRIEVE
 
-    @GetMapping("/categories")
+    @GetMapping("/category")
     public String getCategories (Model model){
         List<CategoryDto> categoryDtos = categoryService.getAllCategoryDtos();
         model.addAttribute("title", "Categories");
@@ -49,7 +49,7 @@ public class CategoryController {
         return "categories";
     }
 
-    @GetMapping("/categories/{id}")
+    @GetMapping("/category/{id}")
     public CategoryDto getCategoriesById(@PathVariable Long id){
         return categoryService.getCategoryDtoById(id);
     }
@@ -57,7 +57,7 @@ public class CategoryController {
 
     // UPDATE
 
-    @GetMapping({"/categories/update"})
+    @GetMapping({"/category/update"})
     public String displayEditUserForm(Model model) {
         model.addAttribute("title", "Edit categories");
         model.addAttribute("categories", this.categoryService.getAllCategoryDtos());
@@ -65,7 +65,7 @@ public class CategoryController {
     }
 
 
-    @GetMapping({"categories/update-details"})
+    @GetMapping({"category/update-details"})
     public String displayCategoryEditDetails(@RequestParam Long id, Model model) {
 
         CategoryDto categoryDto = this.categoryService.getCategoryDtoById(id);
@@ -76,7 +76,7 @@ public class CategoryController {
         return "category/update-details";
     }
 
-    @PostMapping({"categories/update-details"})
+    @PostMapping({"category/update-details"})
     public String processEditCategoryForm(@ModelAttribute("category") Category editedCategory, Errors errors, Model model) {
 
 
@@ -102,14 +102,14 @@ public class CategoryController {
 
     // DELETE
 
-    @GetMapping("/categories/delete")
+    @GetMapping("/category/delete")
     public String displayDeleteCategoriesForm(Model model){
         model.addAttribute("title", "Delete Categories");
         model.addAttribute("categories", this.categoryService.getAllCategories());
         return "category/delete";
     }
 
-    @PostMapping("/categories/delete")
+    @PostMapping("/category/delete")
     public String processDeleteCategoriesForm(@ModelAttribute("id") Long[] categoryIds){
         if(categoryIds != null){
             System.out.println("'not null list of categories': ");

@@ -24,7 +24,7 @@ public class PetController {
 
 
     // CREATE
-    @GetMapping({"/pets/create"})
+    @GetMapping({"/pet/create"})
     public String displayCreatePetForm(Model model) {
 
         //  model.addAttribute("title", "Register");
@@ -34,7 +34,7 @@ public class PetController {
         return "/pet/create";
     }
 
-    @PostMapping({"/pets/create"})
+    @PostMapping({"/pet/create"})
     public String processCreatePetsForm(@ModelAttribute("pet") Pet pet, RedirectAttributes redirectAttributes ) {
 
         PetDto petDto = petService.createPetDtoFromEntity(pet);
@@ -48,7 +48,7 @@ public class PetController {
 
     // RETRIEVE
 
-    @GetMapping("/pets")
+    @GetMapping("/pet")
     public String getPets(Model model){
         List<PetDto> petDtos = petService.getAllPetDtos();
         model.addAttribute("title", "Pets");
@@ -56,7 +56,7 @@ public class PetController {
         return "pets";
     }
 
-    @GetMapping("/pets/{id}")
+    @GetMapping("/pet/{id}")
     public PetDto getPetById(@PathVariable Long id){
         return petService.getPetDtoById(id);
     }
@@ -68,7 +68,7 @@ public class PetController {
     // UPDATE
 
 
-    @GetMapping({"/pets/update"})
+    @GetMapping({"/pet/update"})
     public String displayEditPetForm(Model model) {
         model.addAttribute("title", "Edit pets");
         model.addAttribute("pets", this.petService.getAllPetDtos());
@@ -78,7 +78,7 @@ public class PetController {
     }
 
 
-    @GetMapping({"pets/update-details"})
+    @GetMapping({"pet/update-details"})
     public String displayPetEditDetails(@RequestParam String name, Model model) {
 
         Pet pet = this.petService.getPetByName(name);
@@ -100,7 +100,7 @@ public class PetController {
         return "pet/update-details";
     }
 
-    @PostMapping({"pets/update-details"})
+    @PostMapping({"pet/update-details"})
     public String processEditPetForm(@ModelAttribute("pet") Pet editedPet, Errors errors, Model model) {
 
         if (errors.hasErrors()) {
@@ -129,14 +129,14 @@ public class PetController {
 
 
     // DELETE
-    @GetMapping("/pets/delete")
+    @GetMapping("/pet/delete")
     public String displayDeleteUserForm(Model model) {
         model.addAttribute("title", "Delete Pet");
         model.addAttribute("pets", this.petService.getAllPetDtos());
         return "pet/delete";
     }
 
-    @PostMapping("/pets/delete")
+    @PostMapping("/pet/delete")
     public String processDeleteUserForm(@ModelAttribute("name") String[] petNames) {
 
         if (petNames != null) {

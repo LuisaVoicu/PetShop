@@ -1,9 +1,10 @@
-package com.petshop.petshop.service;
+package com.petshop.petshop.service.impl;
 
 import com.petshop.petshop.mappper.PetMapper;
 import com.petshop.petshop.mappper.dto.PetDto;
 import com.petshop.petshop.model.Pet;
 import com.petshop.petshop.repository.PetRepository;
+import com.petshop.petshop.service.PetService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +12,7 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class PetServiceImpl implements PetService{
+public class PetServiceImpl implements PetService {
     private final PetRepository petRepository;
     private final PetMapper petMapper;
 

@@ -1,4 +1,4 @@
-package com.petshop.petshop.service;
+package com.petshop.petshop.service.impl;
 
 import com.petshop.petshop.mappper.RoleMapper;
 import com.petshop.petshop.mappper.UserMapper;
@@ -7,6 +7,7 @@ import com.petshop.petshop.model.RegistrationRequest;
 import com.petshop.petshop.model.User;
 import com.petshop.petshop.repository.RoleRepository;
 import com.petshop.petshop.repository.UserRepository;
+import com.petshop.petshop.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,7 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
