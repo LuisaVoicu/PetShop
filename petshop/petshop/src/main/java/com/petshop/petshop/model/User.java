@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.NotFound;
 
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -32,6 +33,10 @@ public class User {
 
     private LocalDate birthdate;
 
+    @Column(nullable = false)
+    @Size(max = 100)
+    private String login;
+
     @Singular
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "users_roles",
@@ -42,4 +47,10 @@ public class User {
                     @JoinColumn(name = "ROLES_ID",
                             referencedColumnName = "ID")})
     private List<Role> roles;
+
+
+    public String toString(){
+       return lastName+ " "+ firstName +  " " + emailAddress + " " + password;
+
+    }
 }

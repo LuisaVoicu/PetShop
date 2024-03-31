@@ -1,26 +1,31 @@
 package com.petshop.petshop.controller;
 
 
+import com.petshop.petshop.config.UserAuthenticationProvider;
+import com.petshop.petshop.mappper.dto.CredentialsDto;
+import com.petshop.petshop.mappper.dto.SignUpDto;
 import com.petshop.petshop.mappper.dto.UserDto;
 import com.petshop.petshop.model.RegistrationRequest;
 import com.petshop.petshop.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-@Controller
+import javax.validation.Valid;
+import java.net.URI;
+
+@RestController
 @RequiredArgsConstructor
 public class HomeController {
 
     private final UserService userService;
+    private final UserAuthenticationProvider userAuthenticationProvider;
 
-    @GetMapping("/")
+/*    @GetMapping("/")
     public String home(Model model, Authentication authentication){
         if(authentication != null){
             UserDto userDto = userService.getLoginUser();
@@ -29,7 +34,7 @@ public class HomeController {
         model.addAttribute("title", "Home");
 
         return "index";
-    }
+    }*/
 
     @GetMapping("/login")
     public String login(Model model){
@@ -55,7 +60,8 @@ public class HomeController {
         return "register";
     }
 
-    @PostMapping("/createUser")
+/*
+    @PostMapping("/register")
     public String createUser(@ModelAttribute("user") RegistrationRequest registrationRequest, RedirectAttributes redirectAttributes){
 
         UserDto userDto = userService.registerUser(registrationRequest);
@@ -63,6 +69,23 @@ public class HomeController {
         redirectAttributes.addAttribute("registrationSuccess", "Success");
 
         return "redirect:/register";
+    }
+*/
+
+
+
+    @PostMapping("/login")
+    public ResponseEntity<UserDto> login(@RequestBody @Valid CredentialsDto credentialsDto) {
+        UserDto userDto = userService.login(credentialsDto);
+        userDto.setToken(userAuthenticationProvider.createToken(userDto));
+        return ResponseEntity.ok(userDto);
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<UserDto> register(@RequestBody @Valid SignUpDto user) {
+        UserDto createdUser = userService.register(user);
+        createdUser.setToken(userAuthenticationProvider.createToken(createdUser));
+        return ResponseEntity.created(URI.create("/users/" + createdUser.getId())).body(createdUser);
     }
 
 }

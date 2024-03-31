@@ -1,10 +1,28 @@
 package com.petshop.petshop.mappper.dto;
 
-import lombok.Builder;
+import com.petshop.petshop.model.Role;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.List;
 
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
-public record UserDto(String username, List<RoleDto> roles, String firstName, String lastName, String emailAddress, LocalDate birthdate) {
+@Getter
+public class UserDto {
+
+    private Long id;
+    private String username;
+    private String firstName;
+    private String lastName;
+    private String login;
+    private String token;
+    private List<RoleDto> roles;
+    private String emailAddress;
+    private String password;
+
+
 }

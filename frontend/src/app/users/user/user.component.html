@@ -1,0 +1,23 @@
+<ul>
+    <li *ngFor="let user of users">
+        <a>
+            <div class="image">
+                <img [src]="user.imageUrl || 'assets/nophoto.jpg'" alt="User Image">
+            </div>
+            <div class="content">
+                
+                <div class="firstName">
+                    {{user.firstName}}
+                </div>
+                <div class="lastName">
+                    {{user.lastName}}
+                </div>
+                
+                <div class="username">
+                    {{user.username}}
+                </div>
+                
+            </div>
+        </a>
+    </li>
+</ul> 

@@ -1,0 +1,25 @@
+<form (ngSubmit)="editUser(user)" #userForm="ngForm">
+    <div>
+      <label for="firstName">First Name:</label>
+      <input type="text" id="firstName" name="firstName" [(ngModel)]="editedUser.firstName" required>
+    </div>
+
+    <div>
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" name="lastName" [(ngModel)]="editedUser.lastName" required>
+    </div>
+
+
+    <div>
+       <label for="emailAddress">Email:</label>
+       <input type="text" id="emailAddress" name="emailAddress" [(ngModel)]="editedUser.emailAddress" required>
+    </div>
+
+    <div>
+      <label for="imageUrl">Image URL:</label>
+      <input type="text" id="imageUrl" name="imageUrl" [(ngModel)]="editedUser.imageUrl">
+    </div>
+
+    <button type="submit" [disabled]="userForm.invalid" (click)="editUser(user)">Edit User</button>
+  
+</form>

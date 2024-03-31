@@ -1,0 +1,118 @@
+header{
+  background-color: white;
+  padding: 0;
+  border-bottom: 1px solid forestgreen;
+}
+
+a{
+  color: green;
+}
+
+a:hover{
+  background: green;
+  color: white;}
+
+.container{
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+a.logo{
+  font-weight: bold;
+  padding: 1em;
+}
+
+nav {
+  display: flex; 
+}
+
+
+.menu {
+  list-style-type: none;
+  margin: 0;
+  padding: 0; /* Remove default padding */
+  display: flex; /* Display flex to align items horizontally */
+}
+
+.menu li {
+  margin-right: 20px; /* Add spacing between menu items */
+}
+
+
+nav ul{
+  list-style-type: none;
+  margin: 0;
+}
+
+nav ul li a{
+  padding: 1em;
+  display:flex;
+}
+
+
+.dropbtn:hover {
+  background-color: green;
+  color: white;
+}
+
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: white;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.dropdown-content a {
+  color: green;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: green;
+  color:white;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+
+.dropdown-product{
+  position: left;
+}
+
+
+.dropdown-product {
+  order: 1;
+}
+
+.cart {
+  order: 2; 
+}
+
+.cart a {
+  padding: 1em;
+  color: green;
+  text-decoration: none;
+}
+
+.cart a:hover {
+  background: green;
+  color: white;
+  transition: background-color 0.5s;
+
+}
+
+.left-buttons {
+  display: flex;
+  align-items: center;
+}
+
+.right-buttons {
+  display: flex;
+  align-items: center;
+}

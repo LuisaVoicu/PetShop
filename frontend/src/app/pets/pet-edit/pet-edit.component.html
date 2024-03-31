@@ -1,0 +1,20 @@
+<form (ngSubmit)="editPet(pet)" #petForm="ngForm">
+    <div>
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" [(ngModel)]="editedPet.name" required>
+    </div>
+    <div>
+      <label for="age">Age:</label>
+      <textarea id="age" name="age" [(ngModel)]="editedPet.age" required></textarea>
+    </div>
+    <div>
+      <label for="weight">Weight:</label>
+      <input type="number" id="weight" name="weight" [(ngModel)]="editedPet.weight">
+    </div>
+    <div>
+      <label for="imageUrl">Image URL:</label>
+      <input type="text" id="imageUrl" name="imageUrl" [(ngModel)]="editedPet.imageUrl">
+    </div>
+    <button type="submit" [disabled]="petForm.invalid" (click)="editPet(pet)">Edit Pet</button>
+  
+  </form>

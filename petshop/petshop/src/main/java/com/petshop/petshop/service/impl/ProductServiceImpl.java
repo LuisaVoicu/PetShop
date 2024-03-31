@@ -2,6 +2,7 @@ package com.petshop.petshop.service.impl;
 
 import com.petshop.petshop.mappper.ProductMapper;
 import com.petshop.petshop.mappper.dto.ProductDto;
+import com.petshop.petshop.mappper.dto.UserDto;
 import com.petshop.petshop.model.Category;
 import com.petshop.petshop.model.Product;
 import com.petshop.petshop.repository.CategoryRepository;
@@ -46,9 +47,17 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductDto updateProductDto(Product product) {
-        return productMapper.productEntityToDto(productRepository.save(product));
+    public ProductDto createProduct(ProductDto productDto) {
+        return  productMapper.productEntityToDto(productRepository.save(productMapper.productDtoToEntity(productDto)));
     }
+
+    @Override
+    public ProductDto updateProductDto(ProductDto productDto) {
+        Product product = productMapper.productDtoToEntity(productDto);
+        ProductDto productDtoSaved = productMapper.productEntityToDto(productRepository.save(product));
+        return productDtoSaved;
+    }
+
 
     @Override
     public List<Category> findAllCategory() {
@@ -65,4 +74,6 @@ public class ProductServiceImpl implements ProductService {
     public void deleteProduct(Product product) {
         productRepository.delete(product);
     }
+
 }
+

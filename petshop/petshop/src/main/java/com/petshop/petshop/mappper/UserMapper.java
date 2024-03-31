@@ -1,13 +1,17 @@
 package com.petshop.petshop.mappper;
 
+import com.petshop.petshop.mappper.dto.SignUpDto;
 import com.petshop.petshop.mappper.dto.UserDto;
 import com.petshop.petshop.model.User;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Component
 public class UserMapper {
 
@@ -20,7 +24,8 @@ public class UserMapper {
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
                 .emailAddress(user.getEmailAddress())
-                .birthdate(user.getBirthdate())
+                .login(user.getLogin())
+                //.birthdate(user.getBirthdate())
                 .build();
     }
 
@@ -32,13 +37,13 @@ public class UserMapper {
 
     public User userDtoToEntity(UserDto userDto, String password){
         return User.builder()
-                .username(userDto.username())
+                .username(userDto.getUsername())
                 .password(password)
-                .roles(roleMapper.roleListDtoToEntity(userDto.roles()))
-                .firstName(userDto.firstName())
-                .lastName(userDto.lastName())
-                .emailAddress(userDto.emailAddress())
-                .birthdate(userDto.birthdate())
+                .roles(roleMapper.roleListDtoToEntity(userDto.getRoles()))
+                .firstName(userDto.getFirstName())
+                .lastName(userDto.getLastName())
+                .emailAddress(userDto.getEmailAddress())
+                //.birthdate(userDto.getBirthdate())
                 .build();
     }
 
@@ -47,4 +52,26 @@ public class UserMapper {
                 .map(userDto -> userDtoToEntity(userDto, password))
                 .toList();
     }
+
+/*
+    public abstract UserDto toUserDto(User user);
+
+    @Mapping(target = "password", ignore = true)
+    public abstract User signUpToUser(SignUpDto signUpDto);
+*/
+
+    public User signUpToUser(SignUpDto signUpDto) {
+        if (signUpDto == null) {
+            return null;
+        }
+
+        User user = new User();
+        user.setUsername(signUpDto.username());
+        user.setPassword(signUpDto.password());
+        user.setFirstName(signUpDto.firstName());
+        user.setLastName(signUpDto.lastName());
+        user.setEmailAddress(signUpDto.emailAddress());
+        return user;
+    }
+
 }

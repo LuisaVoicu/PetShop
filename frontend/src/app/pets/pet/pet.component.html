@@ -1,0 +1,24 @@
+<ul>
+    <li *ngFor="let pet of pets">
+        <a>
+            <div class="image">
+                <img [src]="pet.imageUrl || 'assets/nophoto.jpg'" alt="Pet Image">
+            </div>
+            <div class="content">
+                
+                <div class="name">
+                    {{pet.name}}
+                </div>
+                
+                <div class="age">
+                    {{pet.age}}
+                </div>
+
+                <div class="weight">
+                    {{pet.weight}}
+                </div>
+                
+            </div>
+        </a>
+    </li>
+</ul> 

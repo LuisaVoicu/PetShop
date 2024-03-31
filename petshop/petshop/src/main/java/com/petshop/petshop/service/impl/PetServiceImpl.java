@@ -2,7 +2,9 @@ package com.petshop.petshop.service.impl;
 
 import com.petshop.petshop.mappper.PetMapper;
 import com.petshop.petshop.mappper.dto.PetDto;
+import com.petshop.petshop.mappper.dto.ProductDto;
 import com.petshop.petshop.model.Pet;
+import com.petshop.petshop.model.Product;
 import com.petshop.petshop.repository.PetRepository;
 import com.petshop.petshop.service.PetService;
 import lombok.AllArgsConstructor;
@@ -44,8 +46,21 @@ public class PetServiceImpl implements PetService {
     }
 
     @Override
+    public PetDto createPet(PetDto pet) {
+        return  petMapper.petEntityToDto(petRepository.save(petMapper.petDtoToEntity(pet)));
+    }
+
+    @Override
     public PetDto updatePetDtoFromEntity(Pet pet) {
         return petMapper.petEntityToDto(petRepository.save(pet));
+    }
+
+
+    @Override
+    public PetDto updatePetDto(PetDto petDto) {
+        Pet pet = petMapper.petDtoToEntity(petDto);
+        PetDto productDtoSaved = petMapper.petEntityToDto(petRepository.save(pet));
+        return productDtoSaved;
     }
 
     @Override

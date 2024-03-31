@@ -12,6 +12,7 @@ import java.util.List;
 public class PetMapper {
     public PetDto petEntityToDto(Pet pet){
         return PetDto.builder()
+                .id(pet.getId())
                 .name(pet.getName())
                 .weight(pet.getWeight())
                 .age(pet.getAge())
@@ -27,6 +28,7 @@ public class PetMapper {
 
     public Pet petDtoToEntity(PetDto petDto){
         return Pet.builder()
+                .id(petDto.id())
                 .name(petDto.name())
                 .age(petDto.age())
                 .weight(petDto.weight())

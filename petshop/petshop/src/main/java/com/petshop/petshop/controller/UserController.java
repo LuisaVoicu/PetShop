@@ -1,17 +1,22 @@
 package com.petshop.petshop.controller;
 
+import com.petshop.petshop.mappper.dto.PetDto;
 import com.petshop.petshop.mappper.dto.UserDto;
+import com.petshop.petshop.model.Pet;
 import com.petshop.petshop.model.RegistrationRequest;
 import com.petshop.petshop.model.User;
 import com.petshop.petshop.service.RoleService;
 import com.petshop.petshop.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,6 +54,7 @@ public class UserController {
 
     // RETRIEVE
 
+/*
     @GetMapping("/user")
     public String getUsers(Model model){
         List<UserDto> userDtos = userService.getAllUserDtos();
@@ -56,6 +62,7 @@ public class UserController {
         model.addAttribute("users", userDtos);
         return "users";
     }
+*/
 
     @GetMapping("/user/{id}")
     public UserDto getUserById(@PathVariable Long id){
@@ -141,6 +148,62 @@ public class UserController {
         }
 
         return "redirect:/users";
+    }
+
+
+    // ENDPOINTS
+
+    @GetMapping("/user")
+
+    public ResponseEntity<List<UserDto>> getAllProducts() {
+        List<UserDto> userDtos = userService.getAllUserDtos();
+        return ResponseEntity.ok(userDtos);
+    }
+
+
+
+    @PostMapping("/user-delete")
+    public ResponseEntity<UserDto> deleteUser(@RequestBody(required = false) @Valid UserDto userDto) {
+        if (userDto == null ) {
+            // Handle case when product or product ID is missing
+            return ResponseEntity.badRequest().build();
+        }
+
+        Optional<User> deletedUser = userService.findByUsername(userDto.getUsername());
+
+        if (deletedUser.isPresent()) {
+            userService.deleteUser(deletedUser.get());
+            return ResponseEntity.ok().body(userDto); // Product successfully deleted
+        } else {
+            return ResponseEntity.notFound().build(); // Product not found
+        }
+    }
+
+
+    @PostMapping("/user-edit")
+    public ResponseEntity<UserDto> editUser(@RequestBody(required = false) @Valid UserDto userDto) {
+
+        Optional<User> user = userService.findByUsername(userDto.getUsername());
+
+        System.out.println(userDto.getUsername());
+
+
+        if (!user.isPresent()) {
+            // Handle case when product or product ID is missing
+            return ResponseEntity.badRequest().build();
+        }
+
+        System.out.println("IM HEREEEEEEEEEEEEEEE!!!!!!!!!!!!!!!!!!!!!! 1. " + user.get().getFirstName());
+        System.out.println("IM HEREEEEEEEEEEEEEEE!!!!!!!!!!!!!!!!!!!!!! 2. " + userDto.getFirstName());
+
+        System.out.println("pass:"+user.get().getPassword()+"<- firstname:"+user.get().getFirstName());
+
+        UserDto editedUser = userService.updateFromUserDto(userDto, user.get().getPassword());
+
+        System.out.println("IM HEREEEEEEEEEEEEEEE---AAAA!!!!!!!!!!!!!!!!!!!!!! " + userDto.getFirstName());
+
+
+        return ResponseEntity.created(URI.create("/user-edit" + editedUser.getUsername())).body(editedUser);
     }
 
 }
