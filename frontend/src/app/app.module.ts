@@ -24,6 +24,9 @@ import { PetEditComponent } from './pets/pet-edit/pet-edit.component';
 import { UserComponent } from './users/user/user.component';
 import { UserDeleteComponent } from './users/user-delete/user-delete.component';
 import { UserEditComponent } from './users/user-edit/user-edit.component';
+import { CategoryComponent } from './categories/category/category.component';
+import { CategoryDeleteComponent } from './categories/category-delete/category-delete.component';
+import { CategoryEditComponent } from './categories/category-edit/category-edit.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +48,10 @@ import { UserEditComponent } from './users/user-edit/user-edit.component';
     PetEditComponent,
     UserComponent,
     UserDeleteComponent,
-    UserEditComponent
+    UserEditComponent,
+    CategoryComponent,
+    CategoryDeleteComponent,
+    CategoryEditComponent
   ],
   imports: [
     BrowserModule,

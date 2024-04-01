@@ -20,7 +20,7 @@ public class UserDto {
     private String lastName;
     private String login;
     private String token;
-    private List<RoleDto> roles;
+    //private List<RoleDto> roles;
     private String emailAddress;
     private String password;
 

@@ -19,7 +19,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     private String username;
 
@@ -37,6 +37,10 @@ public class User {
     @Size(max = 100)
     private String login;
 
+    private String token;
+
+
+
     @Singular
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "users_roles",
@@ -48,9 +52,25 @@ public class User {
                             referencedColumnName = "ID")})
     private List<Role> roles;
 
+/*    @OneToMany(mappedBy = "user")
+    private List<Product> saleProducts;*/
+
+/*    @Singular
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "users_roles",
+            joinColumns = {
+                    @JoinColumn(name = "USERS_ID",
+                            referencedColumnName = "ID")},
+            inverseJoinColumns = {
+                    @JoinColumn(name = "PRODUCTS_ID",
+                            referencedColumnName = "ID")})
+    private List<Product> favoriteProducts;*/
+
+/*    @OneToMany(mappedBy = "user")
+    private List<Product> cartProducts;
 
     public String toString(){
        return lastName+ " "+ firstName +  " " + emailAddress + " " + password;
 
-    }
+    }*/
 }

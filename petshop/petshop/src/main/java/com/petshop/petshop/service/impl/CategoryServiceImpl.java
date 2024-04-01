@@ -2,7 +2,9 @@ package com.petshop.petshop.service.impl;
 
 import com.petshop.petshop.mappper.CategoryMapper;
 import com.petshop.petshop.mappper.dto.CategoryDto;
+import com.petshop.petshop.mappper.dto.PetDto;
 import com.petshop.petshop.model.Category;
+import com.petshop.petshop.model.Pet;
 import com.petshop.petshop.repository.CategoryRepository;
 import com.petshop.petshop.service.CategoryService;
 import lombok.AllArgsConstructor;
@@ -43,9 +45,12 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public CategoryDto updateCategoryDto(Category category) {
-        return categoryMapper.categoryEntityToDto(categoryRepository.save(category));
-    }
+    public CategoryDto updateCategoryDto(CategoryDto categoryDto) {
+        Category category = categoryMapper.categoryDtoToEntity(categoryDto);
+        CategoryDto categoryDtoSaved = categoryMapper.categoryEntityToDto(categoryRepository.save(category));
+        return categoryDtoSaved;    }
+
+
 
     @Override
     public Category updateCategory(Category category) {

@@ -1,16 +1,21 @@
 package com.petshop.petshop.controller;
 
 import com.petshop.petshop.mappper.dto.CategoryDto;
+import com.petshop.petshop.mappper.dto.PetDto;
 import com.petshop.petshop.model.Category;
+import com.petshop.petshop.model.Pet;
 import com.petshop.petshop.model.Product;
 import com.petshop.petshop.service.CategoryService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +46,7 @@ public class CategoryController {
 
     // RETRIEVE
 
+/*
     @GetMapping("/category")
     public String getCategories (Model model){
         List<CategoryDto> categoryDtos = categoryService.getAllCategoryDtos();
@@ -48,6 +54,7 @@ public class CategoryController {
         model.addAttribute("categories", categoryDtos);
         return "categories";
     }
+*/
 
     @GetMapping("/category/{id}")
     public CategoryDto getCategoriesById(@PathVariable Long id){
@@ -128,4 +135,43 @@ public class CategoryController {
     }
 
 
+    // ENDPOINTS
+
+    @GetMapping("/category")
+
+    public ResponseEntity<List<CategoryDto>> getAllPCategories() {
+        List<CategoryDto> categoryDtos = categoryService.getAllCategoryDtos();
+
+
+        return ResponseEntity.ok(categoryDtos);
+    }
+
+
+    @PostMapping("/category-delete")
+    public ResponseEntity<CategoryDto> deleteProduct(@RequestBody(required = false) @Valid CategoryDto categoryDto) {
+        if (categoryDto == null || categoryDto.id() == null) {
+            // Handle case when product or product ID is missing
+            return ResponseEntity.badRequest().build();
+        }
+
+        Category deletedPet = categoryService.getCategoryById(categoryDto.id());
+
+        if (deletedPet != null) {
+            categoryService.deleteCategory(deletedPet);
+            return ResponseEntity.ok().body(categoryDto); // Product successfully deleted
+        } else {
+            return ResponseEntity.notFound().build(); // Product not found
+        }
+    }
+
+
+    @PostMapping("/category-edit")
+    public ResponseEntity<CategoryDto> editProduct(@RequestBody(required = false) @Valid CategoryDto categoryDto) {
+        if (categoryDto == null || categoryDto.id() == null) {
+            // Handle case when product or product ID is missing
+            return ResponseEntity.badRequest().build();
+        }
+        CategoryDto editedCategory = categoryService.updateCategoryDto(categoryDto);
+        return ResponseEntity.created(URI.create("/category-edit" + editedCategory.id())).body(editedCategory);
+    }
 }

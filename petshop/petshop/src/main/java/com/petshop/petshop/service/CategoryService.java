@@ -17,7 +17,7 @@ public interface CategoryService {
 
     public CategoryDto createCategoryDto(Category category);
 
-    public CategoryDto updateCategoryDto(Category category);
+    public CategoryDto updateCategoryDto(CategoryDto categoryDto);
 
     public Category updateCategory(Category category);
 

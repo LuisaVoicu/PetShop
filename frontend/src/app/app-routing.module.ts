@@ -14,6 +14,9 @@ import { PetEditComponent } from './pets/pet-edit/pet-edit.component';
 import { UserComponent } from './users/user/user.component';
 import { UserDeleteComponent } from './users/user-delete/user-delete.component';
 import { UserEditComponent } from './users/user-edit/user-edit.component';
+import { CategoryComponent } from './categories/category/category.component';
+import { CategoryEditComponent } from './categories/category-edit/category-edit.component';
+import { CategoryDeleteComponent } from './categories/category-delete/category-delete.component';
 
 const routes: Routes = [
   { path: 'product', component: ProductComponent },
@@ -27,7 +30,12 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'user', component: UserComponent},
   { path: 'user-delete', component: UserDeleteComponent},
-  { path: 'user-edit', component: UserEditComponent}
+  { path: 'user-edit', component: UserEditComponent},
+  { path: 'category', component: CategoryComponent},
+  { path: 'category-delete', component: CategoryDeleteComponent},
+  { path: 'category-edit', component: CategoryEditComponent},
+
+
   //{ path: '', redirectTo: '/home', pathMatch: 'full' }, // Default route
   //{ path: '**', redirectTo: '/home' }, // Redirect to home for any other route
 ];

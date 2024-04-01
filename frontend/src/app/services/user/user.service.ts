@@ -49,6 +49,12 @@ export class UserService {
   }
 
   deleteUser(userData: any): Observable<User> {
+    console.log("AAAAAAAAAAAA: " + userData.id);
+    console.log("AAAAAAAAAAAA: " + userData.lastName);
+    console.log("AAAAAAAAAAAA: " + userData.firstName);
+    console.log("AAAAAAAAAAAA: " + userData.emailAddress);
+    console.log("AAAAAAAAAAAA: " + userData.username);
+    console.log("AAAAAAAAAAAA: " + userData.birthdate);
     return new Observable<User>(observer => {
       this.axiosService.request('POST', '/user-delete', userData)
         .then(response => {
@@ -65,14 +71,36 @@ export class UserService {
   setUserToEdit(userData: User):void{
     this.selectedUser = userData;
   }
-  editUser(userData: any): Observable<User> {
+  // editUser(userData: any): Observable<User> {
+  //   return new Observable<User>(observer => {
+  //     this.axiosService.request('POST', '/user-edit', userData)
+  //       .then(response => {
+  //         observer.next(response.data);
+  //         observer.complete();
+  //       })
+  //       .catch(error => {
+  //         observer.error(error);
+  //         observer.complete();
+  //       });
+  //   });
+  // }}
+  editUser(userData: User): Observable<User> {
     return new Observable<User>(observer => {
+      console.log("AAAAAAAAAAAA: " + userData.id);
+      console.log("AAAAAAAAAAAA: " + userData.lastName);
+      console.log("AAAAAAAAAAAA: " + userData.firstName);
+      console.log("AAAAAAAAAAAA: " + userData.emailAddress);
+      console.log("AAAAAAAAAAAA: " + userData.username);
+      console.log("AAAAAAAAAAAA: " + userData.birthdate);
+
       this.axiosService.request('POST', '/user-edit', userData)
         .then(response => {
           observer.next(response.data);
           observer.complete();
         })
         .catch(error => {
+          console.log("EROARE:");
+          console.log(error);
           observer.error(error);
           observer.complete();
         });

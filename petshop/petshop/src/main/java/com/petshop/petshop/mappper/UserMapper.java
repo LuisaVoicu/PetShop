@@ -4,9 +4,6 @@ import com.petshop.petshop.mappper.dto.SignUpDto;
 import com.petshop.petshop.mappper.dto.UserDto;
 import com.petshop.petshop.model.User;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -19,13 +16,15 @@ public class UserMapper {
 
     public UserDto userEntityToDto(User user){
         return UserDto.builder()
+                .id(user.getId())
                 .username(user.getUsername())
-                .roles(roleMapper.roleListEntityToDto(user.getRoles()))
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
                 .emailAddress(user.getEmailAddress())
+               // .roles(roleMapper.roleListEntityToDto(user.getRoles()))
                 .login(user.getLogin())
                 //.birthdate(user.getBirthdate())
+                .token(user.getToken())
                 .build();
     }
 
@@ -37,13 +36,16 @@ public class UserMapper {
 
     public User userDtoToEntity(UserDto userDto, String password){
         return User.builder()
+                .id(userDto.getId())
                 .username(userDto.getUsername())
                 .password(password)
-                .roles(roleMapper.roleListDtoToEntity(userDto.getRoles()))
                 .firstName(userDto.getFirstName())
                 .lastName(userDto.getLastName())
                 .emailAddress(userDto.getEmailAddress())
+              //  .roles(roleMapper.roleListDtoToEntity(userDto.getRoles()))
                 //.birthdate(userDto.getBirthdate())
+                .login(userDto.getLogin())
+                .token(userDto.getToken())
                 .build();
     }
 

@@ -33,6 +33,14 @@ export class UserDeleteComponent {
 
   deleteUser(user: User): void {
 
+
+    console.log("AAAAAAAAAAAA: " + user.id);
+    console.log("AAAAAAAAAAAA: " + user.lastName);
+    console.log("AAAAAAAAAAAA: " + user.firstName);
+    console.log("AAAAAAAAAAAA: " + user.emailAddress);
+    console.log("AAAAAAAAAAAA: " + user.username);
+    console.log("AAAAAAAAAAAA: " + user.birthdate);
+
     this.userService.deleteUser(user).subscribe(
       () => {
         console.log('User deleted successfully');

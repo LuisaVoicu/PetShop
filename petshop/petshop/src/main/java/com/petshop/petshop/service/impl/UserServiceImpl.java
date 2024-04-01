@@ -99,28 +99,14 @@ public class UserServiceImpl implements UserService {
     public UserDto updateUserDto(User user) {
         return userMapper.userEntityToDto(userRepository.save(user));
     }
-
     @Override
     public UserDto updateFromUserDto(UserDto userDto, String password) {
         User user = userMapper.userDtoToEntity(userDto, password);
-        if(user == null){
-            System.out.println("e null!!!");
-            return null;
-        }
-        else{
-            System.out.println("nu e null");
-        }
-        System.out.println("###########\n"+user.toString());
-
-        User user2 = userRepository.save(user);
-        if(user2 == null){
-            System.out.println("2222 e null!!!");
-        }
-        else{
-            System.out.println("2222 nu e null");
-        }
-
-        return userMapper.userEntityToDto(userRepository.save(user));
+      //  System.out.println("###########\n"+user.toString());
+        //user.setLogin("A");
+        System.out.println("~~~~~~~~~~~~~~>>>>>" + user.getId());
+       User saved = userRepository.save(user);
+       return userDto;
     }
 
     @Override
@@ -154,7 +140,7 @@ public class UserServiceImpl implements UserService {
 
         List<Role> roles = new ArrayList<>();
         roles.add(roleRepository.findByRole("CUSTOMER"));
-        user.setRoles(roles);
+     //   user.setRoles(roles);
         user.setLogin("dummy "+user.getUsername());
 
         User savedUser = userRepository.save(user);

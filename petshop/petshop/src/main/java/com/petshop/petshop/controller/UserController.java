@@ -98,7 +98,7 @@ public class UserController {
         return "user/update-details";
     }
 
-    @PostMapping({"user/update-details"})
+/*    @PostMapping({"user/update-details"})
     public String processEditUserForm(@ModelAttribute("user") User editedUser, Errors errors, Model model) {
 
         if (errors.hasErrors()) {
@@ -120,7 +120,7 @@ public class UserController {
             return "redirect:/users";
         }
 
-    }
+    }*/
 
 
 
@@ -164,15 +164,15 @@ public class UserController {
 
     @PostMapping("/user-delete")
     public ResponseEntity<UserDto> deleteUser(@RequestBody(required = false) @Valid UserDto userDto) {
-        if (userDto == null ) {
+        if (userDto == null ||userDto.getId() == null) {
             // Handle case when product or product ID is missing
             return ResponseEntity.badRequest().build();
         }
 
-        Optional<User> deletedUser = userService.findByUsername(userDto.getUsername());
+        User deletedUser = userService.findUserByID(userDto.getId());
 
-        if (deletedUser.isPresent()) {
-            userService.deleteUser(deletedUser.get());
+        if (deletedUser != null) {
+            userService.deleteUser(deletedUser);
             return ResponseEntity.ok().body(userDto); // Product successfully deleted
         } else {
             return ResponseEntity.notFound().build(); // Product not found
@@ -183,27 +183,37 @@ public class UserController {
     @PostMapping("/user-edit")
     public ResponseEntity<UserDto> editUser(@RequestBody(required = false) @Valid UserDto userDto) {
 
-        Optional<User> user = userService.findByUsername(userDto.getUsername());
+        if (userDto == null || userDto.getId() == null) {
+            System.out.println("AAAAAAAAAAAAAAAA\n");
 
-        System.out.println(userDto.getUsername());
-
-
-        if (!user.isPresent()) {
             // Handle case when product or product ID is missing
             return ResponseEntity.badRequest().build();
         }
 
-        System.out.println("IM HEREEEEEEEEEEEEEEE!!!!!!!!!!!!!!!!!!!!!! 1. " + user.get().getFirstName());
-        System.out.println("IM HEREEEEEEEEEEEEEEE!!!!!!!!!!!!!!!!!!!!!! 2. " + userDto.getFirstName());
-
-        System.out.println("pass:"+user.get().getPassword()+"<- firstname:"+user.get().getFirstName());
-
-        UserDto editedUser = userService.updateFromUserDto(userDto, user.get().getPassword());
-
-        System.out.println("IM HEREEEEEEEEEEEEEEE---AAAA!!!!!!!!!!!!!!!!!!!!!! " + userDto.getFirstName());
+        User user = userService.findUserByID(userDto.getId());
 
 
-        return ResponseEntity.created(URI.create("/user-edit" + editedUser.getUsername())).body(editedUser);
+        if (user == null) {
+            // Handle case when product or product ID is missing
+            System.out.println("IM HEREEEEEEEEEEEEEEE!!!!!!!!!!!!!!!!!!!!!! NULL!!! 0. ");
+
+            return ResponseEntity.badRequest().build();
+        }
+        System.out.println("IM HEREEEEEEEEEEEEEEE!!!!!!!!!!!!!!!!!!!!!! 1. " + user.getFirstName());
+        System.out.println("IM HEREEEEEEEEEEEEEEE!!!!!!!!!!!!!!!!!!!!!! 1. " + user.getPassword());
+
+        UserDto editedUser = userService.updateFromUserDto(userDto,user.getPassword());
+
+        if(editedUser==null)
+            return ResponseEntity.badRequest().build();
+
+        System.out.println("IM HEREEEEEEEEEEEEEEE!!!!!!!!!!!!!!!!!!!!!! 2222 " + editedUser.getId());
+        System.out.println("IM HEREEEEEEEEEEEEEEE!!!!!!!!!!!!!!!!!!!!!! 2222. " + editedUser.getFirstName());
+
+        return ResponseEntity.created(URI.create("/user-edit" + editedUser.getId())).body(editedUser);
     }
+
+
+
 
 }

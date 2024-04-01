@@ -25,5 +25,11 @@ public class Product {
     @ManyToOne
     private Category category;
 
+/*    @ManyToOne
+    private User seller;
+
+    @ManyToOne
+    private User buyer;*/
+
 
 }

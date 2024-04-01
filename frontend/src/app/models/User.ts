@@ -8,7 +8,7 @@ export class User{
     birthdate?:object;
     roles?:object;
     ownProducts?:object;
-    soldProducts?:object;
+    saleProducts?:object;
     favoriteProducts?:object;
     cartProducts?:object;
     imageUrl!:string;

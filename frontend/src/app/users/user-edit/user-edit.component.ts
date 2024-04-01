@@ -38,10 +38,15 @@ export class UserEditComponent {
 
 
   edit(user: User): void {
+
     this.userService.editUser(this.editedUser).subscribe(
       editedUser => {
+        console.log(editedUser.firstName+" "+
+        editedUser.lastName + " " + 
+        editedUser.username +  "  " + 
+        editedUser.id +  " " + 
+        editedUser.birthdate);
         console.log('User editing successfully:', editedUser)
-
       },
       error => {
         console.error('Error editing user:', error);
