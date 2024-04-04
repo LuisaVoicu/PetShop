@@ -12,6 +12,7 @@ export class AuthContentComponent {
   constructor(private axiosService: AxiosService) {}
 
   ngOnInit(): void {
+
     this.axiosService.request(
         "GET",
         "/messages",

@@ -1,4 +1,5 @@
 import { EventEmitter, Component, Output } from '@angular/core';
+import { AxiosService } from '../axios.service';
 
 @Component({
   selector: 'app-login-form',
@@ -17,6 +18,8 @@ export class LoginFormComponent {
   password: string = "";
   emailAddress: string = "";
 	username: string ="";
+
+  constructor(private axiosService: AxiosService){}
 
   onLoginTab(): void {
 		this.active = "login";

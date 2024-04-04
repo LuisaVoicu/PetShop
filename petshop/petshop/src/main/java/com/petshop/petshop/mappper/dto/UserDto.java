@@ -20,7 +20,8 @@ public class UserDto {
     private String lastName;
     private String login;
     private String token;
-    //private List<RoleDto> roles;
+    private List<String> roles;
+    private List<ProductDto> cartProducts;
     private String emailAddress;
     private String password;
 

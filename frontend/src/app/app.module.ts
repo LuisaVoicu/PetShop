@@ -27,6 +27,9 @@ import { UserEditComponent } from './users/user-edit/user-edit.component';
 import { CategoryComponent } from './categories/category/category.component';
 import { CategoryDeleteComponent } from './categories/category-delete/category-delete.component';
 import { CategoryEditComponent } from './categories/category-edit/category-edit.component';
+import { LoggedFormComponent } from './logged-form/logged-form.component';
+import { SearchComponent } from './search/search.component';
+import { CartComponent } from './cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +54,10 @@ import { CategoryEditComponent } from './categories/category-edit/category-edit.
     UserEditComponent,
     CategoryComponent,
     CategoryDeleteComponent,
-    CategoryEditComponent
+    CategoryEditComponent,
+    LoggedFormComponent,
+    SearchComponent,
+    CartComponent
   ],
   imports: [
     BrowserModule,

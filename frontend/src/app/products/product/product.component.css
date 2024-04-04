@@ -62,4 +62,26 @@ li a:hover{
     margin-right: .3;
 }
 
-
+.buttons {
+    display: flex;
+  }
+  
+  .buttons a {
+    margin-right: 0.5rem;
+  }
+  
+  .buttons button {
+    background-color: green;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.1s;
+  }
+  
+  .buttons button:hover {
+    background-color: white;
+    color: green;
+  }
+  

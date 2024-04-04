@@ -6,7 +6,7 @@ export class User{
     username!:string;
     emailAddress!:string;
     birthdate?:object;
-    roles?:object;
+    roles?:string[];
     ownProducts?:object;
     saleProducts?:object;
     favoriteProducts?:object;

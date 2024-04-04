@@ -17,9 +17,12 @@ import { UserEditComponent } from './users/user-edit/user-edit.component';
 import { CategoryComponent } from './categories/category/category.component';
 import { CategoryEditComponent } from './categories/category-edit/category-edit.component';
 import { CategoryDeleteComponent } from './categories/category-delete/category-delete.component';
+import { LoggedFormComponent } from './logged-form/logged-form.component';
+import { CartComponent } from './cart/cart.component';
 
 const routes: Routes = [
-  { path: 'product', component: ProductComponent },
+  //{ path: 'product-create', component: ProductCreateComponent, canActivate: [AuthGuard], data: { roles: ['ADMIN', 'SELLER'] } },
+  { path: 'product', component: ProductComponent},
   { path: 'product-create', component: ProductCreateComponent },
   { path: 'product-delete', component: ProductDeleteComponent },
   { path: 'product-edit', component: ProductEditComponent },
@@ -27,17 +30,18 @@ const routes: Routes = [
   { path: 'pet-create', component: PetCreateComponent },
   { path: 'pet-delete', component: PetDeleteComponent },
   { path: 'pet-edit', component: PetEditComponent },
-  { path: 'home', component: HomeComponent },
-  { path: 'user', component: UserComponent},
+  { path: 'user', component: UserComponent},// canActivate: [AuthGuard], data: { roles: ['ADMIN', 'SELLER'] }},
   { path: 'user-delete', component: UserDeleteComponent},
   { path: 'user-edit', component: UserEditComponent},
   { path: 'category', component: CategoryComponent},
   { path: 'category-delete', component: CategoryDeleteComponent},
   { path: 'category-edit', component: CategoryEditComponent},
-
-
-  //{ path: '', redirectTo: '/home', pathMatch: 'full' }, // Default route
-  //{ path: '**', redirectTo: '/home' }, // Redirect to home for any other route
+  { path: 'home', component: HomeComponent },
+  { path: 'logged/:username', component: LoggedFormComponent },
+  {path: 'search/:searchTerm', component:HomeComponent},
+  {path: 'cart-product', component: CartComponent},
+  { path: '', redirectTo: '/home', pathMatch: 'full' }, 
+  { path: '**', redirectTo: '/home' }
 ];
 
 @NgModule({

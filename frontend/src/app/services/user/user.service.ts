@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { User } from '../../models/User';
 import { AxiosService } from '../../axios.service';
 import { Observable } from 'rxjs';
+import { Product } from '../../models/Product';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,22 @@ export class UserService {
     return new Observable<User[]>(observer => {
       this.axiosService.request('GET', '/user', {})
         .then(response => {
+          observer.next(response.data);
+          observer.complete();
+        })
+        .catch(error => {
+          observer.error(error);
+          observer.complete();
+        });
+    });
+  }
+
+  getCartProducts(username: string): Observable<Product[]> {
+    return new Observable<Product[]>(observer => {
+      console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1"+username);
+      this.axiosService.request('POST', '/cart-product', username)
+        .then(response => {      console.log("@@@@!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1"+username);
+
           observer.next(response.data);
           observer.complete();
         })
@@ -86,21 +103,12 @@ export class UserService {
   // }}
   editUser(userData: User): Observable<User> {
     return new Observable<User>(observer => {
-      console.log("AAAAAAAAAAAA: " + userData.id);
-      console.log("AAAAAAAAAAAA: " + userData.lastName);
-      console.log("AAAAAAAAAAAA: " + userData.firstName);
-      console.log("AAAAAAAAAAAA: " + userData.emailAddress);
-      console.log("AAAAAAAAAAAA: " + userData.username);
-      console.log("AAAAAAAAAAAA: " + userData.birthdate);
-
       this.axiosService.request('POST', '/user-edit', userData)
         .then(response => {
           observer.next(response.data);
           observer.complete();
         })
         .catch(error => {
-          console.log("EROARE:");
-          console.log(error);
           observer.error(error);
           observer.complete();
         });

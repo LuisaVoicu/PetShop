@@ -1,3 +1,4 @@
+<a>Hi, {{username}}</a>
 <ul>
     <li *ngFor="let product of products">
         <a>
@@ -27,6 +28,13 @@
                     <span>
                         {{product.price|currency}}
                     </span>
+                </div>
+
+
+                <div class="buttons">
+                    <a>
+                        <button type="button" (click)="addToCart(product, username)">Add To Cart</button>
+                    </a>
                 </div>
 
             </div>

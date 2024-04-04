@@ -12,25 +12,26 @@ import java.util.List;
 @Component
 public class RoleMapper {
 
-    public RoleDto roleEntityToDto(Role role){
-        return RoleDto.builder()
-                .role(role.getRole())
-                .build();
+    public String roleEntityToDto(Role role){
+/*        return RoleDto.builder()
+                .role(role)
+                .build();*/
+        return role.getRole();
     }
 
-    public List<RoleDto> roleListEntityToDto(List<Role> roles){
+    public List<String> roleListEntityToDto(List<Role> roles){
         return roles.stream()
                 .map(role -> roleEntityToDto(role))
                 .toList();
     }
 
-    public Role roleDtoToEntity(RoleDto roleDto){
+    public Role roleDtoToEntity(String roleDto){
         return Role.builder()
-                .role(roleDto.role())
+                .role(roleDto)
                 .build();
     }
 
-    public List<Role> roleListDtoToEntity(List<RoleDto> roleDtos){
+    public List<Role> roleListDtoToEntity(List<String> roleDtos){
         return roleDtos.stream()
                 .map(roleDto -> roleDtoToEntity(roleDto))
                 .toList();

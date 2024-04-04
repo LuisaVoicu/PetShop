@@ -6,6 +6,7 @@ import com.petshop.petshop.mappper.dto.ProductDto;
 import com.petshop.petshop.mappper.dto.SignUpDto;
 import com.petshop.petshop.mappper.dto.UserDto;
 import com.petshop.petshop.model.Product;
+import com.petshop.petshop.model.User;
 import com.petshop.petshop.service.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -120,37 +121,6 @@ public class ProductController {
 
 
 
-
-    // DELETE
-
-/*
-    @GetMapping("/product/delete")
-    public String displayDeleteProductsForm(Model model){
-        model.addAttribute("title", "Delete Products");
-        model.addAttribute("products", this.productService.getAllProducts());
-        return "product/delete";
-    }
-
-    @PostMapping("/product/delete")
-    public String processDeleteProductsForm(@ModelAttribute("id") Long[] productIds){
-        if(productIds != null){
-            System.out.println("'not null list of products': ");
-
-            for(Long id : productIds){
-                Product product = productService.getProductById(id);
-                System.out.println("AAAA: " + product.getName());
-                if(product != null){
-                    System.out.println("'not null product': " + product.getName());
-
-                    productService.deleteProduct(product);
-                }
-            }
-        }
-        return "redirect:/products";
-    }
-*/
-
-
     // ENDPOINTS
 
 
@@ -167,19 +137,6 @@ public class ProductController {
         ProductDto createdProduct = productService.createProduct(product);
         return ResponseEntity.created(URI.create("/product-create" + createdProduct.id())).body(createdProduct);
     }
-
-/*    @PostMapping("/product-delete")
-    public ResponseEntity<ProductDto> deleteProduct(@RequestBody @Valid ProductDto product) {
-
-        Product deletedProduct = productService.getProductById(product.id());
-
-        if(deletedProduct != null) {
-            productService.deleteProduct(deletedProduct);
-        }
-
-        return ResponseEntity.created(URI.create("/product-delete" + product.id())).body(product);
-    }*/
-
 
     @PostMapping("/product-delete")
     public ResponseEntity<ProductDto> deleteProduct(@RequestBody(required = false) @Valid ProductDto productDto) {
@@ -207,8 +164,10 @@ public class ProductController {
         }
         System.out.println("AAAAAAAA!!!!" + productDto.id()+ " " + productDto.name() + "--");
         ProductDto editedProduct = productService.updateProductDto(productDto);
-        return ResponseEntity.created(URI.create("/product-edit" + editedProduct.id())).body(editedProduct);
+        return ResponseEntity.created(URI.create("/product-create" + editedProduct.id())).body(editedProduct);
     }
+
+
 
 /*    @PostMapping("/product-edit-details")
     public ResponseEntity<ProductDto> createProduct(@RequestBody @Valid ProductDto product) {

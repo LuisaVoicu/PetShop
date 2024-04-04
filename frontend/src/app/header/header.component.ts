@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { User } from '../models/User';
 
 @Component({
   selector: 'app-header',
@@ -9,10 +10,11 @@ import { Router } from '@angular/router';
 export class HeaderComponent {
 	@Input() pageTitle!: string;
 	@Input() logoSrc!: string;
+  @Input() loggedUser!: User; // Define input property for loggedUser
 
-  constructor(private router: Router) {}
+  // constructor(private router: Router) {}
 
-  navigateTo(route: string) {
-    this.router.navigate([route]);
-  }
+  // navigateTo(route: string) {
+  //   this.router.navigate([route]);
+  // }
 }

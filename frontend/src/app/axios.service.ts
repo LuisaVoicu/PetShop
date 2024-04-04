@@ -12,7 +12,7 @@ export class AxiosService {
   }
 
   getAuthToken(): string | null {
-   // return window.localStorage.getItem("auth_token");
+  // return window.localStorage.getItem("auth_token");
 
    if (typeof window !== 'undefined') {
     return window.localStorage.getItem("auth_token");
@@ -34,10 +34,11 @@ export class AxiosService {
       let headers: any = {};
 
       if (this.getAuthToken() !== null) {
-          headers = {"Authorization": "Bearer " + this.getAuthToken()};
+        console.log("im here");
+          headers = {"Authorization": "Bearer" + this.getAuthToken()};
       }
 
-      console.log("----> m:" + method + " u:" + url+ " d:" + data+" h:"+ headers);
+      console.log("----> m:" + method + " u:" + url + " d:" + data + " h:" + headers);
       return axios({
           method: method,
           url: url,
@@ -45,4 +46,6 @@ export class AxiosService {
           headers: headers
       });
   }
+
+  
 }

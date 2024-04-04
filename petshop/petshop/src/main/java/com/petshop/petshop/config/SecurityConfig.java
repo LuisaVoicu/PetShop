@@ -114,9 +114,19 @@ public class SecurityConfig {
                 .addFilterBefore(new JwtAuthFilter(userAuthenticationProvider), BasicAuthenticationFilter.class)
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(customizer -> customizer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers(HttpMethod.POST, "/login", "/register").permitAll()
-                        .anyRequest().permitAll())
+
+               .authorizeHttpRequests(authConfig -> {
+                   authConfig.requestMatchers(HttpMethod.POST, "/login", "/register", "/logged", "/cart-product").permitAll();
+                   authConfig.requestMatchers(HttpMethod.POST, "/category-delete", "/user-delete", "/user-edit","/category-edit").permitAll();//hasAuthority("ADMIN");
+                   authConfig.requestMatchers(HttpMethod.POST, "/pet-create", "/pet-delete", "/pet-edit").permitAll();//hasAnyAuthority("ADMIN","FOSTER");
+                   authConfig.requestMatchers(HttpMethod.POST, "/product-create", "/product-delete", "/product-edit").permitAll();//hasAnyAuthority("ADMIN","SELLER");
+                   authConfig.requestMatchers(HttpMethod.GET, "/home").permitAll();
+                   authConfig.requestMatchers(HttpMethod.GET, "/product","/category","/pet").permitAll();
+                   authConfig.requestMatchers(HttpMethod.GET, "/user").hasAuthority("ADMIN");
+                   authConfig.anyRequest().permitAll();
+                //todo : aici trebuie sa pun conditia de authenticated
+                   //authConfig.anyRequest().authenticated();
+               })
         ;
 
 /*

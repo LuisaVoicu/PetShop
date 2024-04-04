@@ -52,25 +52,32 @@ public class User {
                             referencedColumnName = "ID")})
     private List<Role> roles;
 
-/*    @OneToMany(mappedBy = "user")
-    private List<Product> saleProducts;*/
+    @Column(nullable = true)
+    @OneToMany(mappedBy = "seller")
+    private List<Product> saleProducts;
 
-/*    @Singular
+    @Column(nullable = true)
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name = "users_roles",
+    @JoinTable(name = "user_favorite",
             joinColumns = {
                     @JoinColumn(name = "USERS_ID",
                             referencedColumnName = "ID")},
             inverseJoinColumns = {
                     @JoinColumn(name = "PRODUCTS_ID",
                             referencedColumnName = "ID")})
-    private List<Product> favoriteProducts;*/
+    private List<Product> favoriteProducts;
 
-/*    @OneToMany(mappedBy = "user")
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "user_cart_products",
+            joinColumns = {
+                    @JoinColumn(name = "USER_ID",
+                            referencedColumnName = "ID")},
+            inverseJoinColumns = {
+                    @JoinColumn(name = "PRODUCT_ID",
+                            referencedColumnName = "ID")})
     private List<Product> cartProducts;
-
     public String toString(){
        return lastName+ " "+ firstName +  " " + emailAddress + " " + password;
 
-    }*/
+    }
 }

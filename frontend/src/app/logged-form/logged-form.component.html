@@ -1,0 +1,15 @@
+<app-header [pageTitle]="'AlphaTom	'" [logoSrc]="'assets/tommy.jpg'"  [loggedUser]="loggedUser" />
+
+<p>Welcome, {{ loggedUser.firstName }}!</p>
+<div class="logged-form">
+    <div class="user-info"> About me
+      <div class="user-details">
+        <p class="username">{{ loggedUser.username }}</p>
+        <p class="name">{{ loggedUser.firstName }} {{ loggedUser.lastName }}</p>
+        <p class="email">{{ loggedUser.emailAddress }}</p>
+        <div class="roles">
+          <p class="role" *ngFor="let role of loggedUser.roles">{{ role }}</p>
+        </div>
+      </div>
+    </div>
+  </div>

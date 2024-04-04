@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { AxiosService } from '../axios.service';
+import { User } from '../models/User';
+import { Router } from '@angular/router';
+import { SourceTextModule } from 'vm';
 
 @Component({
   selector: 'app-content',
@@ -9,7 +12,20 @@ import { AxiosService } from '../axios.service';
 export class ContentComponent {
 	componentToShow: string = "welcome";
 
-	constructor(private axiosService: AxiosService) { }
+	loggedUser: User = {
+		id:0,
+		firstName: '',
+		lastName: '',
+		username: '',
+		emailAddress: '',
+		imageUrl: ''
+	  };
+
+	username:string='';
+	
+	constructor(private axiosService: AxiosService, private router: Router) {
+
+	 }
 
 	showComponent(componentToShow: string): void {
     this.componentToShow = componentToShow;
@@ -24,8 +40,15 @@ export class ContentComponent {
 		        password: input.password
 		    }).then(
 		    response => {
+				console.log("parola:"+input.password);
 		        this.axiosService.setAuthToken(response.data.token);
-		        this.componentToShow = "messages";
+		        this.componentToShow = "logged";
+				this.username = response.data.username;
+				console.log("@@@@@@@@@@@@@@@@@@@@@@@@: "+this.username + " --- "+response.data.username);
+
+				this.loggedUser = response.data;
+				this.router.navigate(['/logged',this.username]);
+
 		    }).catch(
 		    error => {
 		        this.axiosService.setAuthToken(null);

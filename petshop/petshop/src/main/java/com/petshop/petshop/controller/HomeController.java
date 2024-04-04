@@ -6,6 +6,7 @@ import com.petshop.petshop.mappper.dto.CredentialsDto;
 import com.petshop.petshop.mappper.dto.SignUpDto;
 import com.petshop.petshop.mappper.dto.UserDto;
 import com.petshop.petshop.model.RegistrationRequest;
+import com.petshop.petshop.model.User;
 import com.petshop.petshop.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -25,17 +27,7 @@ public class HomeController {
     private final UserService userService;
     private final UserAuthenticationProvider userAuthenticationProvider;
 
-/*    @GetMapping("/")
-    public String home(Model model, Authentication authentication){
-        if(authentication != null){
-            UserDto userDto = userService.getLoginUser();
-            model.addAttribute("user", userDto);
-        }
-        model.addAttribute("title", "Home");
-
-        return "index";
-    }*/
-
+/*
     @GetMapping("/login")
     public String login(Model model){
         model.addAttribute("title", "Login");
@@ -50,34 +42,19 @@ public class HomeController {
 
         return "login";
     }
-
-    @GetMapping("/register")
-    public String register(@RequestParam(value="registrationSuccess", required = false) String success, Model model){
-        model.addAttribute("title", "Register");
-        model.addAttribute("registrationSuccess", success);
-        model.addAttribute("user", new RegistrationRequest());
-
-        return "register";
-    }
-
-/*
-    @PostMapping("/register")
-    public String createUser(@ModelAttribute("user") RegistrationRequest registrationRequest, RedirectAttributes redirectAttributes){
-
-        UserDto userDto = userService.registerUser(registrationRequest);
-
-        redirectAttributes.addAttribute("registrationSuccess", "Success");
-
-        return "redirect:/register";
-    }
 */
-
 
 
     @PostMapping("/login")
     public ResponseEntity<UserDto> login(@RequestBody @Valid CredentialsDto credentialsDto) {
+
+        System.out.println("HERE I AM ");
+        System.out.println("PAROLA LUATA:"+credentialsDto.password());
         UserDto userDto = userService.login(credentialsDto);
+        System.out.println("hello?!");
+
         userDto.setToken(userAuthenticationProvider.createToken(userDto));
+        System.out.println("done!");
         return ResponseEntity.ok(userDto);
     }
 
@@ -86,6 +63,29 @@ public class HomeController {
         UserDto createdUser = userService.register(user);
         createdUser.setToken(userAuthenticationProvider.createToken(createdUser));
         return ResponseEntity.created(URI.create("/users/" + createdUser.getId())).body(createdUser);
+    }
+
+    @PostMapping("/logged")
+    public ResponseEntity<UserDto> logged(@RequestBody(required = false) @Valid String username) {
+
+        //todo -- get username from frontend without quotes
+
+        String usernameTest = username.substring(1, username.length()-1);
+
+        if (username == null) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        Optional<User> userOpt = userService.findByUsername(usernameTest);
+
+        System.out.println(userOpt.toString());
+        if (userOpt.isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        UserDto userDto = userService.createUserDto(userOpt.get());
+
+        return ResponseEntity.ok().body(userDto);
     }
 
 }

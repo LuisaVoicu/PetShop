@@ -22,7 +22,7 @@ public class RoleController {
 
     @GetMapping("/role")
     public String getRoles(Model model){
-        List<RoleDto> roles = roleService.getAllRoleDtos();
+        List<String> roles = roleService.getAllRoleDtos();
 
         model.addAttribute("title", "Roles");
         model.addAttribute("roles", roles);
@@ -31,12 +31,12 @@ public class RoleController {
     }
 
     @GetMapping("/role/{id}")
-    public RoleDto getRoleById(@PathVariable Long id){
+    public String getRoleById(@PathVariable Long id){
         return roleService.getRoleDtoById(id);
     }
 
     @PostMapping("/rolePost")
-    public RoleDto postRole(@RequestBody Role role){
+    public String postRole(@RequestBody Role role){
         return roleService.createRoleDto(role);
     }
 }

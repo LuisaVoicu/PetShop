@@ -1,6 +1,6 @@
 <header class="app-header">
 	    <div class="container">
-            <a href="#" routerLink="/" class="logo">AlphaTom</a>
+            <a href="#" routerLink="/" class="logo">{{pageTitle}}</a>
             <nav>
                 <ul class="menu">
                     <div class="left-buttons">
@@ -10,7 +10,7 @@
                                 <div class="dropdown-content">
                                     <a href="#" routerLink="/product-create">Create</a>
                                     <a href="#" routerLink="/product-create">My products</a>
-                                    <a href="#" routerLink="/product">Show All</a>
+                                    <a href="#" [routerLink]="['/product', { user: loggedUser.username }]" routerLinkActive="active">Show All</a>
                                     <a href="#" routerLink="/product-delete">Modify</a>
                                 </div>
                             </li>
@@ -29,6 +29,9 @@
                             <li class="dropdown">
                                 <a href="#" class="dropbtn">Users</a>
                                 <div class="dropdown-content">
+
+                                    <!-- <a href="#" (click)="navigateTo('/user')">User List</a> -->
+
                                     <a href="#" routerLink="/user">Show All </a>
                                     <a href="#" routerLink="/user-delete">Modify</a>
                                 </div>
@@ -48,7 +51,12 @@
                     <div class="right-buttons">
                         <div class="cart">
                             <li class>    
-                                <a href="#" routerLink="/product">Cart</a>
+                                <a href="#" [routerLink]="['/cart-product', { user: loggedUser.username }]" routerLinkActive="active">Cart</a>
+                            </li>
+                        </div> 
+                        <div class="logged-user">
+                            <li class>    
+                                <a *ngIf="loggedUser" href="#" routerLink="/aboutme">{{ loggedUser.username }}</a>
                             </li>
                         </div>  
                     </div>  

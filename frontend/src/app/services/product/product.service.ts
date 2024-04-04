@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Product } from '../../models/Product';
 import { AxiosService } from '../../axios.service';
 import { Observable } from 'rxjs';
+import { User } from '../../models/User';
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +33,18 @@ export class ProductService {
           });
       });
     }
+
+    // getAllGoodProducts(): Promise<Product[]> {
+    //   return new Promise<Product[]>((resolve, reject) => {
+    //     this.axiosService.request('GET', '/product', {})
+    //       .then(response => {
+    //         resolve(response.data);
+    //       })
+    //       .catch(error => {
+    //         reject(error);
+    //       });
+    //   });
+    // }
 
     createProduct(productData: any): Observable<Product> {
       return new Observable<Product>(observer => {
@@ -67,6 +80,21 @@ export class ProductService {
     editProduct(productData: any): Observable<Product> {
       return new Observable<Product>(observer => {
         this.axiosService.request('POST', '/product-edit', productData)
+          .then(response => {
+            observer.next(response.data);
+            observer.complete();
+          })
+          .catch(error => {
+            observer.error(error);
+            observer.complete();
+          });
+      });
+    }
+
+    addToCart(productId: number, username: string): Observable<User> {
+      return new Observable<User>(observer => {
+        console.log("!!!!!!!!!!" + productId);
+        this.axiosService.request('POST', '/add-cart',  { productId: productId, username: username } ) // Pass parameters as an object
           .then(response => {
             observer.next(response.data);
             observer.complete();

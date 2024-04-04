@@ -1,8 +1,6 @@
 package com.petshop.petshop.service;
 
-import com.petshop.petshop.mappper.dto.CredentialsDto;
-import com.petshop.petshop.mappper.dto.SignUpDto;
-import com.petshop.petshop.mappper.dto.UserDto;
+import com.petshop.petshop.mappper.dto.*;
 import com.petshop.petshop.model.RegistrationRequest;
 import com.petshop.petshop.model.User;
 
@@ -30,12 +28,20 @@ public interface UserService {
 
     UserDto updateUserDto(User user);
     UserDto updateFromUserDto(UserDto userDto, String password);
+
     void deleteUser(User user);
 
     UserDto login(CredentialsDto credentialsDto);
 
-
     UserDto register(SignUpDto user);
 
     UserDto findByLogin(String subject);
+
+    void assignRoleToUser(Long userId, Long roleId);
+
+    UserDto addCartProducts(User user, Long productId);
+
+    List<ProductDto> fetchCartProducts(String username);
+
+    ReceiptDto buyProducts(String username);
 }

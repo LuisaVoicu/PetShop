@@ -2,10 +2,12 @@ package com.petshop.petshop.mappper;
 
 import com.petshop.petshop.mappper.dto.SignUpDto;
 import com.petshop.petshop.mappper.dto.UserDto;
+import com.petshop.petshop.model.Role;
 import com.petshop.petshop.model.User;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -13,6 +15,7 @@ import java.util.List;
 public class UserMapper {
 
     private final RoleMapper roleMapper;
+    private final ProductMapper productMapper;
 
     public UserDto userEntityToDto(User user){
         return UserDto.builder()
@@ -21,7 +24,8 @@ public class UserMapper {
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
                 .emailAddress(user.getEmailAddress())
-               // .roles(roleMapper.roleListEntityToDto(user.getRoles()))
+                .roles(roleMapper.roleListEntityToDto(user.getRoles()))
+                .cartProducts(productMapper.productListEntitytoDto(user.getCartProducts()))
                 .login(user.getLogin())
                 //.birthdate(user.getBirthdate())
                 .token(user.getToken())
@@ -42,7 +46,8 @@ public class UserMapper {
                 .firstName(userDto.getFirstName())
                 .lastName(userDto.getLastName())
                 .emailAddress(userDto.getEmailAddress())
-              //  .roles(roleMapper.roleListDtoToEntity(userDto.getRoles()))
+                .roles(roleMapper.roleListDtoToEntity(userDto.getRoles()))
+                .cartProducts(productMapper.productListDtoToEntity(userDto.getCartProducts()))
                 //.birthdate(userDto.getBirthdate())
                 .login(userDto.getLogin())
                 .token(userDto.getToken())
@@ -66,7 +71,6 @@ public class UserMapper {
         if (signUpDto == null) {
             return null;
         }
-
         User user = new User();
         user.setUsername(signUpDto.username());
         user.setPassword(signUpDto.password());
@@ -75,5 +79,6 @@ public class UserMapper {
         user.setEmailAddress(signUpDto.emailAddress());
         return user;
     }
+
 
 }

@@ -19,15 +19,15 @@ public class RoleServiceImpl implements RoleService {
     private final RoleMapper roleMapper;
 
     @Override
-    public RoleDto getRoleDtoById(Long id){
+    public String getRoleDtoById(Long id){
         return roleMapper.roleEntityToDto(roleRepository.findById(id).orElse(null));
     }
 
-    public RoleDto findByRoleDto(String role){
+    public String findByRoleDto(String role){
         return roleMapper.roleEntityToDto(roleRepository.findByRole(role));
     }
 
-    public List<RoleDto> getAllRoleDtos(){
+    public List<String> getAllRoleDtos(){
         return roleMapper.roleListEntityToDto(roleRepository.findAll());
     }
 
@@ -35,11 +35,11 @@ public class RoleServiceImpl implements RoleService {
         return roleRepository.findAll();
     }
 
-    public RoleDto createRoleDto(Role role){
+    public String createRoleDto(Role role){
         return roleMapper.roleEntityToDto(roleRepository.save(role));
     }
 
-    public RoleDto updateRoleDto(Role role){
+    public String updateRoleDto(Role role){
         return roleMapper.roleEntityToDto(roleRepository.save(role));
     }
 
