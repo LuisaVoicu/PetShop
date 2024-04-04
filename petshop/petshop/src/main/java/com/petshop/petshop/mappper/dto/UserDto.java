@@ -22,6 +22,7 @@ public class UserDto {
     private String token;
     private List<String> roles;
     private List<ProductDto> cartProducts;
+    private List<ProductDto> favouriteProducts;
     private String emailAddress;
     private String password;
 

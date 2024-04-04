@@ -1,3 +1,4 @@
+<p>fav-prod works!</p>
 <ul class="products">
     <li *ngFor="let product of products" class="product">
         <a>
@@ -11,14 +12,4 @@
         </a>
     </li>
 </ul>
-<div class="button-container">
-    <ng-container *ngIf="activateBuy">
-        <button type="button" (click)="buyProducts(username)">Buy Products</button>
-    </ng-container>
-</div>
 
-<div class="button-container">
-    <ng-container *ngIf="activateReceipt">
-        <button type="button" (click)="redirectReceipt(receipt)">Receipt</button>
-    </ng-container>
-</div>

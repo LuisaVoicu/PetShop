@@ -37,10 +37,23 @@ export class UserService {
 
   getCartProducts(username: string): Observable<Product[]> {
     return new Observable<Product[]>(observer => {
-      console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1"+username);
       this.axiosService.request('POST', '/cart-product', username)
-        .then(response => {      console.log("@@@@!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1"+username);
+        .then(response => {
+          observer.next(response.data);
+          observer.complete();
+        })
+        .catch(error => {
+          observer.error(error);
+          observer.complete();
+        });
+    });
+  }
 
+
+  getFavProducts(username: string): Observable<Product[]> {
+    return new Observable<Product[]>(observer => {
+      this.axiosService.request('POST', '/fav-prod', username)
+        .then(response => { 
           observer.next(response.data);
           observer.complete();
         })

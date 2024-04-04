@@ -26,6 +26,7 @@ public class UserMapper {
                 .emailAddress(user.getEmailAddress())
                 .roles(roleMapper.roleListEntityToDto(user.getRoles()))
                 .cartProducts(productMapper.productListEntitytoDto(user.getCartProducts()))
+                .favouriteProducts(productMapper.productListEntitytoDto(user.getFavouriteProducts()))
                 .login(user.getLogin())
                 //.birthdate(user.getBirthdate())
                 .token(user.getToken())
@@ -39,6 +40,7 @@ public class UserMapper {
     }
 
     public User userDtoToEntity(UserDto userDto, String password){
+
         return User.builder()
                 .id(userDto.getId())
                 .username(userDto.getUsername())
@@ -48,6 +50,7 @@ public class UserMapper {
                 .emailAddress(userDto.getEmailAddress())
                 .roles(roleMapper.roleListDtoToEntity(userDto.getRoles()))
                 .cartProducts(productMapper.productListDtoToEntity(userDto.getCartProducts()))
+                .favouriteProducts(productMapper.productListDtoToEntity(userDto.getFavouriteProducts()))
                 //.birthdate(userDto.getBirthdate())
                 .login(userDto.getLogin())
                 .token(userDto.getToken())

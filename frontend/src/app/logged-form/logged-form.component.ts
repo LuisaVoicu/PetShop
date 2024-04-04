@@ -35,6 +35,9 @@ export class LoggedFormComponent {
     this.username).then(
     (response) => {
         this.loggedUser = response.data;
+        this.loggedUser.roles?.forEach((item) => {
+          console.log(item); // Access each element using item
+      });
 
     }).catch(
     (error) => {

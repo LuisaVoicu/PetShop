@@ -15,9 +15,16 @@
                     {{product.description}}
                 </div>
                 
-                <span class="favorite {{product.favorite?'':'not'}}">
+                <!-- <span class="favorite {{product.favorite ? 'active' : 'inactive'}}" (click)="toggleFavorite(product)">
                     ❤
-                </span>
+                </span> -->
+                
+                <button class="btn" (click)="toggleFavorite(product, username)">
+                    <i class="fa fa-heart" [ngClass]="{ 'favorite': product.favourite }"></i>
+                    <span>{{ product.favourite ? '💖' : '❤' }}</span>
+                  </button>
+                  
+
 
                 <div class="tags">
                     <span *ngFor="let tag of product.tags">

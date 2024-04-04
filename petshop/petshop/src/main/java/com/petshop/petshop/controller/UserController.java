@@ -127,9 +127,6 @@ public class UserController {
         return ResponseEntity.ok(userDtos);
     }
 
-
-
-
     @PostMapping("/user-delete")
     public ResponseEntity<UserDto> deleteUser(@RequestBody(required = false) @Valid UserDto userDto) {
         if (userDto == null ||userDto.getId() == null) {
@@ -170,34 +167,10 @@ public class UserController {
     }
 
 
-
-/*
-    @PostMapping("/shopping")
-    public ResponseEntity<UserDto> addToShoppingCart(@RequestBody(required = false) @Valid UserDto userDto, @RequestBody(required = false) @Valid ProductDto productDto) {
-
-
-        if (userDto == null || userDto.getId() == null) {
-            // Handle case when product or product ID is missing
-            return ResponseEntity.badRequest().build();
-        }
-
-        User user = userService.addProductToCart(userDto, productDto);
-
-
-        if (user != null) {
-            return ResponseEntity.ok().body(userDto); // Product successfully deleted
-        } else {
-            return ResponseEntity.notFound().build(); // Product not found
-        }
-    }
-*/
-
-
     @PostMapping("/add-cart")
     public ResponseEntity<UserDto> addToCart(@RequestBody(required = false) @Valid CartDto cart) {
 
        if (cart.productId() == null || cart.productId()== null || cart.username() == null) {
-            // Handle case when product or product ID is missing
             return ResponseEntity.badRequest().build();
         }
 
@@ -208,15 +181,55 @@ public class UserController {
             return ResponseEntity.badRequest().build();
         }
 
-        System.out.println("ADD TO CART!!!!" + user.get().getUsername() + " "+  cart.productId()+ " " + cart.productId() + "--" + cart.username());
-
-
         UserDto userSaved = userService.addCartProducts(user.get(), cart.productId());
-
 
         return ResponseEntity.created(URI.create("/add-cart" + userSaved.getId())).body(userSaved);
     }
 
+
+    //todo : redenumeste cumva CartDto ca sa se potriveasca si cu Favs (ia de fapt id-prouct si username)
+    @PostMapping("/add-fav")
+    public ResponseEntity<UserDto> addToFavs(@RequestBody(required = false) @Valid CartDto fav) {
+
+        if (fav.productId() == null || fav.productId()== null || fav.username() == null) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        Product product = productService.getProductById(fav.productId());
+        Optional<User> user = userService.findByUsername(fav.username());
+
+        if(!user.isPresent() || product == null){
+            return ResponseEntity.badRequest().build();
+        }
+
+        System.out.println("ADD TO fav!!!!" + user.get().getUsername() + " "+  fav.productId()+ " " + fav.productId() + "--" + fav.username());
+
+        UserDto userSaved = userService.addFavProducts(user.get(), fav.productId());
+
+        return ResponseEntity.created(URI.create("/add-fav" + userSaved.getId())).body(userSaved);
+    }
+
+
+    @PostMapping("/remove-fav")
+    public ResponseEntity<UserDto> removedFromFavs(@RequestBody(required = false) @Valid CartDto fav) {
+
+        if (fav.productId() == null || fav.productId()== null || fav.username() == null) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        Product product = productService.getProductById(fav.productId());
+        Optional<User> user = userService.findByUsername(fav.username());
+
+        if(!user.isPresent() || product == null){
+            return ResponseEntity.badRequest().build();
+        }
+
+        System.out.println("REMOVED FROM fav!!!!" + user.get().getUsername() + " "+  fav.productId()+ " " + fav.productId() + "--" + fav.username());
+
+        UserDto userSaved = userService.removeFavProducts(user.get(), fav.productId());
+
+        return ResponseEntity.created(URI.create("/remove-fav" + userSaved.getId())).body(userSaved);
+    }
 
     @PostMapping("/cart-product")
     public ResponseEntity<List<ProductDto>> getCartProducts(@RequestBody(required = false) @Valid String username) {
@@ -224,10 +237,8 @@ public class UserController {
 
         String usernameTest = username.substring(1, username.length()-1);
 
-        System.out.println("username: " + usernameTest);
         List<ProductDto> productDtos = userService.fetchCartProducts(usernameTest);
 
-        System.out.println("products"+productDtos);
         return ResponseEntity.ok(productDtos);
     }
 
@@ -241,8 +252,8 @@ public class UserController {
         System.out.println("username: " + usernameTest);
         ReceiptDto receiptDto = userService.buyProducts(usernameTest);
 
-        System.out.println("receipt"+receiptDto);
-        return ResponseEntity.ok(receiptDto);
+        System.out.println("receipt:: "+receiptDto);
+        return ResponseEntity.ok().body(receiptDto);
     }
 
     // roles assignment
@@ -251,6 +262,21 @@ public class UserController {
         userService.assignRoleToUser(userId, roleId);
         return ResponseEntity.ok().build();
     }
+
+
+    @PostMapping("/fav-prod")
+    public ResponseEntity<List<ProductDto>> getFavProd(@RequestBody(required = false) @Valid String username) {
+        //todo -- get username from frontend without quotes
+
+        String usernameTest = username.substring(1, username.length()-1);
+
+        System.out.println("username: " + usernameTest);
+        List<ProductDto> productDtos = userService.fetchFavProducts(usernameTest);
+
+        System.out.println("products"+productDtos);
+        return ResponseEntity.ok(productDtos);
+    }
+
 
 
 }

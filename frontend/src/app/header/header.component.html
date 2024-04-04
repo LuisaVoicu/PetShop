@@ -54,6 +54,12 @@
                                 <a href="#" [routerLink]="['/cart-product', { user: loggedUser.username }]" routerLinkActive="active">Cart</a>
                             </li>
                         </div> 
+
+                        <div class="fav">
+                            <li class>    
+                                <a href="#" [routerLink]="['/fav-prod', { user: loggedUser.username }]" routerLinkActive="active">Favs</a>
+                            </li>
+                        </div> 
                         <div class="logged-user">
                             <li class>    
                                 <a *ngIf="loggedUser" href="#" routerLink="/aboutme">{{ loggedUser.username }}</a>

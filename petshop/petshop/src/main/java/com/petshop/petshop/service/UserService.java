@@ -41,7 +41,11 @@ public interface UserService {
 
     UserDto addCartProducts(User user, Long productId);
 
+    UserDto addFavProducts(User user, Long productId);
+    UserDto removeFavProducts(User user, Long productId);
+
     List<ProductDto> fetchCartProducts(String username);
+    List<ProductDto> fetchFavProducts(String username);
 
     ReceiptDto buyProducts(String username);
 }

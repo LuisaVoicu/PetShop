@@ -65,7 +65,7 @@ public class User {
             inverseJoinColumns = {
                     @JoinColumn(name = "PRODUCTS_ID",
                             referencedColumnName = "ID")})
-    private List<Product> favoriteProducts;
+    private List<Product> favouriteProducts;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "user_cart_products",

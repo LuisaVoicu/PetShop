@@ -8,7 +8,7 @@ ul{
 }
 
 ul li a{
-    height: 22rem;
+    height: 25rem;
     width: 20 rem;
     border: 1px solid whitesmoke;
     border-radius: 1rem;
@@ -85,3 +85,13 @@ li a:hover{
     color: green;
   }
   
+
+
+  .favorite-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+

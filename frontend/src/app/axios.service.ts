@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios';
-
+import { Receipt } from './models/Receipt';
 @Injectable({
   providedIn: 'root'
 })

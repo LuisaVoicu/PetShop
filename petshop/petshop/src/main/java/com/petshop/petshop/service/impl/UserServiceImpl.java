@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 
 import java.nio.CharBuffer;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
@@ -110,6 +111,24 @@ public class UserServiceImpl implements UserService {
           }
         return cartProductDtos;
     }
+    @Override
+    public List<ProductDto> fetchFavProducts(String username) {
+        Optional<User> user = userRepository.findByUsername(username);
+
+        if(user.isEmpty()){
+            return null;
+        }
+        List<Product> cartProducts = user.get().getFavouriteProducts();
+
+        if(cartProducts == null)
+            return null;
+
+        List<ProductDto> cartProductDtos = productMapper.productListEntitytoDto(cartProducts);
+        for(Product p : cartProducts){
+              System.out.println(p.getName());
+          }
+        return cartProductDtos;
+    }
 
     @Override
     public ReceiptDto buyProducts(String username) {
@@ -123,24 +142,37 @@ public class UserServiceImpl implements UserService {
         if(cartProducts == null)
             return null;
 
-        List<ProductDto> cartProductDtos = productMapper.productListEntitytoDto(cartProducts);
+        List<String> cartProductStrings= new ArrayList<>();
 
- /*       public record ReceiptDto (String firstName, String lastName, String username, List<ProductDto> product, Date date){
+        for(Product p : cartProducts){
+            cartProductStrings.add(p.getName());
+        }
+
+        // delete product from db
+        User userUpdate = user.get();
+        userRepository.delete(userUpdate);
+
+        userUpdate.setCartProducts(new ArrayList<>());
+        userRepository.save(userUpdate);
+
+        for(Product p : cartProducts){
+            productRepository.delete(p);
+        }
+
+        LocalDateTime now = LocalDateTime.now();
+        String timeString = now.toString();
 
 
-        }*/
 
-        LocalDate now = LocalDate.now(ZoneId.of("UTC"));
-        System.out.println("NOW!!!!!!!!!!!!!!!!! " + now.toString());
-        return new ReceiptDto(
-                user.get().getFirstName(),
-                user.get().getLastName(),
-                username,
-                cartProductDtos,
-                now
+        ReceiptDto receiptDto =  ReceiptDto.builder()
+                .firstName(user.get().getFirstName())
+                .lastName(user.get().getLastName())
+                .username(user.get().getUsername())
+                .product(cartProductStrings)
+                .date(timeString)
+                .build();
 
-        );
-
+        return receiptDto;
     }
 
     @Override
@@ -165,8 +197,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto updateFromUserDto(UserDto userDto, String password) {
         User user = userMapper.userDtoToEntity(userDto, password);
-      //  System.out.println("###########\n"+user.toString());
-        //user.setLogin("A");
         System.out.println("~~~~~~~~~~~~~~>>>>>" + user.getId());
        User saved = userRepository.save(user);
        return userDto;
@@ -284,4 +314,73 @@ public class UserServiceImpl implements UserService {
         return savedDto;
     }
 
+
+    @Override
+    public UserDto addFavProducts(User user, Long productId) {
+
+        Optional<Product> product = productRepository.findById(productId);
+
+        if(product.isEmpty())
+            return null;
+
+        List<Product> addedToFav = user.getFavouriteProducts();
+
+        if(addedToFav == null)
+            addedToFav = new ArrayList<>();
+
+        if(!addedToFav.contains(product.get()))
+            addedToFav.add(product.get());
+
+        user.setFavouriteProducts(addedToFav);
+        User saved = userRepository.save(user);
+
+        if(saved == null)
+            return null;
+
+        List<Product> savedProd = saved.getCartProducts();
+
+        UserDto savedDto = userMapper.userEntityToDto(saved);
+
+        return savedDto;
+    }
+
+
+    @Override
+    public UserDto removeFavProducts(User user, Long productId) {
+
+        Optional<Product> product = productRepository.findById(productId);
+
+        if(product.isEmpty())
+            return null;
+
+        List<Product> toRemoveFromFav = user.getFavouriteProducts();
+
+
+        if(toRemoveFromFav == null || !toRemoveFromFav.contains(product.get()))
+            return userMapper.userEntityToDto(user);
+
+
+        toRemoveFromFav.remove(product.get());
+        user.setFavouriteProducts(toRemoveFromFav);
+        User saved = userRepository.save(user);
+
+        if(saved == null)
+            return null;
+
+        List<Product> savedProd = saved.getCartProducts();
+
+        UserDto savedDto = userMapper.userEntityToDto(saved);
+
+        return savedDto;
+    }
+
+
+    private Product findProductById(List<Product> products, int id) {
+        for (Product product : products) {
+            if (product.getId() == id) {
+                return product;
+            }
+        }
+        return null; // Product not found
+    }
 }

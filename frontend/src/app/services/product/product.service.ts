@@ -93,8 +93,23 @@ export class ProductService {
 
     addToCart(productId: number, username: string): Observable<User> {
       return new Observable<User>(observer => {
-        console.log("!!!!!!!!!!" + productId);
-        this.axiosService.request('POST', '/add-cart',  { productId: productId, username: username } ) // Pass parameters as an object
+        this.axiosService.request('POST', '/add-cart',  { productId: productId, username: username } ) 
+          .then(response => {
+            console.log("done");
+            observer.next(response.data);
+            observer.complete();
+          })
+          .catch(error => {
+            observer.error(error);
+            observer.complete();
+          });
+      });
+    }
+
+    addToFavourite(productId: number, username: string): Observable<User> {
+      return new Observable<User>(observer => {
+        console.log("Favorite !!!!!!!!!!" + productId);
+        this.axiosService.request('POST', '/add-fav',  { productId: productId, username: username } ) 
           .then(response => {
             observer.next(response.data);
             observer.complete();
@@ -106,9 +121,20 @@ export class ProductService {
       });
     }
 
-    // deleteProduct(productData: Product): Observable<Product> {
-    //   return from(this.axiosService.request('POST', '/product-delete', productData));
-    // }
 
+    removeFromFavourite(productId: number, username: string): Observable<User> {
+      return new Observable<User>(observer => {
+        console.log("Favorite REmoved!!!!!!!!!!" + productId);
+        this.axiosService.request('POST', '/remove-fav',  { productId: productId, username: username } ) 
+          .then(response => {
+            observer.next(response.data);
+            observer.complete();
+          })
+          .catch(error => {
+            observer.error(error);
+            observer.complete();
+          });
+      });
+    }
   }
 

@@ -2,9 +2,7 @@ import { Component } from '@angular/core';
 import { ProductService } from '../../services/product/product.service';
 import { Product } from '../../models/Product';
 import { ActivatedRoute } from '@angular/router';
-import { User } from '../../models/User';
-import { SourceTextModule } from 'vm';
-
+import { UserService } from '../../services/user/user.service';
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
@@ -12,10 +10,12 @@ import { SourceTextModule } from 'vm';
 })
 export class ProductComponent {
   products: Product[] = [];
-
+  favProducts: Product[] = []; 
   username: string = '';
 
-  constructor(private productService : ProductService, private route:ActivatedRoute){
+  isFavorite: boolean = false;
+
+  constructor(private productService : ProductService, private userService: UserService, private route:ActivatedRoute){
 
   }
 
@@ -23,58 +23,76 @@ export class ProductComponent {
 
     this.route.params.subscribe(params => {
       this.username = params['user'];
-      console.log("IM HEREEE!!" + this.username);
     });
-    
+
     this.productService.getAllProducts().subscribe(
       products => {
          this.products = products;
-        console.log("HELLOOOOOOOO " + this.username)
-
       },
       error => {
         console.error('Error fetching products:', error);
       }
     );
 
-    // this.route.params.subscribe(params => {
-    //   if (params['searchTerm']){
-    //     this.productService.getAllProducts().subscribe(
-    //       products => {
-    //          this.products = products;
-    //         console.log("HELLOOOOOOOO " + this.products.length)
-    //          this.products = this.products.filter(prod=> prod.name.toLocaleLowerCase().includes(params['searchTerm'].toLowerCase()))
-    //       },
-    //       error => {
-    //         console.error('Error fetching products:', error);
-    //       }
-    //     );
-    //   }
-    //   else{
-    //     this.productService.getAllProducts().subscribe(
-    //       products => {
-    //         this.products = products;
-    //         console.log("HELLOOOOOOOO " + this.products.length)
-    //         this.products = this.products.filter(prod=> prod.name.toLocaleLowerCase().includes(params['searchTerm'].toLowerCase()))
-    //       },
-    //       error => {
-    //         console.error('Error fetching products:', error);
-    //       }
-    //     );
-    //   }
-    // })
+
+    this.userService.getFavProducts(this.username).subscribe(
+      products => { 
+        this.favProducts = products;
+        
+        // set red heart on favourite products
+        for (const prod of this.products) {
+          if (this.favProducts.some(fav => prod.id === fav.id)) {
+              prod.favourite = true;
+          }
+      }
+
+      },
+      error => {
+        console.error('Error fetching fav products:', error);
+      }
+    );
+
+
+
+
+    //this.setFavouriteProducts();
+
   }
 
-  // fetchProducts(): void{
-  //   this.productService.getAllProducts().subscribe(
-  //     products => {
-  //       this.products = products;
-  //     },
-  //     error => {
-  //       console.error('Error fetching products:', error);
-  //     }
-  //   );
-  // }
+  setFavouriteProducts():void{
+
+    this.favProducts.forEach(product => {   
+
+      console.log(`Product ID: ${product.id}, Name: ${product.name}, Price: ${product.price}`);
+      product.favourite = true;
+  });
+  }
+
+  toggleFavorite(product: Product, username: string) {
+    product.favourite = !product.favourite;
+
+    if(product.favourite == true){
+      this.productService.addToFavourite(product.id, username).subscribe(
+        user => {
+          console.log("ADDED to Favorite succesfully");
+        },
+        error => {
+          console.error('Error adding product to cart:', error);
+        }
+      );
+    }
+    else{
+      this.productService.removeFromFavourite(product.id, username).subscribe(
+        user => {
+          console.log("Removed from Favorite succesfully");
+        },
+        error => {
+          console.error('Error removing product to cart:', error);
+        }
+      );
+    }
+  }
+
 
   addToCart(product:Product, username: string): any{
     this.productService.addToCart(product.id, username).subscribe(

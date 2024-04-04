@@ -30,6 +30,9 @@ import { CategoryEditComponent } from './categories/category-edit/category-edit.
 import { LoggedFormComponent } from './logged-form/logged-form.component';
 import { SearchComponent } from './search/search.component';
 import { CartComponent } from './cart/cart.component';
+import { ReceiptComponent } from './receipt/receipt.component';
+import {MatIconModule} from '@angular/material/icon';
+import { FavProdComponent } from './fav-prod/fav-prod.component';
 
 @NgModule({
   declarations: [
@@ -57,12 +60,15 @@ import { CartComponent } from './cart/cart.component';
     CategoryEditComponent,
     LoggedFormComponent,
     SearchComponent,
-    CartComponent
+    CartComponent,
+    ReceiptComponent,
+    FavProdComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    MatIconModule 
   ],
   providers: [AxiosService],
   bootstrap: [AppComponent]
