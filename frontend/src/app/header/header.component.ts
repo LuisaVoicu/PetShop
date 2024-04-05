@@ -10,7 +10,7 @@ import { User } from '../models/User';
 export class HeaderComponent {
 	@Input() pageTitle!: string;
 	@Input() logoSrc!: string;
-  @Input() loggedUser!: User; // Define input property for loggedUser
+  @Input() loggedUser: User | null = null;  // Define input property for loggedUser
 
   // constructor(private router: Router) {}
 

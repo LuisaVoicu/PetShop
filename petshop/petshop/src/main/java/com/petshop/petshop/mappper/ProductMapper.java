@@ -18,13 +18,17 @@ public class ProductMapper {
                 .name(product.getName())
                 .description(product.getDescription())
                 .category(product.getCategory())
+                .imageURL(product.getImageURL())
+                .price(product.getPrice())
                 .build();
     }
 
     public List<ProductDto> productListEntitytoDto(List<Product> productList){
-        return productList.stream()
-                .map(product -> productEntityToDto(product))
-                .toList();
+        if(productList!=null)
+            return productList.stream()
+                    .map(product -> productEntityToDto(product))
+                    .toList();
+        return null;
     }
 
     public Product productDtoToEntity(ProductDto productDto){
@@ -34,6 +38,8 @@ public class ProductMapper {
                 .name(productDto.name())
                 .description(productDto.description())
                 .category(productDto.category())
+                .imageURL(productDto.imageURL())
+                .price(productDto.price())
                 .build();
     }
 

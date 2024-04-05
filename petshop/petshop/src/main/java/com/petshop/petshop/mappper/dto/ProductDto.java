@@ -4,5 +4,5 @@ import com.petshop.petshop.model.Category;
 import lombok.Builder;
 
 @Builder
-public record ProductDto (Long id, String name, String description, Category category){
+public record ProductDto (Long id, String name, String description, Category category, String imageURL, Double price){
 }

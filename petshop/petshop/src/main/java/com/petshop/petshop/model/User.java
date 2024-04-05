@@ -79,6 +79,8 @@ public class User {
     private List<Product> cartProducts;
 
     private LocalDateTime loginTime;
+    private String imageURL;
+
     public String toString(){
        return lastName+ " "+ firstName +  " " + emailAddress + " " + password;
 

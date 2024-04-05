@@ -1,17 +1,26 @@
 <header class="app-header">
 	    <div class="container">
-            <a href="#" routerLink="/" class="logo">{{pageTitle}}</a>
+            <img src="assets/logo.png" alt="Logo">
+            <a href="#" routerLink="/" class="logo">
+
+                {{pageTitle}}
+            </a>
             <nav>
                 <ul class="menu">
-                    <div class="left-buttons">
+                    <div class="left-buttons" >
                         <div class="dropdown-product">
                             <li class="dropdown">
                                 <a href="#" class="dropbtn">Products</a>
-                                <div class="dropdown-content">
+                                <div class="dropdown-content" >
+                                    
                                     <a href="#" routerLink="/product-create">Create</a>
-                                    <a href="#" routerLink="/product-create">My products</a>
-                                    <a href="#" [routerLink]="['/product', { user: loggedUser.username }]" routerLinkActive="active">Show All</a>
+                                   
+                                    <div  *ngIf="loggedUser">
+                                        <a href="#" [routerLink]="['/product', { user: loggedUser.username }]" routerLinkActive="active">Shop</a>
+                                    </div>
+                                    
                                     <a href="#" routerLink="/product-delete">Modify</a>
+
                                 </div>
                             </li>
                         </div>
@@ -19,9 +28,13 @@
                             <li class="dropdown">
                                 <a href="#" class="dropbtn">Pets</a>
                                 <div class="dropdown-content">
-                                    <a href="#" routerLink="/pet-create">Create</a>
+
+                                    <div *ngIf="loggedUser">
+                                        <a href="#" routerLink="/pet-create">Create</a>  
+                                        <a href="#" routerLink="/pet-delete">Modify</a>
+                                    </div>
+
                                     <a href="#" routerLink="/pet">Show All </a>
-                                    <a href="#" routerLink="/pet-delete">Modify</a>
                                 </div>
                             </li>
                         </div>
@@ -40,32 +53,34 @@
                         </div>
                         <div class="dropdown-user">
                             <li class="dropdown">
-                                <a href="#" class="dropbtn">Categories</a>
+                                <a href="#" routerLink="/category">Categories</a>
                                 <div class="dropdown-content">
                                     <a href="#" routerLink="/category">Show All</a>
-                                    <a href="#" routerLink="/category-delete">Modify</a>
+                                    <div *ngIf="loggedUser">
+                                        <a href="#" routerLink="/category-delete">Modify</a>
+                                    </div>
                                 </div>
                             </li>
                         </div>
                     </div>
 
-                    <div class="right-buttons">
+                    <div class="right-buttons" *ngIf="loggedUser">
                         <div class="cart">
                             <li class>    
-                                <a href="#" [routerLink]="['/cart-product', { user: loggedUser.username }]" routerLinkActive="active">Cart</a>
+                                <a href="#" [routerLink]="['/cart-product', { user: loggedUser.username }]" routerLinkActive="active">🛒</a>
                             </li>
                         </div> 
 
-                        <div class="fav">
-                            <li class>    
-                                <a href="#" [routerLink]="['/fav-prod', { user: loggedUser.username }]" routerLinkActive="active">Favs</a>
+                        <div class="dropdown-user">
+                            <li class="dropdown">
+                                <a href="#" [routerLink]="['/logged', { user: loggedUser.username }]" routerLinkActive="active">👤</a>
+                                <div class="dropdown-content">
+                                    <a href="#" [routerLink]="['/fav-prod', { user: loggedUser.username }]" routerLinkActive="active">❤️</a>
+                                    <!-- <a href="#" routerLink="/category-delete">About</a> -->
+                                </div>
                             </li>
-                        </div> 
-                        <div class="logged-user">
-                            <li class>    
-                                <a *ngIf="loggedUser" href="#" routerLink="/aboutme">{{ loggedUser.username }}</a>
-                            </li>
-                        </div>  
+                        </div>
+
                     </div>  
                 </ul>
             </nav>

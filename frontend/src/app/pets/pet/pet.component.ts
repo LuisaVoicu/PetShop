@@ -17,12 +17,20 @@ export class PetComponent {
     weight: 0,
     imageUrl: ''
   };
+  username: string = '';
 
   constructor(private petService : PetService, private route:ActivatedRoute){
 
   }
 
   ngOnInit(): void {
+
+    this.route.params.subscribe(params => {
+      this.username = params['username'];
+      console.log('Usernameu vietii:', this.username);
+    });
+  
+
     this.petService.getAllPets().subscribe(
       pets => {
          this.pets = pets;

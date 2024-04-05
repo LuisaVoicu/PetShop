@@ -116,3 +116,10 @@ nav ul li a{
   display: flex;
   align-items: center;
 }
+
+.app-header .container img {
+  width:100px; 
+  height: auto;
+  margin-right: 10px; 
+}
+
