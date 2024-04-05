@@ -18,7 +18,8 @@ export class ContentComponent {
 		lastName: '',
 		username: '',
 		emailAddress: '',
-		imageUrl: ''
+		imageUrl: '',
+		loginTime: new Date()
 	  };
 
 	username:string='';

@@ -30,6 +30,7 @@ public class UserMapper {
                 .login(user.getLogin())
                 //.birthdate(user.getBirthdate())
                 .token(user.getToken())
+                .loginTime(user.getLoginTime())
                 .build();
     }
 
@@ -54,6 +55,7 @@ public class UserMapper {
                 //.birthdate(userDto.getBirthdate())
                 .login(userDto.getLogin())
                 .token(userDto.getToken())
+                .loginTime(userDto.getLoginTime())
                 .build();
     }
 

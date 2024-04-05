@@ -12,5 +12,6 @@ export class User{
     favoriteProducts?:object;
     cartProducts?:object;
     imageUrl!:string;
+    loginTime!: Date;
 
 }

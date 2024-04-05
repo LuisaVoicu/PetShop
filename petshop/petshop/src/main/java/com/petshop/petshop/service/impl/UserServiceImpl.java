@@ -21,12 +21,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.ejb.Local;
 import java.nio.CharBuffer;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -176,6 +174,31 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<UserDto> loginBetween(LocalDateTime start, LocalDateTime stop) {
+        List<User> allUsers = userRepository.findAll();
+        if(allUsers.isEmpty())
+            return null;
+
+        List<UserDto> users = new ArrayList<>();
+
+        for(User u : allUsers){
+            LocalDateTime date = u.getLoginTime();
+            System.out.println("date here: " + u.getUsername() + " : " + date);
+            if(date.isAfter(start) && date.isBefore(stop))
+            {
+                System.out.println("good");
+
+                users.add(userMapper.userEntityToDto(u));
+            }else{
+                System.out.println("not good");
+
+            }
+        }
+
+        return users;
+    }
+
+    @Override
     public Optional<User> findByUsername(String username) {
         System.out.println("my username:"+username);
         return userRepository.findByUsername(username);
@@ -220,13 +243,20 @@ public class UserServiceImpl implements UserService {
             return userMapper.userEntityToDto(user);
         }*/
 
+/*
         System.out.println("PAROLEEEEEE");
         System.out.println(CharBuffer.wrap(credentialsDto.password()).toString()+ "-");
         System.out.println(user.getPassword()+"-");
         System.out.println(CharBuffer.wrap(credentialsDto.password()).toString().equals(user.getPassword()));
+*/
+
+        user.setLoginTime(LocalDateTime.now());
+        System.out.println("time:"+user.getLoginTime());
+        User saved = userRepository.save(user);
+
         if(CharBuffer.wrap(credentialsDto.password()).toString().equals(user.getPassword())) {
 
-            return userMapper.userEntityToDto(user);
+            return userMapper.userEntityToDto(saved);
 
         }
         System.out.println("3AM I HERE?????????");

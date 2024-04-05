@@ -14,9 +14,11 @@ export class LoggedFormComponent {
     lastName: '',
     username: '',
     emailAddress: '',
-    imageUrl: ''
+    imageUrl: '',
+    loginTime: new Date()
   };
 
+  someUsers : User[]=[];
 
   username: string = '';
 
@@ -49,7 +51,39 @@ export class LoggedFormComponent {
 
     }
 );
+
+  this.randomTestLoggin();
   }
 
+  randomTestLoggin(){
+    const start: Date = new Date(2024, 3, 5, 5, 20, 0); // April 1, 2022, 12:30 PM
+    const end: Date = new Date(2025, 3, 5, 1, 51, 0); // April 1, 2022, 12:30 PM
+    const dateString: string = start.toISOString();
+
+    console.log("AAAAAAAAa"+dateString);
+
+    this.axiosService.request(
+      "POST",
+      "/login-activity",
+      dateString).then(
+
+      (response) => {          
+          this.someUsers = response.data;
+          console.log("_________________________________________");
+          this.someUsers?.forEach((item) => {
+            console.log("user:"+item); // Access each element using item
+        });
+  
+      }).catch(
+      (error) => {
+          if (error.response.status === 401) {
+              this.axiosService.setAuthToken(null);
+          } else {
+              this.loggedUser = error.response.code;
+          }
+  
+      });
+
+  }
 
 }

@@ -15,7 +15,8 @@ export class UserService {
     lastName: '',
     username: '',
     emailAddress: '',
-    imageUrl: ''
+    imageUrl: '',
+    loginTime: new Date()
   };
 
 

@@ -4,6 +4,7 @@ import com.petshop.petshop.model.Role;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -25,6 +26,6 @@ public class UserDto {
     private List<ProductDto> favouriteProducts;
     private String emailAddress;
     private String password;
-
+    private LocalDateTime loginTime;
 
 }

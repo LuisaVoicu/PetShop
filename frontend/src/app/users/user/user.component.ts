@@ -16,7 +16,8 @@ export class UserComponent {
     lastName: '',
     username: '',
     emailAddress: '',
-    imageUrl: ''
+    imageUrl: '',
+    loginTime: new Date()
   };
 
   constructor(private axiosService: AxiosService, private userService : UserService, private route:ActivatedRoute){

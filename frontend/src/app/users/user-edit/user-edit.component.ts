@@ -16,7 +16,8 @@ export class UserEditComponent {
     lastName: '',
     username: '',
     emailAddress: '',
-    imageUrl: ''
+    imageUrl: '',
+    loginTime: new Date()
   };
 
 
@@ -26,7 +27,8 @@ export class UserEditComponent {
     lastName: '',
     username: '',
     emailAddress: '',
-    imageUrl: ''
+    imageUrl: '',
+    loginTime: new Date()
   };
   constructor(private userService : UserService, private route:ActivatedRoute, private router: Router){}
 

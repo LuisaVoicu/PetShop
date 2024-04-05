@@ -18,6 +18,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -48,13 +51,10 @@ public class HomeController {
     @PostMapping("/login")
     public ResponseEntity<UserDto> login(@RequestBody @Valid CredentialsDto credentialsDto) {
 
-        System.out.println("HERE I AM ");
-        System.out.println("PAROLA LUATA:"+credentialsDto.password());
+        System.out.println( "here i am");
         UserDto userDto = userService.login(credentialsDto);
-        System.out.println("hello?!");
-
         userDto.setToken(userAuthenticationProvider.createToken(userDto));
-        System.out.println("done!");
+
         return ResponseEntity.ok(userDto);
     }
 
@@ -88,4 +88,33 @@ public class HomeController {
         return ResponseEntity.ok().body(userDto);
     }
 
+    @PostMapping("/login-activity")
+    public ResponseEntity<List<UserDto>> loginActivity(@RequestBody @Valid String startString)  {
+
+        //{"startString":"2025-04-04T22:20:00.000Z"}
+        String startGood = startString.substring(1, startString.length()-1);
+
+        System.out.println("start:"+startGood);
+        System.out.println("aaaa:"+startString);
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
+        LocalDateTime dateTime = LocalDateTime.parse(startGood, formatter);
+
+        LocalDateTime end = LocalDateTime.now();
+        System.out.println("local dates:\n"+dateTime.toString()+"\n"+end.toString());
+        List<UserDto> userDtos = userService.loginBetween(dateTime, end);
+
+        System.out.println(userDtos);
+
+        if(userDtos == null)
+            System.out.println("e null");
+        else{
+            System.out.println("@@@@@@@ login activity");
+
+            for(UserDto u:userDtos){
+                System.out.println("@@ "+u.getUsername());
+            }
+        }
+
+        return ResponseEntity.ok(userDtos);
+    }
 }

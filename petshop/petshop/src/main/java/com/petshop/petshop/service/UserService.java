@@ -4,6 +4,7 @@ import com.petshop.petshop.mappper.dto.*;
 import com.petshop.petshop.model.RegistrationRequest;
 import com.petshop.petshop.model.User;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,4 +49,6 @@ public interface UserService {
     List<ProductDto> fetchFavProducts(String username);
 
     ReceiptDto buyProducts(String username);
+
+    List<UserDto> loginBetween(LocalDateTime start, LocalDateTime stop);
 }

@@ -20,8 +20,8 @@ import { CategoryDeleteComponent } from './categories/category-delete/category-d
 import { LoggedFormComponent } from './logged-form/logged-form.component';
 import { CartComponent } from './cart/cart.component';
 import { FavProdComponent } from './fav-prod/fav-prod.component';
-import { Receipt } from './models/Receipt';
 import { ReceiptComponent } from './receipt/receipt.component';
+import { LoginActivityComponent } from './login-activity/login-activity.component';
 const routes: Routes = [
   //{ path: 'product-create', component: ProductCreateComponent, canActivate: [AuthGuard], data: { roles: ['ADMIN', 'SELLER'] } },
   { path: 'product', component: ProductComponent},
@@ -40,10 +40,11 @@ const routes: Routes = [
   { path: 'category-edit', component: CategoryEditComponent},
   { path: 'home', component: HomeComponent },
   { path: 'logged/:username', component: LoggedFormComponent },
-  {path: 'search/:searchTerm', component:HomeComponent},
-  {path: 'cart-product', component: CartComponent},
-  {path: 'receipt', component: ReceiptComponent},
-  {path: 'fav-prod', component: FavProdComponent},
+  { path: 'search/:searchTerm', component:HomeComponent},
+  { path: 'cart-product', component: CartComponent},
+  { path: 'receipt', component: ReceiptComponent},
+  { path: 'fav-prod', component: FavProdComponent},
+  { path: 'login-activity', component: LoginActivityComponent},
   { path: '', redirectTo: '/home', pathMatch: 'full' }, 
   { path: '**', redirectTo: '/home' }
 ];

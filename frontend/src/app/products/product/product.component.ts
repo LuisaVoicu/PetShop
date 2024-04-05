@@ -52,21 +52,8 @@ export class ProductComponent {
       }
     );
 
-
-
-
-    //this.setFavouriteProducts();
-
   }
 
-  setFavouriteProducts():void{
-
-    this.favProducts.forEach(product => {   
-
-      console.log(`Product ID: ${product.id}, Name: ${product.name}, Price: ${product.price}`);
-      product.favourite = true;
-  });
-  }
 
   toggleFavorite(product: Product, username: string) {
     product.favourite = !product.favourite;

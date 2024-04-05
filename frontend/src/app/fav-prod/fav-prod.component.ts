@@ -5,7 +5,7 @@ import { AxiosService } from '../axios.service';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from '../models/Product';
 import { Router } from '@angular/router';
-
+import { ProductService } from '../services/product/product.service';
 @Component({
   selector: 'app-fav-prod',
   templateUrl: './fav-prod.component.html',
@@ -15,7 +15,7 @@ export class FavProdComponent {
   products: Product[] = [];
   username: string = '';
 
-  constructor(private axiosService: AxiosService, private userService : UserService, private route:ActivatedRoute, private router: Router){}
+  constructor(private productService : ProductService,private axiosService: AxiosService, private userService : UserService, private route:ActivatedRoute, private router: Router){}
 
   
   ngOnInit(): void {
@@ -35,4 +35,20 @@ export class FavProdComponent {
 
   }
   
+
+  removeFromFavourite(product: Product, username: string) {
+    product.favourite = !product.favourite;
+
+    this.productService.removeFromFavourite(product.id, username).subscribe(
+        user => {
+          console.log("Removed from Favorite succesfully");
+        },
+        error => {
+          console.error('Error removing product to cart:', error);
+        }
+      );
+    
+  }
+
 }
+

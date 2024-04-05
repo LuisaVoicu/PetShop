@@ -33,6 +33,7 @@ import { CartComponent } from './cart/cart.component';
 import { ReceiptComponent } from './receipt/receipt.component';
 import {MatIconModule} from '@angular/material/icon';
 import { FavProdComponent } from './fav-prod/fav-prod.component';
+import { LoginActivityComponent } from './login-activity/login-activity.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { FavProdComponent } from './fav-prod/fav-prod.component';
     CartComponent,
     ReceiptComponent,
     FavProdComponent,
+    LoginActivityComponent,
   ],
   imports: [
     BrowserModule,

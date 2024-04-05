@@ -6,6 +6,7 @@ import org.hibernate.annotations.NotFound;
 
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -76,6 +77,8 @@ public class User {
                     @JoinColumn(name = "PRODUCT_ID",
                             referencedColumnName = "ID")})
     private List<Product> cartProducts;
+
+    private LocalDateTime loginTime;
     public String toString(){
        return lastName+ " "+ firstName +  " " + emailAddress + " " + password;
 
