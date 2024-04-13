@@ -13,6 +13,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Base64;
 import java.util.Collections;
 import java.util.Date;
@@ -33,6 +36,9 @@ public class UserAuthenticationProvider {
     }
 
     public String createToken(UserDto user) {
+
+        System.out.println("CREATE_TOKEN: I AM HERE!!!!!!!!!!!!!!!");
+
         Date now = new Date();
         Date validity = new Date(now.getTime() + 3600000); // 1 hour
 
@@ -43,6 +49,7 @@ public class UserAuthenticationProvider {
                 .withExpiresAt(validity)
                 .withClaim("firstName", user.getFirstName())
                 .withClaim("lastName", user.getLastName())
+                //.withClaim("roles",user.getRoles())
                 .sign(algorithm);
     }
 
@@ -54,10 +61,17 @@ public class UserAuthenticationProvider {
 
         DecodedJWT decoded = verifier.verify(token);
 
+        System.out.println("VALIDATE_TOKEN: I AM HERE!!!!!!!!!!!!!!!");
+        //todo:  don't know if it's working
+   /*     String role = decoded.getClaim("role").asString();
+        List<String> roles = decoded.getClaim("role").asList(String.class);
+*/
+
         UserDto user = UserDto.builder()
                 .login(decoded.getSubject())
                 .firstName(decoded.getClaim("firstName").asString())
                 .lastName(decoded.getClaim("lastName").asString())
+               // .roles(roles)
                 .build();
 
         return new UsernamePasswordAuthenticationToken(user, null, Collections.emptyList());

@@ -5,10 +5,7 @@ import com.petshop.petshop.mappper.ProductMapper;
 import com.petshop.petshop.mappper.RoleMapper;
 import com.petshop.petshop.mappper.UserMapper;
 import com.petshop.petshop.mappper.dto.*;
-import com.petshop.petshop.model.Product;
-import com.petshop.petshop.model.RegistrationRequest;
-import com.petshop.petshop.model.Role;
-import com.petshop.petshop.model.User;
+import com.petshop.petshop.model.*;
 import com.petshop.petshop.repository.ProductRepository;
 import com.petshop.petshop.repository.RoleRepository;
 import com.petshop.petshop.repository.UserRepository;
@@ -62,7 +59,7 @@ public class UserServiceImpl implements UserService {
                 .lastName(registrationRequest.getLastName())
                 .password(registrationRequest.getPassword())
                 .emailAddress(registrationRequest.getEmailAddress())
-                .role((roleRepository.findByRole("USER")))
+               // .role((roleRepository.findByRole("USER")))
                 .build();
 
         // nu se pot da String-uri  la cascadare si mapare
@@ -278,16 +275,17 @@ public class UserServiceImpl implements UserService {
 
         //todo - set register by login(?)  not by username
 
-        user.setLogin("dummy "+user.getUsername());
+        user.setLogin("dummy "+user.getLogin());
 
         User savedUser = userRepository.save(user);
 
 
+        //todo : aici folosesc RoleEnum, nu cel cu mai multe roluri!
 
         Role customer = roleRepository.findByRole("CUSTOMER");
         //user.setRoles(roles);
 
-        System.out.println("----------------->>> user: " + savedUser.getId()+" -- role:"+customer.getId());
+       // System.out.println("----------------->>> user: " + savedUser.getId()+" -- role:"+customer.getId());
 
         this.assignRoleToUser(savedUser.getId(), customer.getId());
 
@@ -306,13 +304,15 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("!!!! User not found"));
         Role role = roleRepository.findById(roleId).orElseThrow(() -> new EntityNotFoundException("!!!! Role not found"));
 
-        List<Role>  roles = user.getRoles();
+//        List<Role>  roles = user.getRoles();
+////
+////        if(roles == null)
+////            roles = new ArrayList<>();
+////
+////        roles.add(role);
+////        user.setRoles(roles);
 
-        if(roles == null)
-            roles = new ArrayList<>();
-
-        roles.add(role);
-        user.setRoles(roles);
+        user.setRole(RoleE.SELLER);
         userRepository.save(user);
     }
 

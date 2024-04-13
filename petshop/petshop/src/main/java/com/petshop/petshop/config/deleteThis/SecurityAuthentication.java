@@ -1,4 +1,4 @@
-package com.petshop.petshop.config;
+package com.petshop.petshop.config.deleteThis;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
