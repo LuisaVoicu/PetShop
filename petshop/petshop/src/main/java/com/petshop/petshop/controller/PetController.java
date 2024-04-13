@@ -124,7 +124,7 @@ public class PetController {
                 System.out.println("");
                 pet.setWeight(editedPet.getWeight());
                 pet.setAge(editedPet.getAge());
-                pet.setPetType(editedPet.getPetType());
+                pet.setPet_type(editedPet.getPet_type());
                 this.petService.updatePetDtoFromEntity(pet);
 
             }

@@ -26,8 +26,10 @@ public class Pet {
 
     private Color color;
 
+    private String imageurl;
+
     @ManyToOne
-    private PetType petType;
+    private PetType pet_type;
 
     @ManyToOne
     private PetShop petShop;

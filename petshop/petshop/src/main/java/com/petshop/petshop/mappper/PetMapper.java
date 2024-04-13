@@ -16,7 +16,8 @@ public class PetMapper {
                 .name(pet.getName())
                 .weight(pet.getWeight())
                 .age(pet.getAge())
-                .petType(pet.getPetType())
+                .pet_type(pet.getPet_type())
+                .imageurl(pet.getImageurl())
                 .build();
     }
 
@@ -32,7 +33,8 @@ public class PetMapper {
                 .name(petDto.name())
                 .age(petDto.age())
                 .weight(petDto.weight())
-                .petType(petDto.petType())
+                .pet_type(petDto.pet_type())
+                .imageurl(petDto.imageurl())
                 .build();
     }
 

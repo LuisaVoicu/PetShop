@@ -21,6 +21,6 @@ public class PetType {
     @Column(unique = true)
     private String name;
 
-    @OneToMany(mappedBy = "petType")
+    @OneToMany(mappedBy = "pet_type")
     private List<Pet> pets;
 }

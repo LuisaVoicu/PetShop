@@ -26,7 +26,7 @@ public class UserDto {
     private List<ProductDto> favouriteProducts;
     private String emailAddress;
     private String password;
-    private String imageURL;
+    private String imageurl;
     private LocalDateTime loginTime;
 
 }

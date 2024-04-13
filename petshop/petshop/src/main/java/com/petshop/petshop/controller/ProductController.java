@@ -133,7 +133,10 @@ public class ProductController {
 
 
     @PostMapping("/product-create")
-    public ResponseEntity<ProductDto> createProduct(@RequestBody @Valid ProductDto product) {
+    public ResponseEntity<ProductDto> createProduct(@RequestBody(required = false) @Valid ProductDto product) {
+
+        System.out.println("!!!!---> " + product.imageurl());
+
         ProductDto createdProduct = productService.createProduct(product);
         return ResponseEntity.created(URI.create("/product-create" + createdProduct.id())).body(createdProduct);
     }

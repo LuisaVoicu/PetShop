@@ -15,7 +15,7 @@ export class PetComponent {
     name: '',
     age: 0,
     weight: 0,
-    imageUrl: ''
+    imageurl: ''
   };
   username: string = '';
 

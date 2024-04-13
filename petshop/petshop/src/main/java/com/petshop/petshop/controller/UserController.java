@@ -248,6 +248,9 @@ public class UserController {
     public ResponseEntity<ReceiptDto> buyProducts(@RequestBody(required = false) @Valid String username) {
         //todo -- get username from frontend without quotes
 
+        if(username == null){
+            return ResponseEntity.badRequest().build();
+        }
         String usernameTest = username.substring(1, username.length()-1);
 
         System.out.println("username: " + usernameTest);
@@ -269,6 +272,9 @@ public class UserController {
     public ResponseEntity<List<ProductDto>> getFavProd(@RequestBody(required = false) @Valid String username) {
         //todo -- get username from frontend without quotes
 
+        if(username == null){
+            return ResponseEntity.badRequest().build();
+        }
         String usernameTest = username.substring(1, username.length()-1);
 
         System.out.println("username: " + usernameTest);

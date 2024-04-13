@@ -14,7 +14,7 @@ export class LoggedFormComponent {
     lastName: '',
     username: '',
     emailAddress: '',
-    imageUrl: '',
+    imageurl: '',
     loginTime: new Date()
   };
 

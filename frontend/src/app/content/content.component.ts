@@ -18,7 +18,7 @@ export class ContentComponent {
 		lastName: '',
 		username: '',
 		emailAddress: '',
-		imageUrl: '',
+		imageurl: '',
 		loginTime: new Date()
 	  };
 

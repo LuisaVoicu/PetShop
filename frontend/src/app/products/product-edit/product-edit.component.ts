@@ -15,7 +15,7 @@ export class ProductEditComponent {
     name: '',
     description: '',
     price: 0,
-    imageUrl: ''
+    imageurl: ''
   };
 
 
@@ -24,7 +24,7 @@ export class ProductEditComponent {
     name: '',
     description: '',
     price: 0,
-    imageUrl: ''
+    imageurl: ''
   }
   constructor(private productService : ProductService, private route:ActivatedRoute, private router: Router){}
 

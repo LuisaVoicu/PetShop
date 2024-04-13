@@ -15,7 +15,7 @@ export class PetEditComponent {
     name: '',
     age: 0,
     weight: 0,
-    imageUrl: ''
+    imageurl: ''
   };
 
 
@@ -24,7 +24,7 @@ export class PetEditComponent {
     name: '',
     age: 0,
     weight: 0,
-    imageUrl: ''
+    imageurl: ''
   }
   constructor(private petService : PetService, private route:ActivatedRoute, private router: Router){}
 

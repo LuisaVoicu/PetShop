@@ -12,7 +12,7 @@ export class PetService {
     name: '',
     age: 0,
     weight: 0,
-    imageUrl: ''
+    imageurl: ''
   };
 
   

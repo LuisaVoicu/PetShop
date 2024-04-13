@@ -17,8 +17,8 @@ public class ProductMapper {
                 .id(product.getId())
                 .name(product.getName())
                 .description(product.getDescription())
-                .category(product.getCategory())
-                .imageURL(product.getImageURL())
+                //.category(product.getCategory())
+                .imageurl(product.getImageurl())
                 .price(product.getPrice())
                 .build();
     }
@@ -37,8 +37,8 @@ public class ProductMapper {
                 .id(productDto.id())
                 .name(productDto.name())
                 .description(productDto.description())
-                .category(productDto.category())
-                .imageURL(productDto.imageURL())
+               // .category(productDto.category())
+                .imageurl(productDto.imageurl())
                 .price(productDto.price())
                 .build();
     }

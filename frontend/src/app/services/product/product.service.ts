@@ -14,7 +14,7 @@ export class ProductService {
       name: '',
       description: '',
       price: 0,
-      imageUrl: ''
+      imageurl: ''
     };
   
 
@@ -46,10 +46,17 @@ export class ProductService {
     //   });
     // }
 
-    createProduct(productData: any): Observable<Product> {
+    createProduct(productData: Product): Observable<Product> {
+
       return new Observable<Product>(observer => {
+        
+
+        console.log("SERVICE$$$$$$$$$$$44"+productData.description);
+        console.log("img:::::---> "+productData.imageurl);
+
         this.axiosService.request('POST', '/product-create', productData)
           .then(response => {
+            console.log("MERge??????" + response.data);
             observer.next(response.data);
             observer.complete();
           })
@@ -60,10 +67,14 @@ export class ProductService {
       });
     }
 
+    
+
     deleteProduct(productData: any): Observable<Product> {
       return new Observable<Product>(observer => {
         this.axiosService.request('POST', '/product-delete', productData)
           .then(response => {
+            console.log("MERge?????? delete:" + response.data);
+
             observer.next(response.data);
             observer.complete();
           })

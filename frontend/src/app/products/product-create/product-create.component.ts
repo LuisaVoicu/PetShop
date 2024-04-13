@@ -17,7 +17,7 @@ export class ProductCreateComponent {
     name: '',
     description: '',
     price: 0,
-    imageUrl: ''
+    imageurl: ''
   };
 
   constructor(private productService : ProductService, private route:ActivatedRoute, private router: Router){
@@ -37,15 +37,20 @@ export class ProductCreateComponent {
 
 
   create(): void {
+
+    console.log("$$$$$$$$$$$44"+this.newProduct.description);
+    console.log("2:::img:::: "+this.newProduct.imageurl);
+
     this.productService.createProduct(this.newProduct).subscribe(
       createdProduct => {
+        
         console.log('Product created successfully:', createdProduct);
         this.newProduct = {
           id:0,
           name: '',
           description: '',
           price: 0,
-          imageUrl: ''
+          imageurl: ''
         };
 
       },
@@ -57,7 +62,8 @@ export class ProductCreateComponent {
   }
 
   createProduct(): void {
-    // Call createProduct method when the button is clicked
+    console.log("$$$$$$$$$$$44"+this.newProduct.description);
+    console.log("img:::: "+this.newProduct.imageurl);
     this.create();
     this.router.navigateByUrl('/product');
 

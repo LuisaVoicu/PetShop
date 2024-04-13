@@ -28,8 +28,8 @@ public class UserMapper {
                 .cartProducts(productMapper.productListEntitytoDto(user.getCartProducts()))
                 .favouriteProducts(productMapper.productListEntitytoDto(user.getFavouriteProducts()))
                 .login(user.getLogin())
-                //.birthdate(user.getBirthdate())
                 .token(user.getToken())
+                .imageurl(user.getImageurl())
                 .loginTime(user.getLoginTime())
                 .build();
     }
@@ -52,9 +52,9 @@ public class UserMapper {
                 .roles(roleMapper.roleListDtoToEntity(userDto.getRoles()))
                 .cartProducts(productMapper.productListDtoToEntity(userDto.getCartProducts()))
                 .favouriteProducts(productMapper.productListDtoToEntity(userDto.getFavouriteProducts()))
-                //.birthdate(userDto.getBirthdate())
                 .login(userDto.getLogin())
                 .token(userDto.getToken())
+                .imageurl(userDto.getImageurl())
                 .loginTime(userDto.getLoginTime())
                 .build();
     }

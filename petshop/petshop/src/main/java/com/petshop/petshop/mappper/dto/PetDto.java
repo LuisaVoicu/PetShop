@@ -5,4 +5,4 @@ import com.petshop.petshop.model.PetType;
 import lombok.Builder;
 
 @Builder
-public record PetDto (Long id, String name, Integer age, Float weight, Color color, PetType petType){ }
+public record PetDto (Long id, String name, Integer age, String imageurl, Float weight, Color color, PetType pet_type){ }

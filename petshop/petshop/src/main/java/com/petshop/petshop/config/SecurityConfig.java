@@ -122,7 +122,7 @@ public class SecurityConfig {
                    authConfig.requestMatchers(HttpMethod.POST, "/product-create", "/product-delete", "/product-edit").permitAll();//hasAnyAuthority("ADMIN","SELLER");
                    authConfig.requestMatchers(HttpMethod.GET, "/home").permitAll();
                    authConfig.requestMatchers(HttpMethod.GET, "/product","/category","/pet").permitAll();
-                   authConfig.requestMatchers(HttpMethod.GET, "/user").hasAuthority("ADMIN");
+                   authConfig.requestMatchers(HttpMethod.GET, "/user").permitAll();
                    authConfig.anyRequest().permitAll();
                 //todo : aici trebuie sa pun conditia de authenticated
                    //authConfig.anyRequest().authenticated();

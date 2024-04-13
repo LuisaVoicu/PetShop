@@ -1,6 +1,6 @@
 <app-header [pageTitle]="'AlphaTom'" [logoSrc]="'assets/logo.png'"></app-header>
 
-<form (ngSubmit)="createProduct()" #productForm="ngForm">
+<form  #productForm="ngForm">
   <div>
     <label for="name">Name:</label>
     <input type="text" id="name" name="name" [(ngModel)]="newProduct.name" required>
@@ -14,8 +14,9 @@
     <input type="number" id="price" name="price" [(ngModel)]="newProduct.price" required>
   </div>
   <div>
-    <label for="imageUrl">Image URL:</label>
-    <input type="text" id="imageUrl" name="imageUrl" [(ngModel)]="newProduct.imageUrl">
+    <label for="imageurl">Image URL:</label>
+    <input  type="text" id="imageurl" name="imageurl" [(ngModel)]="newProduct.imageurl">
+
   </div>
   <button type="submit" [disabled]="productForm.invalid" (click)="createProduct()">Create Product</button>
 
