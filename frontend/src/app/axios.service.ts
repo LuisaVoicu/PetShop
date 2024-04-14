@@ -34,11 +34,9 @@ export class AxiosService {
       let headers: any = {};
 
       if (this.getAuthToken() !== null) {
-        console.log("im here");
-          headers = {"Authorization": "Bearer" + this.getAuthToken()};
+          headers = {"Authorization": "Bearer " + this.getAuthToken()};
       }
 
-      console.log("----> m:" + method + " u:" + url + " d:" + data + " h:" + headers);
       return axios({
           method: method,
           url: url,
@@ -48,4 +46,23 @@ export class AxiosService {
   }
 
   
+  setUserRoles(roles: string[]): void {
+    if (typeof window !== 'undefined') {
+        if (roles !== null) {
+            window.localStorage.setItem("user_roles", JSON.stringify(roles));
+        } else {
+            window.localStorage.removeItem("user_roles");
+        }
+    }
+  }
+
+  getUserRoles(): string[] {
+      if (typeof window !== 'undefined') {
+          const roles = window.localStorage.getItem("user_roles");
+          return roles ? JSON.parse(roles) : [];
+      } else {
+          return [];
+      }
+  }
+
 }

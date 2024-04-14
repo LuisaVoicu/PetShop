@@ -51,7 +51,7 @@ public class HomeController {
     @PostMapping("/login")
     public ResponseEntity<UserDto> login(@RequestBody @Valid CredentialsDto credentialsDto) {
 
-        System.out.println( "here i am");
+        System.out.println("login homeController:" + credentialsDto.username());
         UserDto userDto = userService.login(credentialsDto);
         userDto.setToken(userAuthenticationProvider.createToken(userDto));
 

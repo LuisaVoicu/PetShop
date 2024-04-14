@@ -37,18 +37,26 @@ export class ContentComponent {
 		    "POST",
 		    "/login",
 		    {
-		        login: input.login,
+		        username: input.username,
 		        password: input.password
 		    }).then(
 		    response => {
 				console.log("parola:"+input.password);
+				console.log("token:"+response.data.token);
+				console.log("roles:"+response.data.roles);
+
 		        this.axiosService.setAuthToken(response.data.token);
+				this.axiosService.setUserRoles(response.data.roles); //added
+
 		        this.componentToShow = "logged";
 				this.username = response.data.username;
 				console.log("@@@@@@@@@@@@@@@@@@@@@@@@: "+this.username + " --- "+response.data.username);
 
 				this.loggedUser = response.data;
 				this.router.navigate(['/logged',this.username]);
+				
+				// this.axiosService.setAuthToken(response.data.token);
+		        // this.componentToShow = "messages";
 
 		    }).catch(
 		    error => {
@@ -60,13 +68,13 @@ export class ContentComponent {
 	}
 
 	onRegister(input: any): void {
+
 		this.axiosService.request(
 		    "POST",
 		    "/register",
 		    {
 		        firstName: input.firstName,
 		        lastName: input.lastName,
-		        login: input.login,
 				emailAddress: input.emailAddress,
 				username: input.username,
 		        password: input.password

@@ -19,7 +19,6 @@ public class UserDto {
     private String username;
     private String firstName;
     private String lastName;
-    private String login;
     private String token;
     private List<String> roles;
     private List<ProductDto> cartProducts;

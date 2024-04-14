@@ -22,10 +22,12 @@ import { CartComponent } from './cart/cart.component';
 import { FavProdComponent } from './fav-prod/fav-prod.component';
 import { ReceiptComponent } from './receipt/receipt.component';
 import { LoginActivityComponent } from './login-activity/login-activity.component';
+import { AuthGuard } from './auth.guard';
+
 const routes: Routes = [
   //{ path: 'product-create', component: ProductCreateComponent, canActivate: [AuthGuard], data: { roles: ['ADMIN', 'SELLER'] } },
-  { path: 'product', component: ProductComponent},
-  { path: 'product-create', component: ProductCreateComponent },
+  { path: 'product', component: ProductComponent, canActivate: [AuthGuard]},
+  { path: 'product-create', component: ProductCreateComponent,canActivate: [AuthGuard] },
   { path: 'product-delete', component: ProductDeleteComponent },
   { path: 'product-edit', component: ProductEditComponent },
   { path: 'pet', component: PetComponent },
@@ -39,11 +41,11 @@ const routes: Routes = [
   { path: 'category-delete', component: CategoryDeleteComponent},
   { path: 'category-edit', component: CategoryEditComponent},
   { path: 'home', component: HomeComponent },
-  { path: 'logged/:username', component: LoggedFormComponent },
+  { path: 'logged/:username', component: LoggedFormComponent,canActivate: [AuthGuard] },
   { path: 'search/:searchTerm', component:HomeComponent},
   { path: 'cart-product', component: CartComponent},
   { path: 'receipt', component: ReceiptComponent},
-  { path: 'fav-prod', component: FavProdComponent},
+  { path: 'fav-prod', component: FavProdComponent, canActivate: [AuthGuard]},
   { path: 'login-activity', component: LoginActivityComponent},
   { path: '', redirectTo: '/home', pathMatch: 'full' }, 
   { path: '**', redirectTo: '/home' }

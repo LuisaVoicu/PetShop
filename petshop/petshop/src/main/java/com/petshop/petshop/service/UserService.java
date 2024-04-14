@@ -15,8 +15,6 @@ public interface UserService {
     //todo
     UserDto registerUser(RegistrationRequest registrationRequest);
 
-    UserDto getLoginUser();
-
     UserDto getUserDtoById(Long id);
 
     User findUserByID(Long id);

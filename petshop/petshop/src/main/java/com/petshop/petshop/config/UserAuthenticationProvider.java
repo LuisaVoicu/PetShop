@@ -37,19 +37,21 @@ public class UserAuthenticationProvider {
 
     public String createToken(UserDto user) {
 
-        System.out.println("CREATE_TOKEN: I AM HERE!!!!!!!!!!!!!!!");
+        System.out.println("CREATE_TOKEN: I AM HERE!");
 
+        System.out.println(user.getUsername());
+        System.out.println("roles--> " + user.getRoles());
         Date now = new Date();
         Date validity = new Date(now.getTime() + 3600000); // 1 hour
 
         Algorithm algorithm = Algorithm.HMAC256(secretKey);
         return JWT.create()
-                .withSubject(user.getLogin())
+                .withSubject(user.getUsername()) //todo - had getLogin() before
                 .withIssuedAt(now)
                 .withExpiresAt(validity)
                 .withClaim("firstName", user.getFirstName())
                 .withClaim("lastName", user.getLastName())
-                //.withClaim("roles",user.getRoles())
+                .withClaim("roles",user.getRoles())
                 .sign(algorithm);
     }
 
@@ -61,17 +63,17 @@ public class UserAuthenticationProvider {
 
         DecodedJWT decoded = verifier.verify(token);
 
-        System.out.println("VALIDATE_TOKEN: I AM HERE!!!!!!!!!!!!!!!");
+        System.out.println("VALIDATE_TOKEN: -- I AM HERE!!!!!!!!!!!!!!!");
         //todo:  don't know if it's working
-   /*     String role = decoded.getClaim("role").asString();
+        String role = decoded.getClaim("role").asString();
         List<String> roles = decoded.getClaim("role").asList(String.class);
-*/
+
 
         UserDto user = UserDto.builder()
-                .login(decoded.getSubject())
+                .username(decoded.getSubject())
                 .firstName(decoded.getClaim("firstName").asString())
                 .lastName(decoded.getClaim("lastName").asString())
-               // .roles(roles)
+                .roles(roles)
                 .build();
 
         return new UsernamePasswordAuthenticationToken(user, null, Collections.emptyList());

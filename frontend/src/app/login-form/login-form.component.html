@@ -16,8 +16,8 @@
 	    <form (ngSubmit)="onSubmitLogin()" #loginForm="ngForm">
 
 	      <div class="form-outline mb-4">
-	        <input type="login" id="loginName" name= "login" class="form-control" [(ngModel)]="login" />
-	        <label class="form-label" for="loginName">Username</label>
+	        <input type="login" id="usernameName" name= "username" class="form-control" [(ngModel)]="username" />
+	        <label class="form-label" for="usernameName">Username</label>
 	      </div>
 
 	      <div class="form-outline mb-4">
@@ -44,7 +44,7 @@
 
 		  <div class="form-outline mb-4">
 	        <input type="text" id="emailAddress" name="emailAddress" class="form-control" [(ngModel)]="emailAddress" />
-	        <label class="form-label" for="emailAddress">emailAddress</label>
+	        <label class="form-label" for="emailAddress">Email Address</label>
 	      </div>
 
 	      <div class="form-outline mb-4">

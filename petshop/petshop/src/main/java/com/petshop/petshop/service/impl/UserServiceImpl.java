@@ -67,12 +67,6 @@ public class UserServiceImpl implements UserService {
         return this.createUserDto(user);
     }
 
-    @Override
-    public UserDto getLoginUser(){
-        return userMapper.userEntityToDto(
-                userRepository.findLoginUser().orElse(null)
-        );
-    }
 
     @Override
     public UserDto getUserDtoById(Long id) {
@@ -197,7 +191,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<User> findByUsername(String username) {
-        System.out.println("my username:"+username);
         return userRepository.findByUsername(username);
     }
 
@@ -231,8 +224,11 @@ public class UserServiceImpl implements UserService {
     public UserDto login(CredentialsDto credentialsDto) {
 
         //todo - hashing pe parole
-        System.out.println(credentialsDto.login());
-        User user = userRepository.findByUsername(credentialsDto.login())
+        System.out.println("username credentials:"+credentialsDto.username());
+//        User user = userRepository.findByUsername(credentialsDto.login())
+//                .orElseThrow(() -> new AppException("Unknown user", HttpStatus.NOT_FOUND));
+
+        User user = userRepository.findByUsername(credentialsDto.username())
                 .orElseThrow(() -> new AppException("Unknown user", HttpStatus.NOT_FOUND));
 
 /*        System.out.println("parole:\n"+passwordEncoder.encode(CharBuffer.wrap(credentialsDto.password()))+"\n"+user.getPassword()+"\n");
@@ -247,22 +243,23 @@ public class UserServiceImpl implements UserService {
         System.out.println(CharBuffer.wrap(credentialsDto.password()).toString().equals(user.getPassword()));
 */
 
+        //login time:
         user.setLoginTime(LocalDateTime.now());
         System.out.println("time:"+user.getLoginTime());
         User saved = userRepository.save(user);
 
         if(CharBuffer.wrap(credentialsDto.password()).toString().equals(user.getPassword())) {
-
             return userMapper.userEntityToDto(saved);
-
         }
-        System.out.println("3AM I HERE?????????");
 
         throw new AppException("Invalid password", HttpStatus.BAD_REQUEST);
     }
 
     public UserDto register(SignUpDto userSignUp) {
 
+        System.out.println("REGISTER IN UserServiceImpl");
+        System.out.println(userSignUp.username() + " "  + userSignUp.password());
+        //todo: aici am username nu ca in tutorial
         Optional<User> optionalUser = userRepository.findByUsername(userSignUp.username());
 
         if (optionalUser.isPresent()) {
@@ -275,15 +272,13 @@ public class UserServiceImpl implements UserService {
 
         //todo - set register by login(?)  not by username
 
-        user.setLogin("dummy "+user.getLogin());
+       // user.setLogin("dummy "+user.getLogin());
 
         User savedUser = userRepository.save(user);
 
 
-        //todo : aici folosesc RoleEnum, nu cel cu mai multe roluri!
-
         Role customer = roleRepository.findByRole("CUSTOMER");
-        //user.setRoles(roles);
+       // user.setRoles(customer);
 
        // System.out.println("----------------->>> user: " + savedUser.getId()+" -- role:"+customer.getId());
 
@@ -292,8 +287,9 @@ public class UserServiceImpl implements UserService {
         return userMapper.userEntityToDto(savedUser);
     }
 
-    public UserDto findByLogin(String login) {
-        User user = userRepository.findByLogin(login)
+    //todo update to fundbyUsername -- be aware there are another method with the same name
+    public UserDto findByLogin(String username) {
+        User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new AppException("Unknown user", HttpStatus.NOT_FOUND));
         return userMapper.userEntityToDto(user);
     }
@@ -304,15 +300,15 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("!!!! User not found"));
         Role role = roleRepository.findById(roleId).orElseThrow(() -> new EntityNotFoundException("!!!! Role not found"));
 
-//        List<Role>  roles = user.getRoles();
-////
-////        if(roles == null)
-////            roles = new ArrayList<>();
-////
-////        roles.add(role);
-////        user.setRoles(roles);
+        List<Role>  roles = user.getRoles();
 
-        user.setRole(RoleE.SELLER);
+        if(roles == null)
+            roles = new ArrayList<>();
+
+        roles.add(role);
+        user.setRoles(roles);
+
+//        user.setRole(RoleE.SELLER);
         userRepository.save(user);
     }
 

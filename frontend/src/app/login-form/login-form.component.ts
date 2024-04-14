@@ -14,7 +14,6 @@ export class LoginFormComponent {
 	active: string = "login";
   firstName: string = "";
   lastName: string = "";
-  login: string = "";
   password: string = "";
   emailAddress: string = "";
 	username: string ="";
@@ -29,12 +28,13 @@ export class LoginFormComponent {
 		this.active = "register";
 	}
 
+  //todo - modified from login to username
   onSubmitLogin(): void {
-    this.onSubmitLoginEvent.emit({"login": this.login, "password": this.password});
+    this.onSubmitLoginEvent.emit({"username": this.username, "password": this.password});
   }
 
   onSubmitRegister(): void {
-    this.onSubmitRegisterEvent.emit({"username": this.username, "emailAddress":this.emailAddress, "firstName": this.firstName, "lastName": this.lastName, "login": this.login, "password": this.password});
+    this.onSubmitRegisterEvent.emit({"firstName": this.firstName, "lastName": this.lastName, "username": this.username, "password": this.password});
   }
 
 }

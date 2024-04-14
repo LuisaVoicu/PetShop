@@ -24,33 +24,38 @@ export class LoggedFormComponent {
 
   constructor(private axiosService: AxiosService, private route: ActivatedRoute) { }
 
-  ngOnInit(): void {
+      ngOnInit(): void {
 
-   this.route.params.subscribe(params => {
-    this.username = params['username'];
-    console.log('Usernameu vietii:', this.username);
-  });
+        this.route.params.subscribe(params => {
+          this.username = params['username'];
+          console.log('Usernameu vietii:', this.username);
+          console.log('token in logged::::', this.axiosService.getAuthToken());
 
-   this.axiosService.request(
-    "POST",
-    "/logged",
-    this.username).then(
-    (response) => {
-        this.loggedUser = response.data;
-        this.loggedUser.roles?.forEach((item) => {
-          console.log(item); // Access each element using item
-      });
+        });
 
-    }).catch(
-    (error) => {
-        if (error.response.status === 401) {
-            this.axiosService.setAuthToken(null);
-        } else {
-            this.loggedUser = error.response.code;
+        const requestBody = { username: this.username };
+
+        this.axiosService.request(
+        "POST",
+        "/logged",
+        this.username).then(
+        (response) => {
+            this.loggedUser = response.data;
+            console.log("logged firstname---->"+this.loggedUser.firstName);
+            this.loggedUser.roles?.forEach((item) => {
+              console.log("roles:"+item); // Access each element using item
+          });
+
+        }).catch(
+        (error) => {
+            if (error.response.status === 401) {
+                this.axiosService.setAuthToken(null);
+            } else {
+                this.loggedUser = error.response.code;
+            }
+
         }
-
-    }
-);
+    );
 
   }
 
