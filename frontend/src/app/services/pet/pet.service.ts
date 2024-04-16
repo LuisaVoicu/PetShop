@@ -20,11 +20,16 @@ export class PetService {
   constructor(private axiosService: AxiosService) {}
 
   getAllPets(): Observable<Pet[]> {
+
+    console.log("in pet.service, user roles stored in axios.service:"+this.axiosService.getUserRoles());
+
     return new Observable<Pet[]>(observer => {
       this.axiosService.request('GET', '/pet', {})
         .then(response => {
           observer.next(response.data);
           observer.complete();
+      
+
         })
         .catch(error => {
           observer.error(error);
@@ -48,6 +53,10 @@ export class PetService {
   }
 
   deletePet(petData: any): Observable<Pet> {
+
+
+    console.log("in pet.service, user roles stored in axios.service:"+this.axiosService.getUserRoles());
+
     return new Observable<Pet>(observer => {
       this.axiosService.request('POST', '/pet-delete', petData)
         .then(response => {

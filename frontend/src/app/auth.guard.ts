@@ -14,7 +14,7 @@ export class AuthGuard implements CanActivate {
 
     console.log("SUNT IN AUTH GUARD!!!!" + userRoles);
 
-    if ( userRoles.includes('CUSTOMER')) {
+    if ( userRoles.includes('CUSTOMER') ||  userRoles.includes('FOSTER') || userRoles.includes("ADMIN")) {
         console.log("AR TREBUI SA MEARGA AUTHORIZATION");
 
         return true;

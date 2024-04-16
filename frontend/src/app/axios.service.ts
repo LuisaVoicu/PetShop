@@ -12,8 +12,6 @@ export class AxiosService {
   }
 
   getAuthToken(): string | null {
-  // return window.localStorage.getItem("auth_token");
-
    if (typeof window !== 'undefined') {
     return window.localStorage.getItem("auth_token");
   }
@@ -36,6 +34,8 @@ export class AxiosService {
       if (this.getAuthToken() !== null) {
           headers = {"Authorization": "Bearer " + this.getAuthToken()};
       }
+
+      console.log("in AXIOS.service, user roles stored in axios.service:"+this.getUserRoles());
 
       return axios({
           method: method,
@@ -65,4 +65,7 @@ export class AxiosService {
       }
   }
 
+  isAuthenticated(): boolean {
+    return (this.getAuthToken() !== null);
+  }
 }

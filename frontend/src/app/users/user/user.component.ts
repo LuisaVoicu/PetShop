@@ -25,14 +25,8 @@ export class UserComponent {
   }
 
   ngOnInit(): void {
-    // this.userService.getAllUsers().subscribe(
-    //   users => {
-    //      this.users = users;
-    //   },
-    //   error => {
-    //     console.error('Error fetching users:', error);
-    //   }
-    // );
+
+    console.log("in user.service, user roles stored in axios.service:" + this.axiosService.getUserRoles());
 
     this.axiosService.request(
       "GET",

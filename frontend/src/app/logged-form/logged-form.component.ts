@@ -24,7 +24,7 @@ export class LoggedFormComponent {
 
   constructor(private axiosService: AxiosService, private route: ActivatedRoute) { }
 
-      ngOnInit(): void {
+  ngOnInit(): void {
 
         this.route.params.subscribe(params => {
           this.username = params['username'];
@@ -42,17 +42,14 @@ export class LoggedFormComponent {
         (response) => {
             this.loggedUser = response.data;
             console.log("logged firstname---->"+this.loggedUser.firstName);
-            this.loggedUser.roles?.forEach((item) => {
-              console.log("roles:"+item); // Access each element using item
-          });
 
-        }).catch(
-        (error) => {
-            if (error.response.status === 401) {
-                this.axiosService.setAuthToken(null);
-            } else {
-                this.loggedUser = error.response.code;
-            }
+          }).catch(
+          (error) => {
+              if (error.response.status === 401) {
+                  this.axiosService.setAuthToken(null);
+              } else {
+                  this.loggedUser = error.response.code;
+              }
 
         }
     );

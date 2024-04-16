@@ -4,6 +4,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.petshop.petshop.mappper.RoleMapper;
 import com.petshop.petshop.mappper.dto.UserDto;
 import com.petshop.petshop.service.UserService;
 import jakarta.annotation.PostConstruct;
@@ -11,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import java.awt.*;
@@ -19,6 +21,7 @@ import java.util.List;
 import java.util.Base64;
 import java.util.Collections;
 import java.util.Date;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Component
@@ -28,6 +31,8 @@ public class UserAuthenticationProvider {
     private String secretKey;
 
     private final UserService userService;
+
+    private final RoleMapper roleMapper;
 
     @PostConstruct
     protected void init() {
@@ -44,9 +49,14 @@ public class UserAuthenticationProvider {
         Date now = new Date();
         Date validity = new Date(now.getTime() + 3600000); // 1 hour
 
+
+
+        System.out.println("testing roles in authentication provider - token:creation :: " + user.getRoles().get(0));
+
+
         Algorithm algorithm = Algorithm.HMAC256(secretKey);
         return JWT.create()
-                .withSubject(user.getUsername()) //todo - had getLogin() before
+                .withSubject(user.getUsername())
                 .withIssuedAt(now)
                 .withExpiresAt(validity)
                 .withClaim("firstName", user.getFirstName())
@@ -63,11 +73,18 @@ public class UserAuthenticationProvider {
 
         DecodedJWT decoded = verifier.verify(token);
 
-        System.out.println("VALIDATE_TOKEN: -- I AM HERE!!!!!!!!!!!!!!!");
+        System.out.println("User authentication provider: VALIDATE_TOKEN: -- I AM HERE!!!!!!!!!!!!!!!");
         //todo:  don't know if it's working
-        String role = decoded.getClaim("role").asString();
-        List<String> roles = decoded.getClaim("role").asList(String.class);
+        List<String> roles = decoded.getClaim("roles").asList(String.class);
 
+        String firstName =  decoded.getClaim("firstName").asString();
+        System.out.println("first name: " + firstName);
+
+        System.out.println("my roles:");
+        for(String s : roles){
+            System.out.println("role: " + s);
+        }
+        System.out.println("end roles");
 
         UserDto user = UserDto.builder()
                 .username(decoded.getSubject())
@@ -76,23 +93,18 @@ public class UserAuthenticationProvider {
                 .roles(roles)
                 .build();
 
-        return new UsernamePasswordAuthenticationToken(user, null, Collections.emptyList());
-    }
+        List<SimpleGrantedAuthority> authorities = roles.stream()
+                .map(role -> new SimpleGrantedAuthority(role))
+                .collect(Collectors.toList());
 
-    public Authentication validateTokenStrongly(String token) {
-        Algorithm algorithm = Algorithm.HMAC256(secretKey);
 
-        JWTVerifier verifier = JWT.require(algorithm)
-                .build();
+        System.out.println("(userAuthenticationProvider-validate token: Authorities:");
+        for (SimpleGrantedAuthority authority : authorities) {
+            System.out.println(authority.getAuthority());
+        }
+        System.out.println("end");
 
-        DecodedJWT decoded = verifier.verify(token);
-
-        System.out.println("\n----------------------------------------------------------------\n");
-        System.out.println("TOKEN::" + token);
-        System.out.println("\n----------------------------------------------------------------\n");
-        UserDto user = userService.findByLogin(decoded.getSubject());
-
-        return new UsernamePasswordAuthenticationToken(user, null, Collections.emptyList());
+        return new UsernamePasswordAuthenticationToken(user, null, authorities);
     }
 
 }

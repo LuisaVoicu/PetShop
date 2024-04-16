@@ -28,6 +28,7 @@ export class UserService {
         .then(response => {
           observer.next(response.data);
           observer.complete();
+          
         })
         .catch(error => {
           observer.error(error);

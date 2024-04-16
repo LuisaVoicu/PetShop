@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Pet } from '../../models/Pet';
 import { PetService } from '../../services/pet/pet.service';
 import { ActivatedRoute } from '@angular/router';
-
+import { User } from '../../models/User';
 @Component({
   selector: 'app-pet',
   templateUrl: './pet.component.html',
@@ -19,6 +19,17 @@ export class PetComponent {
   };
   username: string = '';
 
+
+  loggedUser: User = {
+    id:0,
+    firstName: '',
+    lastName: '',
+    username: '',
+    emailAddress: '',
+    imageurl: '',
+    loginTime: new Date()
+  };
+
   constructor(private petService : PetService, private route:ActivatedRoute){
 
   }
@@ -26,11 +37,13 @@ export class PetComponent {
   ngOnInit(): void {
 
     this.route.params.subscribe(params => {
-      this.username = params['username'];
-      console.log('Usernameu vietii:', this.username);
+      this.loggedUser = params['loggedUser'];
+      console.log('Usernameu vietii:', this.loggedUser.username);
+      
     });
   
 
+    
     this.petService.getAllPets().subscribe(
       pets => {
          this.pets = pets;

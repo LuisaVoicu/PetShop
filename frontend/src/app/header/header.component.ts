@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '../models/User';
+import { AxiosService } from '../axios.service';
 
 @Component({
   selector: 'app-header',
@@ -10,11 +11,19 @@ import { User } from '../models/User';
 export class HeaderComponent {
 	@Input() pageTitle!: string;
 	@Input() logoSrc!: string;
-  @Input() loggedUser: User | null = null;  // Define input property for loggedUser
+  @Input() loggedUser: User | null = null;  
 
-  // constructor(private router: Router) {}
 
-  // navigateTo(route: string) {
-  //   this.router.navigate([route]);
-  // }
+
+  roles: string[] = [];
+  authenticated: boolean = false
+
+  constructor(private axiosService: AxiosService){}
+
+  
+  ngOnInit(): void {
+    this.roles = this.axiosService.getUserRoles();
+    this.authenticated  = this.axiosService.isAuthenticated();
+  }
+
 }

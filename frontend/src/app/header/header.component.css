@@ -123,3 +123,21 @@ nav ul li a{
   margin-right: 10px; 
 }
 
+.container .menu .authenticated {
+  display: flex; 
+  align-items: center; 
+}
+
+.container .menu .authenticated > div {
+  display: flex; 
+  align-items: center; 
+  margin-right: 10px; 
+}
+
+.container .menu .authenticated .dropdown-product {
+  order: 1;
+}
+
+.container .menu .authenticated .cart {
+  order: 2;
+}
