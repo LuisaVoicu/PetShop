@@ -1,5 +1,6 @@
 package com.petshop.petshop.controller;
 
+import com.petshop.petshop.controller.validation.GlobalExceptionHandlerController;
 import com.petshop.petshop.mappper.dto.*;
 import com.petshop.petshop.model.Pet;
 import com.petshop.petshop.model.Product;
@@ -12,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -25,7 +27,7 @@ import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
-public class UserController {
+public class UserController extends GlobalExceptionHandlerController {
 
     private final UserService userService;
     private final RoleService roleService;

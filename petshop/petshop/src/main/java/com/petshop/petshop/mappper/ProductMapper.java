@@ -34,12 +34,12 @@ public class ProductMapper {
     public Product productDtoToEntity(ProductDto productDto){
         return Product
                 .builder()
-                .id(productDto.id())
-                .name(productDto.name())
-                .description(productDto.description())
+                .id(productDto.getId())
+                .name(productDto.getName())
+                .description(productDto.getDescription())
                // .category(productDto.category())
-                .imageurl(productDto.imageurl())
-                .price(productDto.price())
+                .imageurl(productDto.getImageurl())
+                .price(productDto.getPrice())
                 .build();
     }
 

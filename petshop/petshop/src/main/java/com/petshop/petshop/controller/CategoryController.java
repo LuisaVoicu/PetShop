@@ -1,9 +1,8 @@
 package com.petshop.petshop.controller;
 
+import com.petshop.petshop.controller.validation.GlobalExceptionHandlerController;
 import com.petshop.petshop.mappper.dto.CategoryDto;
-import com.petshop.petshop.mappper.dto.PetDto;
 import com.petshop.petshop.model.Category;
-import com.petshop.petshop.model.Pet;
 import com.petshop.petshop.model.Product;
 import com.petshop.petshop.service.CategoryService;
 import lombok.AllArgsConstructor;
@@ -21,7 +20,7 @@ import java.util.List;
 
 @Controller
 @AllArgsConstructor
-public class CategoryController {
+public class CategoryController extends GlobalExceptionHandlerController {
 
     private final CategoryService categoryService;
 

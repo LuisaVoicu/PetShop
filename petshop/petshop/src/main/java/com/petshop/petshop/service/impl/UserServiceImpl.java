@@ -46,19 +46,14 @@ public class UserServiceImpl implements UserService {
 
     private final ProductMapper productMapper;
 
-    @Override
-    public boolean checkEmail(String email) {
-        return userRepository.existsByEmailAddress(email);
-    }
-
-    @Override
+      @Override
     public UserDto registerUser(RegistrationRequest registrationRequest) {
         User user = User.builder()
                 .username(registrationRequest.getUsername())
                 .firstName(registrationRequest.getFirstName())
                 .lastName(registrationRequest.getLastName())
                 .password(registrationRequest.getPassword())
-                .emailAddress(registrationRequest.getEmailAddress())
+                .email_address(registrationRequest.getEmail_address())
                // .role((roleRepository.findByRole("USER")))
                 .build();
 
@@ -89,7 +84,7 @@ public class UserServiceImpl implements UserService {
         if(user.isEmpty()){
             return null;
         }
-        List<Product> cartProducts = user.get().getCartProducts();
+        List<Product> cartProducts = user.get().getCart_products();
 
         if(cartProducts == null)
             return null;
@@ -107,7 +102,7 @@ public class UserServiceImpl implements UserService {
         if(user.isEmpty()){
             return null;
         }
-        List<Product> cartProducts = user.get().getFavouriteProducts();
+        List<Product> cartProducts = user.get().getFavorite();
 
         if(cartProducts == null)
             return null;
@@ -126,7 +121,7 @@ public class UserServiceImpl implements UserService {
         if(user.isEmpty()){
             return null;
         }
-        List<Product> cartProducts = user.get().getCartProducts();
+        List<Product> cartProducts = user.get().getCart_products();
 
         if(cartProducts == null)
             return null;
@@ -141,7 +136,7 @@ public class UserServiceImpl implements UserService {
         User userUpdate = user.get();
         userRepository.delete(userUpdate);
 
-        userUpdate.setCartProducts(new ArrayList<>());
+        userUpdate.setCart_products(new ArrayList<>());
         userRepository.save(userUpdate);
 
         for(Product p : cartProducts){
@@ -224,11 +219,11 @@ public class UserServiceImpl implements UserService {
     public UserDto login(CredentialsDto credentialsDto) {
 
         //todo - hashing pe parole
-        System.out.println("username credentials:"+credentialsDto.username());
+        System.out.println("username credentials:"+credentialsDto.getUsername());
 //        User user = userRepository.findByUsername(credentialsDto.login())
 //                .orElseThrow(() -> new AppException("Unknown user", HttpStatus.NOT_FOUND));
 
-        User user = userRepository.findByUsername(credentialsDto.username())
+        User user = userRepository.findByUsername(credentialsDto.getUsername())
                 .orElseThrow(() -> new AppException("Unknown user", HttpStatus.NOT_FOUND));
 
 /*        System.out.println("parole:\n"+passwordEncoder.encode(CharBuffer.wrap(credentialsDto.password()))+"\n"+user.getPassword()+"\n");
@@ -248,7 +243,7 @@ public class UserServiceImpl implements UserService {
         System.out.println("time:"+user.getLoginTime());
         User saved = userRepository.save(user);
 
-        if(CharBuffer.wrap(credentialsDto.password()).toString().equals(user.getPassword())) {
+        if(CharBuffer.wrap(credentialsDto.getPassword()).toString().equals(user.getPassword())) {
             return userMapper.userEntityToDto(saved);
         }
 
@@ -258,9 +253,9 @@ public class UserServiceImpl implements UserService {
     public UserDto register(SignUpDto userSignUp) {
 
         System.out.println("REGISTER IN UserServiceImpl");
-        System.out.println(userSignUp.username() + " "  + userSignUp.password());
+        System.out.println(userSignUp.getUsername() + " "  + userSignUp.getPassword());
         //todo: aici am username nu ca in tutorial
-        Optional<User> optionalUser = userRepository.findByUsername(userSignUp.username());
+        Optional<User> optionalUser = userRepository.findByUsername(userSignUp.getUsername());
 
         if (optionalUser.isPresent()) {
             throw new AppException("Login already exists", HttpStatus.BAD_REQUEST);
@@ -320,20 +315,20 @@ public class UserServiceImpl implements UserService {
         if(product.isEmpty())
             return null;
 
-        List<Product> addedToCart = user.getCartProducts();
+        List<Product> addedToCart = user.getCart_products();
 
         if(addedToCart == null)
             addedToCart = new ArrayList<>();
 
         addedToCart.add(product.get());
 
-        user.setCartProducts(addedToCart);
+        user.setCart_products(addedToCart);
         User saved = userRepository.save(user);
 
         if(saved == null)
             return null;
 
-        List<Product> savedProd = saved.getCartProducts();
+        List<Product> savedProd = saved.getCart_products();
 
         UserDto savedDto = userMapper.userEntityToDto(saved);
 
@@ -349,7 +344,7 @@ public class UserServiceImpl implements UserService {
         if(product.isEmpty())
             return null;
 
-        List<Product> addedToFav = user.getFavouriteProducts();
+        List<Product> addedToFav = user.getFavorite();
 
         if(addedToFav == null)
             addedToFav = new ArrayList<>();
@@ -357,13 +352,13 @@ public class UserServiceImpl implements UserService {
         if(!addedToFav.contains(product.get()))
             addedToFav.add(product.get());
 
-        user.setFavouriteProducts(addedToFav);
+        user.setFavorite(addedToFav);
         User saved = userRepository.save(user);
 
         if(saved == null)
             return null;
 
-        List<Product> savedProd = saved.getCartProducts();
+        List<Product> savedProd = saved.getCart_products();
 
         UserDto savedDto = userMapper.userEntityToDto(saved);
 
@@ -379,7 +374,7 @@ public class UserServiceImpl implements UserService {
         if(product.isEmpty())
             return null;
 
-        List<Product> toRemoveFromFav = user.getFavouriteProducts();
+        List<Product> toRemoveFromFav = user.getFavorite();
 
 
         if(toRemoveFromFav == null || !toRemoveFromFav.contains(product.get()))
@@ -387,13 +382,13 @@ public class UserServiceImpl implements UserService {
 
 
         toRemoveFromFav.remove(product.get());
-        user.setFavouriteProducts(toRemoveFromFav);
+        user.setFavorite(toRemoveFromFav);
         User saved = userRepository.save(user);
 
         if(saved == null)
             return null;
 
-        List<Product> savedProd = saved.getCartProducts();
+        List<Product> savedProd = saved.getCart_products();
 
         UserDto savedDto = userMapper.userEntityToDto(saved);
 

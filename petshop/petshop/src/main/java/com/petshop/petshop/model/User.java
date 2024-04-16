@@ -26,7 +26,7 @@ public class User {
 
     private String password;
 
-    private String emailAddress;
+    private String email_address;
 
     private String lastName;
 
@@ -60,7 +60,7 @@ public class User {
             inverseJoinColumns = {
                     @JoinColumn(name = "PRODUCTS_ID",
                             referencedColumnName = "ID")})
-    private List<Product> favouriteProducts;
+    private List<Product> favorite;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "user_cart_products",
@@ -70,13 +70,13 @@ public class User {
             inverseJoinColumns = {
                     @JoinColumn(name = "PRODUCT_ID",
                             referencedColumnName = "ID")})
-    private List<Product> cartProducts;
+    private List<Product> cart_products;
 
     private LocalDateTime loginTime;
     private String imageurl;
 
     public String toString(){
-       return lastName+ " "+ firstName +  " " + emailAddress + " " + password;
+       return lastName+ " "+ firstName +  " " + email_address + " " + password;
 
     }
 }

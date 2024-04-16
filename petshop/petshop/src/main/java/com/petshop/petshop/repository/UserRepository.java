@@ -19,6 +19,5 @@ public interface UserRepository extends CrudRepository<User,Long> {
             attributePaths = {"roles"})
     List<User> findAll();
 
-    boolean existsByEmailAddress(String emailAddress);
 
 }

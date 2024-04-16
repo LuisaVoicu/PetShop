@@ -1,5 +1,6 @@
 package com.petshop.petshop.controller;
 
+import com.petshop.petshop.controller.validation.GlobalExceptionHandlerController;
 import com.petshop.petshop.mappper.dto.PetTypeDto;
 import com.petshop.petshop.service.PetTypeService;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +13,7 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-public class PetTypeController {
+public class PetTypeController extends GlobalExceptionHandlerController {
 
 
     private final PetTypeService petTypeService;

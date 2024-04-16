@@ -15,7 +15,7 @@ public class RegistrationRequest {
 
     private String lastName;
 
-    private String emailAddress;
+    private String email_address;
 
     private List<Role> roles;
 }

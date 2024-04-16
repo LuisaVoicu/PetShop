@@ -4,13 +4,13 @@ export class User{
     firstName!:string;
     lastName!:string;
     username!:string;
-    emailAddress!:string;
+    email_address!:string;
     birthdate?:object;
     roles?:string[];
     ownProducts?:object;
     saleProducts?:object;
-    favoriteProducts?:object;
-    cartProducts?:object;
+    favorite?:object;
+    cart_products?:object;
     imageurl!:string;
     loginTime!: Date;
 

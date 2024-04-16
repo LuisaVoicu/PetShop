@@ -11,7 +11,7 @@
       <div class="user-details">
         <p class="username">Username: {{ loggedUser.username }}</p>
         <p class="name">Name: {{ loggedUser.firstName }} {{ loggedUser.lastName }}</p>
-        <p class="email">Email: {{ loggedUser.emailAddress }}</p>
+        <p class="email">Email: {{ loggedUser.email_address }}</p>
         <div class="roles">
           <p class="role" *ngFor="let role of loggedUser.roles">Role: {{ role }}</p>
         </div>

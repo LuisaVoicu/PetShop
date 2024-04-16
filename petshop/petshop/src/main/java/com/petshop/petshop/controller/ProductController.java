@@ -1,6 +1,7 @@
 package com.petshop.petshop.controller;
 
 
+import com.petshop.petshop.controller.validation.GlobalExceptionHandlerController;
 import com.petshop.petshop.mappper.dto.CredentialsDto;
 import com.petshop.petshop.mappper.dto.ProductDto;
 import com.petshop.petshop.mappper.dto.SignUpDto;
@@ -24,7 +25,7 @@ import java.util.Optional;
 
 @Controller
 @AllArgsConstructor
-public class ProductController {
+public class ProductController extends GlobalExceptionHandlerController {
 
     private final ProductService productService;
 
@@ -39,20 +40,20 @@ public class ProductController {
     @PostMapping("/product-create")
     public ResponseEntity<ProductDto> createProduct(@RequestBody(required = false) @Valid ProductDto product) {
 
-        System.out.println("!!!!---> " + product.imageurl());
+        System.out.println("!!!!---> " + product.getImageurl());
 
         ProductDto createdProduct = productService.createProduct(product);
-        return ResponseEntity.created(URI.create("/product-create" + createdProduct.id())).body(createdProduct);
+        return ResponseEntity.created(URI.create("/product-create" + createdProduct.getId())).body(createdProduct);
     }
 
     @PostMapping("/product-delete")
     public ResponseEntity<ProductDto> deleteProduct(@RequestBody(required = false) @Valid ProductDto productDto) {
-        if (productDto == null || productDto.id() == null) {
+        if (productDto == null || productDto.getId() == null) {
             // Handle case when product or product ID is missing
             return ResponseEntity.badRequest().build();
         }
 
-        Product deletedProduct = productService.getProductById(productDto.id());
+        Product deletedProduct = productService.getProductById(productDto.getId());
 
         if (deletedProduct != null) {
             productService.deleteProduct(deletedProduct);
@@ -65,22 +66,13 @@ public class ProductController {
 
     @PostMapping("/product-edit")
     public ResponseEntity<ProductDto> editProduct(@RequestBody(required = false) @Valid ProductDto productDto) {
-        if (productDto == null || productDto.id() == null) {
+        if (productDto == null || productDto.getId() == null) {
             // Handle case when product or product ID is missing
             return ResponseEntity.badRequest().build();
         }
-        System.out.println("AAAAAAAA!!!!" + productDto.id()+ " " + productDto.name() + "--");
+        System.out.println("AAAAAAAA!!!!" + productDto.getId()+ " " + productDto.getName() + "--");
         ProductDto editedProduct = productService.updateProductDto(productDto);
-        return ResponseEntity.created(URI.create("/product-create" + editedProduct.id())).body(editedProduct);
+        return ResponseEntity.created(URI.create("/product-create" + editedProduct.getId())).body(editedProduct);
     }
-
-
-
-/*    @PostMapping("/product-edit-details")
-    public ResponseEntity<ProductDto> createProduct(@RequestBody @Valid ProductDto product) {
-        ProductDto createdProduct = productService.createProduct(product);
-        return ResponseEntity.created(URI.create("/product-create" + createdProduct.id())).body(createdProduct);
-    }*/
-
 
 }

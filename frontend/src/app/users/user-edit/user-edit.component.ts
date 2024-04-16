@@ -15,7 +15,7 @@ export class UserEditComponent {
     firstName: '',
     lastName: '',
     username: '',
-    emailAddress: '',
+    email_address: '',
     imageurl: '',
     loginTime: new Date()
   };
@@ -26,7 +26,7 @@ export class UserEditComponent {
     firstName: '',
     lastName: '',
     username: '',
-    emailAddress: '',
+    email_address: '',
     imageurl: '',
     loginTime: new Date()
   };

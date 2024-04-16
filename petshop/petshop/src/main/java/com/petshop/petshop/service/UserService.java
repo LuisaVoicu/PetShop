@@ -10,9 +10,6 @@ import java.util.Optional;
 
 public interface UserService {
 
-    boolean checkEmail(String email);
-
-    //todo
     UserDto registerUser(RegistrationRequest registrationRequest);
 
     UserDto getUserDtoById(Long id);

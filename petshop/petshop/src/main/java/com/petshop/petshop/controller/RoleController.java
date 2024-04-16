@@ -1,5 +1,6 @@
 package com.petshop.petshop.controller;
 
+import com.petshop.petshop.controller.validation.GlobalExceptionHandlerController;
 import com.petshop.petshop.mappper.dto.RoleDto;
 import com.petshop.petshop.model.Role;
 import com.petshop.petshop.service.RoleService;
@@ -16,7 +17,7 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 
-public class RoleController {
+public class RoleController extends GlobalExceptionHandlerController {
 
     private final RoleService roleService;
 

@@ -1,5 +1,6 @@
 package com.petshop.petshop.controller;
 
+import com.petshop.petshop.controller.validation.GlobalExceptionHandlerController;
 import com.petshop.petshop.mappper.dto.PetDto;
 import com.petshop.petshop.mappper.dto.ProductDto;
 import com.petshop.petshop.model.Pet;
@@ -21,7 +22,7 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-public class PetController {
+public class PetController extends GlobalExceptionHandlerController {
 
     private final PetService petService;
 

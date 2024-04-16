@@ -1,5 +1,6 @@
 package com.petshop.petshop.controller;
 
+import com.petshop.petshop.controller.validation.GlobalExceptionHandlerController;
 import com.petshop.petshop.mappper.dto.UserDto;
 import com.petshop.petshop.model.User;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @RestController
-public class MessagesController {
+public class MessagesController extends GlobalExceptionHandlerController {
 
     @GetMapping("/messages")
     public ResponseEntity<List<String>> messages() {

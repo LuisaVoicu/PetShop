@@ -2,19 +2,15 @@ package com.petshop.petshop.controller;
 
 
 import com.petshop.petshop.config.UserAuthenticationProvider;
+import com.petshop.petshop.controller.validation.GlobalExceptionHandlerController;
 import com.petshop.petshop.mappper.dto.CredentialsDto;
 import com.petshop.petshop.mappper.dto.SignUpDto;
 import com.petshop.petshop.mappper.dto.UserDto;
-import com.petshop.petshop.model.RegistrationRequest;
 import com.petshop.petshop.model.User;
 import com.petshop.petshop.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.net.URI;
@@ -25,7 +21,7 @@ import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
-public class HomeController {
+public class HomeController extends GlobalExceptionHandlerController {
 
     private final UserService userService;
     private final UserAuthenticationProvider userAuthenticationProvider;
@@ -51,7 +47,7 @@ public class HomeController {
     @PostMapping("/login")
     public ResponseEntity<UserDto> login(@RequestBody @Valid CredentialsDto credentialsDto) {
 
-        System.out.println("login homeController:" + credentialsDto.username());
+        System.out.println("login homeController:" + credentialsDto.getUsername());
         UserDto userDto = userService.login(credentialsDto);
         userDto.setToken(userAuthenticationProvider.createToken(userDto));
 

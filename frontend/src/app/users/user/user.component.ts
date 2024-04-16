@@ -15,7 +15,7 @@ export class UserComponent {
     firstName: '',
     lastName: '',
     username: '',
-    emailAddress: '',
+    email_address: '',
     imageurl: '',
     loginTime: new Date()
   };
