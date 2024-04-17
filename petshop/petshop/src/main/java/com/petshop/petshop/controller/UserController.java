@@ -40,7 +40,7 @@ public class UserController extends GlobalExceptionHandlerController {
     }
 
     @PostMapping("/user-delete")
-    public ResponseEntity<UserDto> deleteUser(@RequestBody(required = false) @Valid UserDto userDto) {
+    public ResponseEntity<UserDto> deleteUser(@RequestBody(required = false) UserDto userDto) {
         if (userDto == null || userDto.getId() == null) {
             // Handle case when product or product ID is missing
             return ResponseEntity.badRequest().build();
@@ -57,8 +57,9 @@ public class UserController extends GlobalExceptionHandlerController {
     }
 
 
+    //todo add @Valid - it might not work (same for user-delete)
     @PostMapping("/user-edit")
-    public ResponseEntity<UserDto> editUser(@RequestBody(required = false) @Valid UserDto userDto) {
+    public ResponseEntity<UserDto> editUser(@RequestBody(required = false)  UserDto userDto) {
 
         if (userDto == null || userDto.getId() == null) {
             return ResponseEntity.badRequest().build();
@@ -70,7 +71,7 @@ public class UserController extends GlobalExceptionHandlerController {
             return ResponseEntity.badRequest().build();
         }
 
-        UserDto editedUser = userService.updateFromUserDto(userDto, user.getPassword());
+        UserDto editedUser = userService.updateFromUserDto(userDto, user.getPassword(), user.getRoles());
 
         if (editedUser == null)
             return ResponseEntity.badRequest().build();

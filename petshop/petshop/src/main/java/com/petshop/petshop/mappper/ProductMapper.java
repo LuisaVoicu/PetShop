@@ -32,6 +32,9 @@ public class ProductMapper {
     }
 
     public Product productDtoToEntity(ProductDto productDto){
+        if(productDto == null){
+            return  null;
+        }
         return Product
                 .builder()
                 .id(productDto.getId())
@@ -46,6 +49,9 @@ public class ProductMapper {
 
 
     public List<Product> productListDtoToEntity(List<ProductDto> productListDto){
+        if(productListDto == null){
+            return  null;
+        }
         return productListDto.stream()
                 .map(productDto -> productDtoToEntity(productDto))
                 .toList();

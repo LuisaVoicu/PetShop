@@ -2,6 +2,7 @@ package com.petshop.petshop.service;
 
 import com.petshop.petshop.mappper.dto.*;
 import com.petshop.petshop.model.RegistrationRequest;
+import com.petshop.petshop.model.Role;
 import com.petshop.petshop.model.User;
 
 import java.time.LocalDateTime;
@@ -23,7 +24,7 @@ public interface UserService {
     UserDto createUserDto(User user);
 
     UserDto updateUserDto(User user);
-    UserDto updateFromUserDto(UserDto userDto, String password);
+    UserDto updateFromUserDto(UserDto userDto, String password, List<Role> roles);
 
     void deleteUser(User user);
 

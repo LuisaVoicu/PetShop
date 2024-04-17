@@ -56,6 +56,7 @@ public class HomeController extends GlobalExceptionHandlerController {
 
     @PostMapping("/register")
     public ResponseEntity<UserDto> register(@RequestBody @Valid SignUpDto user) {
+        System.out.println("!!!!!!!!!!!!!! email" + user.getEmail_address());
         UserDto createdUser = userService.register(user);
         createdUser.setToken(userAuthenticationProvider.createToken(createdUser));
         return ResponseEntity.created(URI.create("/users/" + createdUser.getId())).body(createdUser);

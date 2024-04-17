@@ -84,7 +84,7 @@ export class UserService {
     console.log("AAAAAAAAAAAA: " + userData.id);
     console.log("AAAAAAAAAAAA: " + userData.lastName);
     console.log("AAAAAAAAAAAA: " + userData.firstName);
-    console.log("AAAAAAAAAAAA: " + userData.emailAddress);
+    console.log("AAAAAAAAAAAA: " + userData.email_address);
     console.log("AAAAAAAAAAAA: " + userData.username);
     console.log("AAAAAAAAAAAA: " + userData.birthdate);
     return new Observable<User>(observer => {

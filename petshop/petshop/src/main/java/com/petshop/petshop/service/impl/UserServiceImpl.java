@@ -203,10 +203,20 @@ public class UserServiceImpl implements UserService {
         return userMapper.userEntityToDto(userRepository.save(user));
     }
     @Override
-    public UserDto updateFromUserDto(UserDto userDto, String password) {
-        User user = userMapper.userDtoToEntity(userDto, password);
-        System.out.println("~~~~~~~~~~~~~~>>>>>" + user.getId());
+    public UserDto updateFromUserDto(UserDto userDto, String password, List<Role> roles) {
+          User user = userMapper.userDtoToEntity(userDto, password);
+
+        System.out.println("user edited: " + user);
+
+        // TODO: it duplicate roles:
+
+        user.setRoles(roles);
        User saved = userRepository.save(user);
+
+
+        System.out.println("user dto init: " + userDto);
+
+        // UserDto savedDto u
        return userDto;
     }
 

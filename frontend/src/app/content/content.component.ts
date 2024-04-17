@@ -75,7 +75,7 @@ export class ContentComponent {
 		    {
 		        firstName: input.firstName,
 		        lastName: input.lastName,
-				emailAddress: input.emailAddress,
+				email_address: input.email_address,
 				username: input.username,
 		        password: input.password
 		    }).then(

@@ -29,8 +29,10 @@ public class SignUpDto {
     @NotBlank(message = "Last Name is mandatory!")
     private String lastName;
 
-    @NotNull(message = "Email Address is mandatory!")
-    @NotBlank(message = "Email Address is mandatory!")
+
+    //todo: for some reasons it doesn't work
+//    @NotNull(message = "Email Address is mandatory!")
+//    @NotBlank(message = "Email Address is mandatory!")
     private String email_address;
 
     @StrongPassword()

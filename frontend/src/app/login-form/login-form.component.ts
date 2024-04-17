@@ -15,7 +15,7 @@ export class LoginFormComponent {
   firstName: string = "";
   lastName: string = "";
   password: string = "";
-  emailAddress: string = "";
+  email_address: string = "";
 	username: string ="";
 
   constructor(private axiosService: AxiosService){}
@@ -26,6 +26,8 @@ export class LoginFormComponent {
 
 	onRegisterTab(): void {
 		this.active = "register";
+    console.log("---------------email address: " + this.email_address);
+
 	}
 
   //todo - modified from login to username
