@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { User } from '../models/User';
-import { AxiosService } from '../axios.service';
+import { User } from '../../models/User';
+import { AxiosService } from '../../axios.service';
 @Component({
   selector: 'app-logged-form',
   templateUrl: './logged-form.component.html',

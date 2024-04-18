@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthContentComponent } from './auth-content/auth-content.component';
-import { LoginFormComponent } from './login-form/login-form.component';
+import { AuthContentComponent } from './components/auth-content/auth-content.component';
+import { LoginFormComponent } from './components/login-form/login-form.component';
 import { ProductComponent } from './products/product/product.component';
-import { HomeComponent } from './home/home.component';
+import { HomeComponent } from './components/home/home.component';
 import { ProductCreateComponent } from './products/product-create/product-create.component';
 import { ProductDeleteComponent } from './products/product-delete/product-delete.component';
 import { ProductEditComponent } from './products/product-edit/product-edit.component';
@@ -17,12 +17,13 @@ import { UserEditComponent } from './users/user-edit/user-edit.component';
 import { CategoryComponent } from './categories/category/category.component';
 import { CategoryEditComponent } from './categories/category-edit/category-edit.component';
 import { CategoryDeleteComponent } from './categories/category-delete/category-delete.component';
-import { LoggedFormComponent } from './logged-form/logged-form.component';
-import { CartComponent } from './cart/cart.component';
-import { FavProdComponent } from './fav-prod/fav-prod.component';
-import { ReceiptComponent } from './receipt/receipt.component';
-import { LoginActivityComponent } from './login-activity/login-activity.component';
+import { LoggedFormComponent } from './components/logged-form/logged-form.component';
+import { CartComponent } from './components/cart/cart.component';
+import { FavProdComponent } from './components/fav-prod/fav-prod.component';
+import { ReceiptComponent } from './components/receipt/receipt.component';
+import { LoginActivityComponent } from './components/login-activity/login-activity.component';
 import { AuthGuard } from './auth.guard';
+import { ChatComponent } from './components/chat/chat.component';
 
 const routes: Routes = [
   //{ path: 'product-create', component: ProductCreateComponent, canActivate: [AuthGuard], data: { roles: ['ADMIN', 'SELLER'] } },
@@ -47,8 +48,9 @@ const routes: Routes = [
   { path: 'receipt', component: ReceiptComponent},
   { path: 'fav-prod', component: FavProdComponent, canActivate: [AuthGuard]},
   { path: 'login-activity', component: LoginActivityComponent},
+  { path: 'chat/:userId', component: ChatComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' }, 
-  { path: '**', redirectTo: '/home' }
+  { path: '**', redirectTo: '/home' },
 ];
 
 @NgModule({

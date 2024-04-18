@@ -4,16 +4,16 @@ import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ButtonsComponent } from './buttons/buttons.component';
-import { HeaderComponent } from './header/header.component';
-import { LoginFormComponent } from './login-form/login-form.component';
+import { ButtonsComponent } from './components/buttons/buttons.component';
+import { HeaderComponent } from './components/header/header.component';
+import { LoginFormComponent } from './components/login-form/login-form.component';
 import { WelcomeContentComponent } from './welcome-content/welcome-content.component';
-import { AuthContentComponent } from './auth-content/auth-content.component';
-import { ContentComponent } from './content/content.component';
+import { AuthContentComponent } from './components/auth-content/auth-content.component';
+import { ContentComponent } from './components/content/content.component';
 
 import { AxiosService } from './axios.service';
 import { ProductComponent } from './products/product/product.component';
-import { HomeComponent } from './home/home.component';
+import { HomeComponent } from './components/home/home.component';
 import { ProductCreateComponent } from './products/product-create/product-create.component';
 import { ProductDeleteComponent } from './products/product-delete/product-delete.component';
 import { ProductEditComponent } from './products/product-edit/product-edit.component';
@@ -27,13 +27,14 @@ import { UserEditComponent } from './users/user-edit/user-edit.component';
 import { CategoryComponent } from './categories/category/category.component';
 import { CategoryDeleteComponent } from './categories/category-delete/category-delete.component';
 import { CategoryEditComponent } from './categories/category-edit/category-edit.component';
-import { LoggedFormComponent } from './logged-form/logged-form.component';
-import { SearchComponent } from './search/search.component';
-import { CartComponent } from './cart/cart.component';
-import { ReceiptComponent } from './receipt/receipt.component';
+import { LoggedFormComponent } from './components/logged-form/logged-form.component';
+import { SearchComponent } from './components/search/search.component';
+import { CartComponent } from './components/cart/cart.component';
+import { ReceiptComponent } from './components/receipt/receipt.component';
 import {MatIconModule} from '@angular/material/icon';
-import { FavProdComponent } from './fav-prod/fav-prod.component';
-import { LoginActivityComponent } from './login-activity/login-activity.component';
+import { FavProdComponent } from './components/fav-prod/fav-prod.component';
+import { LoginActivityComponent } from './components/login-activity/login-activity.component';
+import { ChatComponent } from './components/chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -65,12 +66,13 @@ import { LoginActivityComponent } from './login-activity/login-activity.componen
     ReceiptComponent,
     FavProdComponent,
     LoginActivityComponent,
+    ChatComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    MatIconModule 
+    MatIconModule,
   ],
   providers: [AxiosService],
   bootstrap: [AppComponent]

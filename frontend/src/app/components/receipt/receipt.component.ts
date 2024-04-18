@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Receipt } from '../models/Receipt';
+import { Receipt } from '../../models/Receipt';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({

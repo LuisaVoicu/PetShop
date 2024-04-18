@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { User } from '../models/User';
-import { AxiosService } from '../axios.service';
+import { User } from '../../models/User';
+import { AxiosService } from '../../axios.service';
 
 @Component({
   selector: 'app-header',

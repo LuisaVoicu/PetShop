@@ -26,23 +26,6 @@ public class HomeController extends GlobalExceptionHandlerController {
     private final UserService userService;
     private final UserAuthenticationProvider userAuthenticationProvider;
 
-/*
-    @GetMapping("/login")
-    public String login(Model model){
-        model.addAttribute("title", "Login");
-
-        return "login";
-    }
-
-    @GetMapping("/login-error")
-    public String loginError(Model model){
-        model.addAttribute("title", "Login");
-        model.addAttribute("loginError", true);
-
-        return "login";
-    }
-*/
-
 
     @PostMapping("/login")
     public ResponseEntity<UserDto> login(@RequestBody @Valid CredentialsDto credentialsDto) {

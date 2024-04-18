@@ -1,7 +1,7 @@
 import { Component,  } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { User } from '../models/User';
-import { AxiosService } from '../axios.service';
+import { User } from '../../models/User';
+import { AxiosService } from '../../axios.service';
 @Component({
   selector: 'app-login-activity',
   templateUrl: './login-activity.component.html',

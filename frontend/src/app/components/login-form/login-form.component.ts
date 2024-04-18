@@ -1,5 +1,5 @@
 import { EventEmitter, Component, Output } from '@angular/core';
-import { AxiosService } from '../axios.service';
+import { AxiosService } from '../../axios.service';
 
 @Component({
   selector: 'app-login-form',

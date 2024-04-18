@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { UserService } from '../services/user/user.service';
-import { User } from '../models/User';
-import { AxiosService } from '../axios.service';
+import { UserService } from '../../services/user/user.service';
+import { User } from '../../models/User';
+import { AxiosService } from '../../axios.service';
 import { ActivatedRoute } from '@angular/router';
-import { Product } from '../models/Product';
+import { Product } from '../../models/Product';
 import { Router } from '@angular/router';
-import { ProductService } from '../services/product/product.service';
+import { ProductService } from '../../services/product/product.service';
 @Component({
   selector: 'app-fav-prod',
   templateUrl: './fav-prod.component.html',

@@ -2,26 +2,18 @@ package com.petshop.petshop.controller;
 
 import com.petshop.petshop.controller.validation.GlobalExceptionHandlerController;
 import com.petshop.petshop.mappper.dto.*;
-import com.petshop.petshop.model.Pet;
-import com.petshop.petshop.model.Product;
-import com.petshop.petshop.model.RegistrationRequest;
-import com.petshop.petshop.model.User;
+import com.petshop.petshop.model.*;
+import com.petshop.petshop.service.ChatMessageService;
 import com.petshop.petshop.service.ProductService;
-import com.petshop.petshop.service.RoleService;
 import com.petshop.petshop.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.swing.*;
 import javax.validation.Valid;
 import java.net.URI;
-import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,8 +22,44 @@ import java.util.Optional;
 public class UserController extends GlobalExceptionHandlerController {
 
     private final UserService userService;
-    private final RoleService roleService;
     private final ProductService productService;
+    private final ChatMessageService chatMessageService;
+
+
+    @GetMapping("/user-messages")
+    public ResponseEntity<List<String>> getAllMessages(@RequestBody(required = false) Long id) {
+
+
+        if(id == null){
+            //return null;
+        }
+
+        id = 2L; //todo not hardcoded
+        User user = userService.findUserByID(id);
+        ChatMessage chatMessage = user.getChatMessage();
+
+        if(chatMessage == null){
+            return ResponseEntity.badRequest().build();
+        }
+
+        System.out.println("im here char Message: " + chatMessage);
+
+        List<Message> messages = chatMessageService.getMessagesByUser(user);
+
+        System.out.println("im here message content: " + messages);
+
+
+        List<String> messageContents = new ArrayList<>();
+
+        for (Message message : messages) {
+            messageContents.add(message.getMessage_content());
+        }
+
+        System.out.println("im here message content string: " + messageContents);
+
+        return ResponseEntity.ok(messageContents);
+    }
+
 
     @GetMapping("/user")
     public ResponseEntity<List<UserDto>> getAllUsers() {
@@ -57,7 +85,7 @@ public class UserController extends GlobalExceptionHandlerController {
     }
 
 
-    //todo add @Valid - it might not work (same for user-delete)
+    //todo add @Valid - it might fail (same for user-delete)
     @PostMapping("/user-edit")
     public ResponseEntity<UserDto> editUser(@RequestBody(required = false)  UserDto userDto) {
 

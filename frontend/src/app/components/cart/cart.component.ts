@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { UserService } from '../services/user/user.service';
-import { User } from '../models/User';
-import { AxiosService } from '../axios.service';
+import { UserService } from '../../services/user/user.service';
+import { User } from '../../models/User';
+import { AxiosService } from '../../axios.service';
 import { ActivatedRoute } from '@angular/router';
-import { Product } from '../models/Product';
-import { Receipt } from '../models/Receipt';
+import { Product } from '../../models/Product';
+import { Receipt } from '../../models/Receipt';
 import { Router } from '@angular/router';
 
 

@@ -75,6 +75,10 @@ public class User {
     private LocalDateTime loginTime;
     private String imageurl;
 
+    @OneToOne(mappedBy = "user")
+    private ChatMessage ChatMessage;
+
+
     public String toString(){
        return lastName+ " "+ firstName +  " " + email_address + " " + password;
 

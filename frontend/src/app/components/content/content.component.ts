@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { AxiosService } from '../axios.service';
-import { User } from '../models/User';
+import { AxiosService } from '../../axios.service';
+import { User } from '../../models/User';
 import { Router } from '@angular/router';
-import { SourceTextModule } from 'vm';
 
 @Component({
   selector: 'app-content',
