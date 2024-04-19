@@ -29,6 +29,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers(HttpMethod.GET , "/chat-socket/**" , "/topic/**", "/chat/**", "/messages", "/user-messages/**").permitAll() // Allow access to WebSocket endpoints
                         .requestMatchers(HttpMethod.POST, "/login", "/register").permitAll()
+                        //.requestMatchers(HttpMethod.POST, "/review-id").permitAll()
                         .requestMatchers(HttpMethod.GET, "/home").permitAll()
                         .requestMatchers(HttpMethod.GET, "/user").hasAuthority("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/category", "/category-delete", "/user-delete", "/user-edit","/category-edit").hasAuthority("ADMIN")

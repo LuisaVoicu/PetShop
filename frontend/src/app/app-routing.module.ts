@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthContentComponent } from './components/auth-content/auth-content.component';
-import { LoginFormComponent } from './components/login-form/login-form.component';
 import { ProductComponent } from './products/product/product.component';
 import { HomeComponent } from './components/home/home.component';
 import { ProductCreateComponent } from './products/product-create/product-create.component';
@@ -24,6 +22,9 @@ import { ReceiptComponent } from './components/receipt/receipt.component';
 import { LoginActivityComponent } from './components/login-activity/login-activity.component';
 import { AuthGuard } from './auth.guard';
 import { ChatComponent } from './components/chat/chat.component';
+import { ProductReview } from './models/ProductReview';
+import { ProductReviewComponent } from './components/product-review/product-review.component';
+import { ProductDetailsComponent } from './products/product-details/product-details.component';
 
 const routes: Routes = [
   //{ path: 'product-create', component: ProductCreateComponent, canActivate: [AuthGuard], data: { roles: ['ADMIN', 'SELLER'] } },
@@ -47,8 +48,10 @@ const routes: Routes = [
   { path: 'cart-product', component: CartComponent},
   { path: 'receipt', component: ReceiptComponent},
   { path: 'fav-prod', component: FavProdComponent, canActivate: [AuthGuard]},
+  { path: 'product-review', component: ProductReviewComponent},
   { path: 'login-activity', component: LoginActivityComponent},
-  { path: 'chat/:userId', component: ChatComponent },
+  { path: 'chat/:userId', component: ChatComponent},
+  { path: 'product-details/:id', component: ProductDetailsComponent},
   { path: '', redirectTo: '/home', pathMatch: 'full' }, 
   { path: '**', redirectTo: '/home' },
 ];

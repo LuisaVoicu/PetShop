@@ -4,18 +4,21 @@
 <ul>
     <li *ngFor="let product of products">
         <a>
-            <div class="image">
-                <img class="product-image" [src]="product.imageurl || 'assets/nophoto.jpg'" alt="Product Image">
-            </div>
+
+            <a [routerLink]="['/product-details', product.id]">
+                <div class="image">
+                    <img class="product-image" [src]="product.imageurl || 'assets/nophoto.jpg'" alt="Product Image">
+                </div>
+            </a>
             <div class="content">
-                
-                <div class="name">
-                    {{product.name}}
-                </div>
-                
-                <div class="description">
-                    {{product.description}}
-                </div>
+
+                    <div class="name">
+                        {{product.name}}
+                    </div>
+                    
+                    <div class="description">
+                        {{product.description}}
+                    </div>
                 
                 <!-- <span class="favorite {{product.favorite ? 'active' : 'inactive'}}" (click)="toggleFavorite(product)">
                     ❤
@@ -44,6 +47,12 @@
                     <a>
                         <button type="button" (click)="addToCart(product, username)">Add To Cart</button>
                     </a>
+
+                    <a>
+
+                        <button type="button" (click)="navigateToReviewForm(product, username)">Leave Review</button>
+                    </a>
+
                 </div>
 
             </div>

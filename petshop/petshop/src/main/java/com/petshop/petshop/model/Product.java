@@ -1,9 +1,12 @@
 package com.petshop.petshop.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -29,6 +32,10 @@ public class Product {
     @ManyToOne
     private User seller;
 
+    @JsonManagedReference // Indicate that this is the parent side of the relationship
+    @Column(nullable = true)
+    @OneToMany(mappedBy = "product")
+    private List<ProductReview> reviews;
 
 
 }

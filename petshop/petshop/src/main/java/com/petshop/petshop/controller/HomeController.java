@@ -30,6 +30,7 @@ public class HomeController extends GlobalExceptionHandlerController {
     @PostMapping("/login")
     public ResponseEntity<UserDto> login(@RequestBody @Valid CredentialsDto credentialsDto) {
 
+
         System.out.println("login homeController:" + credentialsDto.getUsername());
         UserDto userDto = userService.login(credentialsDto);
         userDto.setToken(userAuthenticationProvider.createToken(userDto));

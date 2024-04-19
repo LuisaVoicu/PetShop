@@ -35,6 +35,8 @@ import {MatIconModule} from '@angular/material/icon';
 import { FavProdComponent } from './components/fav-prod/fav-prod.component';
 import { LoginActivityComponent } from './components/login-activity/login-activity.component';
 import { ChatComponent } from './components/chat/chat.component';
+import { ProductReviewComponent } from './components/product-review/product-review.component';
+import { ProductDetailsComponent } from './products/product-details/product-details.component';
 
 @NgModule({
   declarations: [
@@ -67,6 +69,8 @@ import { ChatComponent } from './components/chat/chat.component';
     FavProdComponent,
     LoginActivityComponent,
     ChatComponent,
+    ProductReviewComponent,
+    ProductDetailsComponent,
   ],
   imports: [
     BrowserModule,

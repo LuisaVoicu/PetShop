@@ -3,6 +3,9 @@ import { ProductService } from '../../services/product/product.service';
 import { Product } from '../../models/Product';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../../services/user/user.service';
+import { Router } from '@angular/router';
+
+
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
@@ -15,7 +18,7 @@ export class ProductComponent {
 
   isFavorite: boolean = false;
 
-  constructor(private productService : ProductService, private userService: UserService, private route:ActivatedRoute){
+  constructor(private router: Router, private productService : ProductService, private userService: UserService, private route:ActivatedRoute){
 
   }
 
@@ -90,6 +93,11 @@ export class ProductComponent {
         console.error('Error adding product to cart:', error);
       }
     );
+  }
+
+  navigateToReviewForm(product: Product, username: string) {
+    console.log("%%%%%%%%%% " + product.name + " -- "+ username);
+    this.router.navigate(['/product-review'], { queryParams: { product: JSON.stringify(product), username: username } });
   }
 
 }

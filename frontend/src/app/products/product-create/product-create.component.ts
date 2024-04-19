@@ -38,7 +38,6 @@ export class ProductCreateComponent {
 
   create(): void {
 
-    console.log("$$$$$$$$$$$44"+this.newProduct.description);
     console.log("2:::img:::: "+this.newProduct.imageurl);
 
     this.productService.createProduct(this.newProduct).subscribe(
@@ -62,7 +61,6 @@ export class ProductCreateComponent {
   }
 
   createProduct(): void {
-    console.log("$$$$$$$$$$$44"+this.newProduct.description);
     console.log("img:::: "+this.newProduct.imageurl);
     this.create();
     this.router.navigateByUrl('/product');

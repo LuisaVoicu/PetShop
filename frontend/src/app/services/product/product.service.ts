@@ -73,8 +73,6 @@ export class ProductService {
       return new Observable<Product>(observer => {
         this.axiosService.request('POST', '/product-delete', productData)
           .then(response => {
-            console.log("MERge?????? delete:" + response.data);
-
             observer.next(response.data);
             observer.complete();
           })
@@ -88,6 +86,7 @@ export class ProductService {
     setProductToEdit(productData: Product):void{
       this.selectedProduct = productData;
     }
+
     editProduct(productData: any): Observable<Product> {
       return new Observable<Product>(observer => {
         this.axiosService.request('POST', '/product-edit', productData)
@@ -135,7 +134,7 @@ export class ProductService {
 
     removeFromFavourite(productId: number, username: string): Observable<User> {
       return new Observable<User>(observer => {
-        console.log("Favorite REmoved!!!!!!!!!!" + productId);
+        console.log("Favorite Removed!!!!!!!!!!" + productId);
         this.axiosService.request('POST', '/remove-fav',  { productId: productId, username: username } ) 
           .then(response => {
             observer.next(response.data);

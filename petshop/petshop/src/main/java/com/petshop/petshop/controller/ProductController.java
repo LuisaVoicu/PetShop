@@ -2,10 +2,7 @@ package com.petshop.petshop.controller;
 
 
 import com.petshop.petshop.controller.validation.GlobalExceptionHandlerController;
-import com.petshop.petshop.mappper.dto.CredentialsDto;
-import com.petshop.petshop.mappper.dto.ProductDto;
-import com.petshop.petshop.mappper.dto.SignUpDto;
-import com.petshop.petshop.mappper.dto.UserDto;
+import com.petshop.petshop.mappper.dto.*;
 import com.petshop.petshop.model.Product;
 import com.petshop.petshop.model.User;
 import com.petshop.petshop.service.ProductService;
@@ -75,4 +72,18 @@ public class ProductController extends GlobalExceptionHandlerController {
         return ResponseEntity.created(URI.create("/product-create" + editedProduct.getId())).body(editedProduct);
     }
 
+    @PostMapping("/product-id")
+    public ResponseEntity<ProductDto> getProductById(@RequestBody(required = false) @Valid Long id) {
+        if (id == null) {
+            // Handle case when product or product ID is missing
+            return ResponseEntity.badRequest().build();
+        }
+        ProductDto product = productService.getProductDtoById(id);
+        if(product == null){
+            return ResponseEntity.badRequest().build();
+        }
+
+
+        return ResponseEntity.created(URI.create("/product-create" + product.getId())).body(product);
+    }
 }

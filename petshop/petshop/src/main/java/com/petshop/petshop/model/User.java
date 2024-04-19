@@ -79,6 +79,10 @@ public class User {
     private ChatMessage ChatMessage;
 
 
+    @Column(nullable = true)
+    @OneToMany(mappedBy = "user")
+    private List<ProductReview> reviews;
+
     public String toString(){
        return lastName+ " "+ firstName +  " " + email_address + " " + password;
 

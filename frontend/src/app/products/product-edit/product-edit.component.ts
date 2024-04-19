@@ -49,10 +49,8 @@ export class ProductEditComponent {
   }
 
   editProduct(product: Product): void {
-    // Call createProduct method when the button is clicked
     this.edit(product);
     this.router.navigateByUrl('/product-delete');
-
   }
 
 
