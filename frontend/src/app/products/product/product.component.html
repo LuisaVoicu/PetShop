@@ -5,7 +5,7 @@
     <li *ngFor="let product of products">
         <a>
 
-            <a [routerLink]="['/product-details', product.id]">
+            <a [routerLink]="['/product-details', product.id, username]">
                 <div class="image">
                     <img class="product-image" [src]="product.imageurl || 'assets/nophoto.jpg'" alt="Product Image">
                 </div>

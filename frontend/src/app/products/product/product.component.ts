@@ -28,6 +28,8 @@ export class ProductComponent {
       this.username = params['user'];
     });
 
+    console.log("in product.ts testing username routing:"+this.username);
+    
     this.productService.getAllProducts().subscribe(
       products => {
          this.products = products;

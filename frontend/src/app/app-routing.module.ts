@@ -51,7 +51,7 @@ const routes: Routes = [
   { path: 'product-review', component: ProductReviewComponent},
   { path: 'login-activity', component: LoginActivityComponent},
   { path: 'chat/:userId', component: ChatComponent},
-  { path: 'product-details/:id', component: ProductDetailsComponent},
+  { path: 'product-details/:id/:username', component: ProductDetailsComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' }, 
   { path: '**', redirectTo: '/home' },
 ];

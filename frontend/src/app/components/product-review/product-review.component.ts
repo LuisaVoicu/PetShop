@@ -50,7 +50,8 @@ export class ProductReviewComponent {
     this.review.productId = this.product.id;
     this.review.username = this.username;
     this.createReview(this.review);
-    this.router.navigate(['/product']);
+    console.log("user:::" + this.username);
+    this.router.navigate(['/product'], { queryParams: { username: this.username } });
 
   }
 }

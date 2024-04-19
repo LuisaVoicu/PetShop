@@ -32,6 +32,10 @@ public class ProductReviewController extends GlobalExceptionHandlerController {
     public ResponseEntity<ProductReview> createProduct(@RequestBody(required = false) @Valid ProductReviewDto productReviewDto) {
 
         System.out.println("in ProductREviewController!!!!---> " + productReviewDto.getTitle());
+        System.out.println("in ProductREviewController!!!!---> " + productReviewDto.getDescription());
+        System.out.println("in ProductREviewController!!!!---> " + productReviewDto.getStars());
+        System.out.println("in ProductREviewController!!!!---> " + productReviewDto.getProductId());
+        System.out.println("in ProductREviewController!!!!---> " + productReviewDto.getUsername());
 
         ProductReview createdProductReview = productReviewService.createReview(productReviewDto);
         return ResponseEntity.created(URI.create("/product-create" + createdProductReview.getId())).body(createdProductReview);

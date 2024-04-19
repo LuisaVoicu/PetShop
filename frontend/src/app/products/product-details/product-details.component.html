@@ -9,6 +9,19 @@
       <img [src]="product.imageurl || 'assets/nophoto.jpg'" alt="Product Image" class="product-image">
       <p class="description">{{ product.description }}</p>
       <p class="price">Price: {{ product.price | currency }}</p>
+
+      <div class="buttons">
+        <a>
+            <button type="button" (click)="addToCart(product, username)">Add To Cart</button>
+        </a>
+
+        <a>
+
+            <button type="button" (click)="navigateToReviewForm(product, username)">Leave Review</button>
+        </a>
+
+    </div>
+    
     </div>
   
     <!-- Product Reviews -->
