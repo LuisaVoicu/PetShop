@@ -27,7 +27,8 @@ export class PetComponent {
     username: '',
     email_address: '',
     imageurl: '',
-    loginTime: new Date()
+    loginTime: new Date(),
+    logoutTime: new Date()
   };
 
   constructor(private petService : PetService, private route:ActivatedRoute){

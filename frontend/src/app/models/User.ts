@@ -13,5 +13,6 @@ export class User{
     cart_products?:object;
     imageurl!:string;
     loginTime!: Date;
+    logoutTime!: Date;
 
 }

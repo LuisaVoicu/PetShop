@@ -28,6 +28,7 @@ public class UserMapper {
                 .token(user.getToken())
                 .imageurl(user.getImageurl())
                 .loginTime(user.getLoginTime())
+                .logoutTime(user.getLogoutTime())
                 .build();
     }
 
@@ -52,6 +53,7 @@ public class UserMapper {
                 .token(userDto.getToken())
                 .imageurl(userDto.getImageurl())
                 .loginTime(userDto.getLoginTime())
+                .logoutTime(userDto.getLogoutTime())
                 .build();
     }
 

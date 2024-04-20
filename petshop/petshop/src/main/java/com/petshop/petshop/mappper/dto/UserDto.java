@@ -52,5 +52,6 @@ public class UserDto {
     private String imageurl;
 
     private LocalDateTime loginTime;
+    private LocalDateTime logoutTime;
 
 }

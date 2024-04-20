@@ -15,7 +15,8 @@ export class LoggedFormComponent {
     username: '',
     email_address: '',
     imageurl: '',
-    loginTime: new Date()
+    loginTime: new Date(),
+    logoutTime: new Date()
   };
 
   someUsers : User[]=[];

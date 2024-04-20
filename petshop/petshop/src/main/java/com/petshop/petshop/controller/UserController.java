@@ -64,6 +64,7 @@ public class UserController extends GlobalExceptionHandlerController {
     @GetMapping("/user")
     public ResponseEntity<List<UserDto>> getAllUsers() {
         List<UserDto> userDtos = userService.getAllUserDtos();
+        System.out.println("----> " + userDtos.get(0).getUsername()  + " " + userDtos.get(0).getLogoutTime() );
         return ResponseEntity.ok(userDtos);
     }
 
