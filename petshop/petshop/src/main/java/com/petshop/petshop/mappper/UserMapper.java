@@ -1,13 +1,11 @@
 package com.petshop.petshop.mappper;
 
-import com.petshop.petshop.mappper.dto.SignUpDto;
+import com.petshop.petshop.mappper.dto.MinimalUserDto;
 import com.petshop.petshop.mappper.dto.UserDto;
-import com.petshop.petshop.model.Role;
 import com.petshop.petshop.model.User;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -70,16 +68,16 @@ public class UserMapper {
     public abstract User signUpToUser(SignUpDto signUpDto);
 */
 
-    public User signUpToUser(SignUpDto signUpDto) {
-        if (signUpDto == null) {
+    public User signUpToUser(MinimalUserDto minimalUserDto) {
+        if (minimalUserDto == null) {
             return null;
         }
         User user = new User();
-        user.setUsername(signUpDto.getUsername());
-        user.setPassword(signUpDto.getPassword());
-        user.setFirstName(signUpDto.getFirstName());
-        user.setLastName(signUpDto.getLastName());
-        user.setEmail_address(signUpDto.getEmail_address());
+        user.setUsername(minimalUserDto.getUsername());
+        user.setPassword(minimalUserDto.getPassword());
+        user.setFirstName(minimalUserDto.getFirstName());
+        user.setLastName(minimalUserDto.getLastName());
+        user.setEmail_address(minimalUserDto.getEmail_address());
         return user;
     }
 

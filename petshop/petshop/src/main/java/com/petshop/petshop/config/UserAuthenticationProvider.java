@@ -66,6 +66,12 @@ public class UserAuthenticationProvider {
     }
 
     public Authentication validateToken(String token) {
+
+        if(token == null){
+            System.out.println("validate Token: NOT AUTHENTICATED!");
+            return null;
+        }
+
         Algorithm algorithm = Algorithm.HMAC256(secretKey);
 
         JWTVerifier verifier = JWT.require(algorithm)
@@ -73,8 +79,8 @@ public class UserAuthenticationProvider {
 
         DecodedJWT decoded = verifier.verify(token);
 
-        System.out.println("User authentication provider: VALIDATE_TOKEN: -- I AM HERE!!!!!!!!!!!!!!!");
-        //todo:  don't know if it's working
+        System.out.println("User authentication provider: VALIDATE_TOKEN: -- I AM HERE!!!!!!!!!!!!!!!" + token);
+
         List<String> roles = decoded.getClaim("roles").asList(String.class);
 
         String firstName =  decoded.getClaim("firstName").asString();

@@ -27,6 +27,12 @@ export class AxiosService {
     }
   }
 
+  doLogout(): void {
+
+    window.localStorage.removeItem("auth_token");
+    window.localStorage.removeItem("user_roles");
+    
+  }
 
   request(method: string, url: string, data: any): Promise<any> {
       let headers: any = {};

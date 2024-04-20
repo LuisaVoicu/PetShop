@@ -73,6 +73,9 @@ public class User {
     private List<Product> cart_products;
 
     private LocalDateTime loginTime;
+
+    private LocalDateTime logoutTime;
+
     private String imageurl;
 
     @OneToOne(mappedBy = "user")

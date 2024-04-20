@@ -7,5 +7,5 @@ import { Component, EventEmitter, Output } from '@angular/core';
 })
 export class ButtonsComponent {
 	@Output() loginEvent = new EventEmitter();
-	@Output() logoutEvent = new EventEmitter();
+	//@Output() logoutEvent = new EventEmitter();
 }

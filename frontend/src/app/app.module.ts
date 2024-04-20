@@ -37,6 +37,7 @@ import { LoginActivityComponent } from './components/login-activity/login-activi
 import { ChatComponent } from './components/chat/chat.component';
 import { ProductReviewComponent } from './components/product-review/product-review.component';
 import { ProductDetailsComponent } from './products/product-details/product-details.component';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +72,7 @@ import { ProductDetailsComponent } from './products/product-details/product-deta
     ChatComponent,
     ProductReviewComponent,
     ProductDetailsComponent,
+    ChangePasswordComponent,
   ],
   imports: [
     BrowserModule,

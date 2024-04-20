@@ -34,17 +34,7 @@ export class ProductService {
       });
     }
 
-    // getAllGoodProducts(): Promise<Product[]> {
-    //   return new Promise<Product[]>((resolve, reject) => {
-    //     this.axiosService.request('GET', '/product', {})
-    //       .then(response => {
-    //         resolve(response.data);
-    //       })
-    //       .catch(error => {
-    //         reject(error);
-    //       });
-    //   });
-    // }
+   
 
     createProduct(productData: Product): Observable<Product> {
 

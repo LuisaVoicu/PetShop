@@ -47,7 +47,6 @@ export class LoginActivityComponent {
 
     const dateString: string = this.startDate.toISOString();
 
-    console.log("AAAAAAAAa"+dateString);
 
     this.axiosService.request(
       "POST",

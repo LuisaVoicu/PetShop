@@ -30,7 +30,7 @@ public interface UserService {
 
     UserDto login(CredentialsDto credentialsDto);
 
-    UserDto register(SignUpDto user);
+    UserDto register(MinimalUserDto user);
 
     UserDto findByLogin(String subject);
 
@@ -47,4 +47,10 @@ public interface UserService {
     ReceiptDto buyProducts(String username);
 
     List<UserDto> loginBetween(LocalDateTime start, LocalDateTime stop);
+
+    void settingLogout(User user);
+
+    UserDto forgotPassword(MinimalUserDto minimalUserDto);
+
+
 }

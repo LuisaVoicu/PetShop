@@ -28,7 +28,7 @@ public class SecurityConfig {
                 .sessionManagement(customizer -> customizer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers(HttpMethod.GET , "/chat-socket/**" , "/topic/**", "/chat/**", "/messages", "/user-messages/**").permitAll() // Allow access to WebSocket endpoints
-                        .requestMatchers(HttpMethod.POST, "/login", "/register").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/login", "/register", "/forgot-password").permitAll()
                         //.requestMatchers(HttpMethod.POST, "/review-id").permitAll()
                         .requestMatchers(HttpMethod.GET, "/home").permitAll()
                         .requestMatchers(HttpMethod.GET, "/user").hasAuthority("ADMIN")

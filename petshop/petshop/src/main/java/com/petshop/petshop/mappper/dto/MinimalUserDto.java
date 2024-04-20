@@ -6,15 +6,13 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import javax.validation.constraints.Size;
-import java.time.LocalDateTime;
-import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Getter
-public class SignUpDto {
+public class MinimalUserDto {
 
     @NotNull(message = "Username is mandatory!")
     @NotBlank(message = "Username is mandatory!")
@@ -30,7 +28,7 @@ public class SignUpDto {
     private String lastName;
 
 
-    //todo: for some reasons it doesn't work
+    //todo: remove this after updating db
 //    @NotNull(message = "Email Address is mandatory!")
 //    @NotBlank(message = "Email Address is mandatory!")
     private String email_address;

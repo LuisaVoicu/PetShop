@@ -4,7 +4,7 @@ package com.petshop.petshop.controller;
 import com.petshop.petshop.config.UserAuthenticationProvider;
 import com.petshop.petshop.controller.validation.GlobalExceptionHandlerController;
 import com.petshop.petshop.mappper.dto.CredentialsDto;
-import com.petshop.petshop.mappper.dto.SignUpDto;
+import com.petshop.petshop.mappper.dto.MinimalUserDto;
 import com.petshop.petshop.mappper.dto.UserDto;
 import com.petshop.petshop.model.User;
 import com.petshop.petshop.service.UserService;
@@ -38,8 +38,31 @@ public class HomeController extends GlobalExceptionHandlerController {
         return ResponseEntity.ok(userDto);
     }
 
+    @PostMapping("/loggedout")
+    public ResponseEntity<Void> loggedout(@RequestBody  UserDto userDto) {
+
+        if(userDto == null){
+            System.out.println("$$$$$$$$$$$$$$$$$$ NO USER PROVIDED FOR LOGOUT!");
+            return null;
+        }
+
+        System.out.println("$$$$$$$$$$$$$$$$$$$$$ LOGOUT homeController:" + userDto.getUsername());
+        userDto.setToken(null);
+
+        User user = userService.findUserByID(userDto.getId());
+
+        if (user == null) {
+            return ResponseEntity.badRequest().build();
+        }
+
+
+        userService.settingLogout(user);
+
+        return ResponseEntity.ok().build();
+    }
+
     @PostMapping("/register")
-    public ResponseEntity<UserDto> register(@RequestBody @Valid SignUpDto user) {
+    public ResponseEntity<UserDto> register(@RequestBody @Valid MinimalUserDto user) {
         System.out.println("!!!!!!!!!!!!!! email" + user.getEmail_address());
         UserDto createdUser = userService.register(user);
         createdUser.setToken(userAuthenticationProvider.createToken(createdUser));
@@ -50,22 +73,16 @@ public class HomeController extends GlobalExceptionHandlerController {
     public ResponseEntity<UserDto> logged(@RequestBody(required = false) @Valid String username) {
 
         //todo -- get username from frontend without quotes
-
         String usernameTest = username.substring(1, username.length()-1);
-
         if (username == null) {
             return ResponseEntity.badRequest().build();
         }
-
         Optional<User> userOpt = userService.findByUsername(usernameTest);
-
         System.out.println(userOpt.toString());
         if (userOpt.isEmpty()) {
             return ResponseEntity.badRequest().build();
         }
-
         UserDto userDto = userService.createUserDto(userOpt.get());
-
         return ResponseEntity.ok().body(userDto);
     }
 
@@ -98,4 +115,14 @@ public class HomeController extends GlobalExceptionHandlerController {
 
         return ResponseEntity.ok(userDtos);
     }
+
+
+    @PostMapping("/forgot-password")
+    public ResponseEntity<UserDto> forgotPassword(@RequestBody MinimalUserDto minimalUserDto) {
+
+        System.out.println("HELLOO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        UserDto saved = userService.forgotPassword(minimalUserDto);
+        return ResponseEntity.ok(saved);
+    }
+
 }

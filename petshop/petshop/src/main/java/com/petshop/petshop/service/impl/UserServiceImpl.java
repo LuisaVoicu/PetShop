@@ -14,11 +14,9 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.ejb.Local;
 import java.nio.CharBuffer;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -185,6 +183,42 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void settingLogout(User user) {
+        LocalDateTime now = LocalDateTime.now();
+
+        user.setLogoutTime(now);
+        userRepository.save(user);
+    }
+
+    @Override
+    public UserDto forgotPassword(MinimalUserDto minimalUserDto) {
+
+        Optional<User> originalUser = userRepository.findByUsername(minimalUserDto.getUsername());
+
+        if(originalUser.isEmpty()){
+            System.out.println("Service: USER NOT FOUND!");
+            return null;
+        }
+
+        User user = originalUser.get();
+        if(!forgotPasswordValidation(user, minimalUserDto)){
+            System.out.println("Service: CREDENTIALS ARE NOT CORRECT");
+            return null;
+        }
+
+        user.setPassword(minimalUserDto.getPassword());
+
+        User saved =  userRepository.save(user);
+
+        if(saved == null){
+            return  null;
+        }
+        return userMapper.userEntityToDto(saved);
+
+    }
+
+
+    @Override
     public Optional<User> findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
@@ -260,7 +294,7 @@ public class UserServiceImpl implements UserService {
         throw new AppException("Invalid password", HttpStatus.BAD_REQUEST);
     }
 
-    public UserDto register(SignUpDto userSignUp) {
+    public UserDto register(MinimalUserDto userSignUp) {
 
         System.out.println("REGISTER IN UserServiceImpl");
         System.out.println(userSignUp.getUsername() + " "  + userSignUp.getPassword());
@@ -414,4 +448,20 @@ public class UserServiceImpl implements UserService {
         }
         return null; // Product not found
     }
+
+    private boolean forgotPasswordValidation(User originalUser, MinimalUserDto minimalUserDto){
+
+
+
+        if(originalUser.getUsername().equalsIgnoreCase(minimalUserDto.getUsername())
+          && originalUser.getFirstName().equalsIgnoreCase(minimalUserDto.getFirstName())
+          && originalUser.getLastName().equalsIgnoreCase(minimalUserDto.getLastName())
+          && originalUser.getEmail_address().equalsIgnoreCase(minimalUserDto.getEmail_address())) {
+            return true;
+        }
+
+        return false;
+
+    }
+
 }

@@ -30,13 +30,12 @@ export class LoginFormComponent {
 
 	}
 
-  //todo - modified from login to username
   onSubmitLogin(): void {
     this.onSubmitLoginEvent.emit({"username": this.username, "password": this.password});
   }
 
   onSubmitRegister(): void {
-    this.onSubmitRegisterEvent.emit({"firstName": this.firstName, "lastName": this.lastName, "username": this.username, "password": this.password});
+    this.onSubmitRegisterEvent.emit({"firstName": this.firstName, "lastName": this.lastName,"email_address": this.email_address, "username": this.username, "password": this.password});
   }
 
 }
