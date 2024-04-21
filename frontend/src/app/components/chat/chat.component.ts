@@ -11,7 +11,7 @@ import { AxiosService } from '../../axios.service';
 })
 export class ChatComponent implements OnInit {
 
-  messageInput: string = '';
+  messageInput: string=''
   // user: User = {
   //   id:0,
   //   firstName: '',
@@ -19,11 +19,13 @@ export class ChatComponent implements OnInit {
   //   username: '',
   //   email_address: '',
   //   imageurl: '',
-  //   loginTime: new Date()
+  //   loginTime: new Date(),
+  //   logoutTime: new Date()
   // };
   userId: number=0;
-
+  roomId: string='';
   messageList: any[] = [];
+ 
 
   messageListTest: string[] = [];
   
@@ -31,49 +33,67 @@ export class ChatComponent implements OnInit {
     private route: ActivatedRoute
     ){}
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+
+    this.roomId = this.route.snapshot.params["roomId"];
     this.userId =  this.route.snapshot.params["userId"]; 
-    this.chatService.joinRoom("ABC");
+
+    await this.chatService.joinRoom(this.roomId);
     this.listenerMessage();
+   await this.getOldMessages(); 
+   console.log("Old messages:", this.messageListTest);
+   this.setOldMessages();
+
   }
 
 
-  getOldMessages(){
 
-    this.axiosService.request(
-      "GET",
-      "/user-messages",
-      this.userId
-    ).then(
-      (response) => {
-
-        this.messageListTest = response.data;
-        console.log("in chat.component, messages from backend for user:" + this.messageListTest);
-
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+  async getOldMessages(): Promise<void> {
+    try {
+      let userIdString: string = this.userId.toString();
+      const response = await this.axiosService.request("POST", "/user-messages", { id: userIdString });
+      this.messageListTest = response.data;
+      console.log("Old messages received:", this.messageListTest);
+    } catch (error) {
+      console.error("Error fetching old messages:", error);
+    }
   }
+
+
+   setOldMessages(){
+
+
+    const messageList = this.messageListTest;
+
+    console.log("!!!!!!!!!!!!!!!!!!!!! a  yooo message list:  "  + messageList)
+
+    messageList.forEach((message) => {
+
+      const chatMessage = {
+        message: message,
+        user: this.userId,
+        roomId: this.roomId
+      }as ChatMessage
+  
+      this.chatService.sendMessage(chatMessage);
+
+    });
+  }
+
+
 
   sendMessage() {
-
-    this.getOldMessages();
-
-     //firstMessage = this.messageListTest[0];
-
-      console.log("--------> " + this.messageListTest[0])
-
+    
     const chatMessage = {
-      //message: this.messageInput,
-      message: this.messageListTest[0],
-      user: this.userId
+      message: this.messageInput,
+      user: this.userId,
+      roomId: this.roomId
     }as ChatMessage
-    //console.log("in chat.component sendMessage: "  + chatMessage.message)
 
-    this.chatService.sendMessage("ABC", chatMessage);
-    this.messageInput = '';
-   
+    this.chatService.sendMessage(chatMessage);
+    this.chatService.saveMessage(chatMessage)
+    this.messageInput='';
+
   }
 
   listenerMessage() {

@@ -16,11 +16,13 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "message_content")
+    private String message_content;
+
     @ManyToOne
     @JoinColumn(name = "chat_message")
     private ChatMessage chat_message;
 
-    @Column(name = "message_content")
-    private String message_content;
+
 
 }

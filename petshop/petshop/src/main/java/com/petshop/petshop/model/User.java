@@ -78,8 +78,9 @@ public class User {
 
     private String imageurl;
 
-    @OneToOne(mappedBy = "user")
-    private ChatMessage ChatMessage;
+
+    @OneToOne(mappedBy = "sender")
+    private ChatMessage senderChatMessage;
 
 
     @Column(nullable = true)

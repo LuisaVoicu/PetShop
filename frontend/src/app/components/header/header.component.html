@@ -48,6 +48,7 @@
                                         <a href="#" [routerLink]="['/logged', { user: loggedUser.username }]" routerLinkActive="active">👤</a>
                                         <div class="dropdown-content">
                                             <a href="#" [routerLink]="['/fav-prod', { user: loggedUser.username }]" routerLinkActive="active">❤️</a>
+                                            <a href="#" [routerLink]="['/friends', loggedUser.id]" routerLinkActive="active">💬</a>
                                         </div>
                                     </li>
                                 </div>

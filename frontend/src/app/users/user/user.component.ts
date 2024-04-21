@@ -60,12 +60,12 @@ export class UserComponent {
     const logoutMinute = logoutTime[4];
     const logoutSecond = logoutTime[5];
 
-    if (loginYear < logoutYear || 
-        (loginYear === logoutYear && loginMonth < logoutMonth) || 
-        (loginYear === logoutYear && loginMonth === logoutMonth && loginDay < logoutDay) || 
-        (loginYear === logoutYear && loginMonth === logoutMonth && loginDay === logoutDay && loginHour < logoutHour) || 
-        (loginYear === logoutYear && loginMonth === logoutMonth && loginDay === logoutDay && loginHour === logoutHour && loginMinute < logoutMinute) || 
-        (loginYear === logoutYear && loginMonth === logoutMonth && loginDay === logoutDay && loginHour === logoutHour && loginMinute === logoutMinute && loginSecond < logoutSecond)) {
+    if (loginYear <= logoutYear || 
+        (loginYear === logoutYear && loginMonth <= logoutMonth) || 
+        (loginYear === logoutYear && loginMonth === logoutMonth && loginDay <= logoutDay) || 
+        (loginYear === logoutYear && loginMonth === logoutMonth && loginDay === logoutDay && loginHour <= logoutHour) || 
+        (loginYear === logoutYear && loginMonth === logoutMonth && loginDay === logoutDay && loginHour === logoutHour && loginMinute <= logoutMinute) || 
+        (loginYear === logoutYear && loginMonth === logoutMonth && loginDay === logoutDay && loginHour === logoutHour && loginMinute === logoutMinute && loginSecond <= logoutSecond)) {
         return "⚪"; 
     } else {
         return "🟢"; 

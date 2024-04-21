@@ -11,5 +11,6 @@ import lombok.Setter;
 @Setter
 public class ChatMessageDto {
     String message;
-    String user; //todo : change to user model
+    String user;
+    String roomId;
 }

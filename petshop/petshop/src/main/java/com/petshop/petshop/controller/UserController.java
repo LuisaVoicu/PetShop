@@ -13,9 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 @RequiredArgsConstructor
@@ -26,28 +24,87 @@ public class UserController extends GlobalExceptionHandlerController {
     private final ChatMessageService chatMessageService;
 
 
-    @GetMapping("/user-messages")
-    public ResponseEntity<List<String>> getAllMessages(@RequestBody(required = false) Long id) {
+
+    @PostMapping("/chatroom")
+    public ResponseEntity<String> createChatRoom(@RequestBody(required = false) ChatRoomDto chatRoomDto) {
 
 
-        if(id == null){
-            //return null;
-        }
+        // search for existing roomId
+        System.out.println("----- first" + chatRoomDto.first_userId() + " second " + chatRoomDto.second_userId());
+        String userId1 = chatRoomDto.first_userId();
+        String userId2 = chatRoomDto.second_userId();
 
-        id = 2L; //todo not hardcoded
-        User user = userService.findUserByID(id);
-        ChatMessage chatMessage = user.getChatMessage();
-
-        if(chatMessage == null){
+        if(userId1 == null || userId2 == null){
             return ResponseEntity.badRequest().build();
         }
 
-        System.out.println("im here char Message: " + chatMessage);
+
+        Long id1 = Long.parseLong(userId1);
+        Long id2 = Long.parseLong(userId2);
+
+        User user1 = userService.findUserByID(id1);
+        User user2 = userService.findUserByID(id2);
+
+        if(user1 == null || user2 == null){
+            return ResponseEntity.badRequest().build();
+        }
+
+        String roomId = generateUniqueString(id1, id2);
+
+        ChatMessage chatMessage = chatMessageService.findChatByRoomId(roomId, Long.parseLong(chatRoomDto.first_userId()));
+        if(chatMessage != null){
+            return ResponseEntity.ok(roomId);
+        }
+
+
+        ChatMessage chatMessage1 = new ChatMessage();
+        chatMessage1.setSender(user1);
+        chatMessage1.setRoomId(roomId);
+
+        ChatMessage chatMessage2 = new ChatMessage();
+        chatMessage2.setSender(user2);
+        chatMessage2.setRoomId(roomId);
+
+        System.out.println("---> " + roomId);
+
+        chatMessageService.save(chatMessage1);
+        chatMessageService.save(chatMessage2);
+
+        return ResponseEntity.ok(roomId);
+    }
+
+
+    private  String generateUniqueString(long id1, long id2) {
+        String input = id1 + "-" + id2; // Concatenate the IDs
+        byte[] encodedBytes = Base64.getEncoder().encode(input.getBytes());
+        return new String(encodedBytes);
+    }
+    @PostMapping("/user-messages")
+    public ResponseEntity<List<String>> getAllMessages(@RequestBody(required = false) String userString) {
+
+        String userId = userString.substring(7,userString.length() - 2);
+
+        if(userId == null){
+            System.out.println("NULL userID FOR getAllMessages");
+            return ResponseEntity.badRequest().build();
+        }
+
+        Long id = Long.parseLong(userId);
+
+        if(id == null){
+            System.out.println("NULL ID FOR getAllMessages");
+            return ResponseEntity.badRequest().build();
+        }
+
+        User user = userService.findUserByID(id);
+        ChatMessage chatMessage = user.getSenderChatMessage();
+
+        if(chatMessage == null || user == null){
+            System.out.println("user/char null");
+            return ResponseEntity.badRequest().build();
+        }
 
         List<Message> messages = chatMessageService.getMessagesByUser(user);
-
-        System.out.println("im here message content: " + messages);
-
 
         List<String> messageContents = new ArrayList<>();
 
@@ -55,9 +112,23 @@ public class UserController extends GlobalExceptionHandlerController {
             messageContents.add(message.getMessage_content());
         }
 
-        System.out.println("im here message content string: " + messageContents);
-
         return ResponseEntity.ok(messageContents);
+    }
+
+    @PostMapping("/save-message")
+    public void saveMessage(@RequestBody(required = false) ChatMessageDto chatMessageDto) {
+
+
+        System.out.println("chatMessageDto: " +  chatMessageDto.getMessage() + " - user:" + chatMessageDto.getUser() + " - room" + chatMessageDto.getRoomId());
+
+        Long senderId = Long.parseLong(chatMessageDto.getUser());
+        ChatMessage chatMessage = chatMessageService.findChatByRoomId(chatMessageDto.getRoomId(), senderId);
+        if(chatMessage == null){
+            System.out.println("E NULL CHAT MESSAGE CAUTAT PRIN ROOM ID!!!!!!!");
+            return;
+        }
+
+        chatMessageService.saveMessage(chatMessage, chatMessageDto.getMessage());
     }
 
 

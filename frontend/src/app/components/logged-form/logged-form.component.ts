@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../../models/User';
 import { AxiosService } from '../../axios.service';
 @Component({
@@ -23,7 +23,7 @@ export class LoggedFormComponent {
 
   username: string = '';
 
-  constructor(private axiosService: AxiosService, private route: ActivatedRoute) { }
+  constructor(private axiosService: AxiosService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
 
@@ -58,4 +58,37 @@ export class LoggedFormComponent {
   }
 
  
+    showFields: boolean = false;
+    showStartChat: boolean = false;
+    roomId: string = '';
+    id1: string = '';
+    id2: string = '';
+
+    toggleFields() {
+      this.showFields = !this.showFields;
+    }
+
+    submitFields() {
+
+      console.log('Id 1:', this.id1);
+      console.log('Id 2:', this.id2);
+
+      this.axiosService.request('POST', '/chatroom', {first_userId: this.id1	, second_userId: this.id2})
+      .then(response => {
+        console.log("%%%%%%%%%%%%%% Received response:", response.data); // roomId
+        this.showStartChat = !this.showStartChat;
+        this.roomId = response.data;
+      })
+      .catch(error => {
+        console.log("Error occurred while creating review:", error);
+      });
+    }
+
+    
+ 
+    startChatting(){
+      this.router.navigate(['/chat', this.id1, this.roomId]);
+
+    }
+
 }

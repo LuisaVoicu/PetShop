@@ -25,6 +25,7 @@ import { ChatComponent } from './components/chat/chat.component';
 import { ProductReviewComponent } from './components/product-review/product-review.component';
 import { ProductDetailsComponent } from './products/product-details/product-details.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
+import { FriendsComponent } from './components/friends/friends.component';
 const routes: Routes = [
   //{ path: 'product-create', component: ProductCreateComponent, canActivate: [AuthGuard], data: { roles: ['ADMIN', 'SELLER'] } },
   { path: 'product', component: ProductComponent, canActivate: [AuthGuard]},
@@ -49,9 +50,10 @@ const routes: Routes = [
   { path: 'fav-prod', component: FavProdComponent, canActivate: [AuthGuard]},
   { path: 'product-review', component: ProductReviewComponent},
   { path: 'login-activity', component: LoginActivityComponent},
-  { path: 'chat/:userId', component: ChatComponent},
+  { path: 'chat/:userId/:roomId', component: ChatComponent},
   { path: 'product-details/:id/:username', component: ProductDetailsComponent },
   { path: 'forgot-password', component: ChangePasswordComponent },
+  { path: 'friends/:userId', component: FriendsComponent},
   { path: '', redirectTo: '/home', pathMatch: 'full' }, 
   { path: '**', redirectTo: '/home' },
 ];

@@ -18,4 +18,19 @@
       </div>
     </div>
   </div>
+
+
+
+  <button (click)="toggleFields()">Add Fields</button>
+  <div *ngIf="showFields">
+    <input type="text" [(ngModel)]="id1" placeholder="Field 1">
+    <input type="text" [(ngModel)]="id2" placeholder="Field 2">
+    <button (click)="submitFields()">Submit</button>
+  </div>
+
+  <div *ngIf="showStartChat">
+    <input type="text" [(ngModel)]="id2" placeholder="roomId">
+    <button (click)="startChatting()">Start chatting</button>
+  </div>
+
 </div>
