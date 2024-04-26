@@ -32,9 +32,7 @@ public interface UserService {
 
     UserDto register(MinimalUserDto user);
 
-    UserDto findByLogin(String subject);
-
-    void assignRoleToUser(Long userId, Long roleId);
+    void assignRoleToUser(User user, Long roleId);
 
     UserDto addCartProducts(User user, Long productId);
 

@@ -8,7 +8,7 @@ ul {
 }
 
 ul li a {
-    height: 22rem;
+    height: 28rem;
     width: 20rem;
     border: 1px solid whitesmoke;
     border-radius: 1rem;
@@ -78,4 +78,9 @@ li a:hover {
     top: 0.5rem;
     right: 0.5rem;
     font-size: 1.5rem;
+}
+
+img {
+    width: 200px;
+    height: auto;
 }

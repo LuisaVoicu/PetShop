@@ -47,3 +47,7 @@ form {
     cursor: not-allowed;
   }
   
+  img {
+    width: 200px;
+    height: auto;
+}

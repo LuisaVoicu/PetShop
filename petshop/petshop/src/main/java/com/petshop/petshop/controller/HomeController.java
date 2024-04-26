@@ -33,6 +33,9 @@ public class HomeController extends GlobalExceptionHandlerController {
 
         System.out.println("login homeController:" + credentialsDto.getUsername());
         UserDto userDto = userService.login(credentialsDto);
+        if(userDto == null){
+            return ResponseEntity.badRequest().build();
+        }
         userDto.setToken(userAuthenticationProvider.createToken(userDto));
 
         return ResponseEntity.ok(userDto);
@@ -64,6 +67,10 @@ public class HomeController extends GlobalExceptionHandlerController {
     @PostMapping("/register")
     public ResponseEntity<UserDto> register(@RequestBody @Valid MinimalUserDto user) {
         System.out.println("!!!!!!!!!!!!!! email" + user.getEmail_address());
+        System.out.println("!!!!!!!!!!!!!! username" + user.getUsername());
+        System.out.println("!!!!!!!!!!!!!! firstname" + user.getFirstName());
+        System.out.println("!!!!!!!!!!!!!! lastname" + user.getLastName());
+        System.out.println("!!!!!!!!!!!!!! password" + user.getPassword());
         UserDto createdUser = userService.register(user);
         createdUser.setToken(userAuthenticationProvider.createToken(createdUser));
         return ResponseEntity.created(URI.create("/users/" + createdUser.getId())).body(createdUser);

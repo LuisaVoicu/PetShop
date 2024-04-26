@@ -1,6 +1,6 @@
 package com.petshop.petshop.mappper.dto;
 
-import com.petshop.petshop.model.Role;
+import com.petshop.petshop.validator.Email;
 import com.petshop.petshop.validator.StrongPassword;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -42,8 +42,7 @@ public class UserDto {
 
     private List<ProductDto> favorite;
 
-    @NotNull(message = "Email Address is mandatory!")
-    @NotBlank(message = "Email Address is mandatory!")
+    @Email()
     private String email_address;
 
     @StrongPassword()

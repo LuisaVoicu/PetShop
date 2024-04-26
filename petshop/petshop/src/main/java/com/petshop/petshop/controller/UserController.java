@@ -200,7 +200,6 @@ public class UserController extends GlobalExceptionHandlerController {
     }
 
 
-    //todo : redenumeste cumva CartDto ca sa se potriveasca si cu Favs (ia de fapt id-prouct si username)
     @PostMapping("/add-fav")
     public ResponseEntity<UserDto> addToFavs(@RequestBody(required = false) @Valid CartDto fav) {
 
@@ -275,7 +274,13 @@ public class UserController extends GlobalExceptionHandlerController {
     // roles assignment
     @PostMapping("/{userId}/roles/{roleId}")
     public ResponseEntity<?> assignRoleToUser(@PathVariable Long userId, @PathVariable Long roleId) {
-        userService.assignRoleToUser(userId, roleId);
+        User user = userService.findUserByID(userId);
+
+        if(user == null){
+            return ResponseEntity.badRequest().build();
+        }
+
+        userService.assignRoleToUser(user, roleId);
         return ResponseEntity.ok().build();
     }
 

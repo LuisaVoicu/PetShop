@@ -29,7 +29,7 @@ public class ProductReviewController extends GlobalExceptionHandlerController {
     private final ProductReviewMapper productReviewMapper;
 
     @PostMapping("/review-create")
-    public ResponseEntity<ProductReview> createProduct(@RequestBody(required = false) @Valid ProductReviewDto productReviewDto) {
+    public ResponseEntity<ProductReview> createProductReview(@RequestBody(required = false) @Valid ProductReviewDto productReviewDto) {
 
         System.out.println("in ProductREviewController!!!!---> " + productReviewDto.getTitle());
         System.out.println("in ProductREviewController!!!!---> " + productReviewDto.getDescription());

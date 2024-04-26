@@ -94,3 +94,8 @@ form button[type="submit"]:disabled {
     cursor: not-allowed;
   }
   
+
+img {
+    width: 200px;
+    height: auto;
+}

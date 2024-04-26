@@ -1,5 +1,6 @@
 package com.petshop.petshop.mappper.dto;
 
+import com.petshop.petshop.validator.Email;
 import com.petshop.petshop.validator.StrongPassword;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -27,10 +28,7 @@ public class MinimalUserDto {
     @NotBlank(message = "Last Name is mandatory!")
     private String lastName;
 
-
-    //todo: remove this after updating db
-//    @NotNull(message = "Email Address is mandatory!")
-//    @NotBlank(message = "Email Address is mandatory!")
+    @Email()
     private String email_address;
 
     @StrongPassword()
