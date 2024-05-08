@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<users>
+<user>
+    <email_address>lauraluisavoicu@gmail.com</email_address>
+    <firstName>Laura-Luisa</firstName>
+    <id>1</id>
+    <lastName>Voicu</lastName>
+    <loginTime/>
+    <roles>ADMIN</roles>
+    <roles>FOSTER</roles>
+    <roles>SELLER</roles>
+    <roles>CUSTOMER</roles>
+    <username>luisa</username>
+</user><user>
+    <email_address>abc@abc.abc</email_address>
+    <firstName>aaaa</firstName>
+    <id>2</id>
+    <lastName>aaaa</lastName>
+    <roles>CUSTOMER</roles>
+    <username>abc</username>
+</user></users>

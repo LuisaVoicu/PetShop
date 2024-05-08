@@ -1,5 +1,7 @@
 <app-header [pageTitle]="'AlphaTom'" [logoSrc]="'assets/logo.png'"></app-header>
 
+<button (click)="exportData()">Export Data</button>
+
 <ul>
     <li *ngFor="let user of users">
         <a>

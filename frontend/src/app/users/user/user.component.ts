@@ -40,8 +40,6 @@ export class UserComponent {
         console.error(error);
       });
 
-
-
   }
 
   status(loginTime: any, logoutTime: any): string{
@@ -71,7 +69,7 @@ export class UserComponent {
         return "🟢"; 
     }
   
-}
+  }
 
   formatDate(dateArray: any): string {
     if (!dateArray) return '';
@@ -90,6 +88,19 @@ export class UserComponent {
     const formattedDate = `${hours}:${minutes}, ${day}/${month}/${year}`;
 
     return formattedDate;
+  }
+
+  exportData(){
+    this.axiosService.request(
+      "GET",
+      "/export-users",
+      {}).then(
+      (response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
 
 }

@@ -4,6 +4,9 @@ import com.petshop.petshop.validator.Email;
 import com.petshop.petshop.validator.StrongPassword;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlRootElement;
 import lombok.*;
 
 import javax.validation.constraints.Size;
@@ -17,6 +20,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Getter
+@XmlRootElement(name="user")
 public class UserDto {
 
     private Long id;

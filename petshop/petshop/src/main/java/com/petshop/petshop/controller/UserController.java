@@ -1,6 +1,7 @@
 package com.petshop.petshop.controller;
 
 import com.petshop.petshop.controller.validation.GlobalExceptionHandlerController;
+import com.petshop.petshop.exporter.XMLFileExporter;
 import com.petshop.petshop.mappper.dto.*;
 import com.petshop.petshop.model.*;
 import com.petshop.petshop.model.enums.RequestType;
@@ -23,7 +24,7 @@ public class UserController extends GlobalExceptionHandlerController {
     private final ChatMessageService chatMessageService;
     private final AdminRequestService adminRequestService;
     private final RoleService roleService;
-
+    private final XMLFileExporter xmlFileExporter;
 
     @PostMapping("/chatroom")
     public ResponseEntity<String> createChatRoom(@RequestBody(required = false) ChatRoomDto chatRoomDto) {
@@ -124,7 +125,6 @@ public class UserController extends GlobalExceptionHandlerController {
         Long senderId = Long.parseLong(chatMessageDto.getUser());
         ChatMessage chatMessage = chatMessageService.findChatByRoomId(chatMessageDto.getRoomId(), senderId);
         if(chatMessage == null){
-            System.out.println("E NULL CHAT MESSAGE CAUTAT PRIN ROOM ID!!!!!!!");
             return;
         }
 
@@ -139,6 +139,31 @@ public class UserController extends GlobalExceptionHandlerController {
         return ResponseEntity.ok(userDtos);
     }
 
+
+    @GetMapping("/export-users")
+    public ResponseEntity<String> exportUsersData() {
+
+        List<UserDto> userDtos = userService.getAllUserDtos();
+
+        String path = "D:\\an3sem2\\PS\\PetShopApp\\petshop\\petshop\\src\\main\\java\\com\\petshop\\petshop\\exporter\\userdata.xml";
+        StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
+        stringBuilder.append("<users>\n");
+
+        for(UserDto userDto : userDtos){
+            stringBuilder.append(xmlFileExporter.exportData(userDto));
+        }
+
+        stringBuilder.append("</users>\n");
+
+        System.out.println("STRING GENERATED:" + stringBuilder);
+
+
+        xmlFileExporter.writeToFile(stringBuilder.toString(), path);
+
+        return ResponseEntity.ok(stringBuilder.toString());
+    }
     @PostMapping("/user-delete")
     public ResponseEntity<UserDto> deleteUser(@RequestBody(required = false) UserDto userDto) {
         if (userDto == null || userDto.getId() == null) {
