@@ -26,8 +26,9 @@ import { ProductReviewComponent } from './components/product-review/product-revi
 import { ProductDetailsComponent } from './products/product-details/product-details.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { FriendsComponent } from './components/friends/friends.component';
+import { AdminRequestsComponent } from './components/admin-requests/admin-requests.component';
+
 const routes: Routes = [
-  //{ path: 'product-create', component: ProductCreateComponent, canActivate: [AuthGuard], data: { roles: ['ADMIN', 'SELLER'] } },
   { path: 'product', component: ProductComponent, canActivate: [AuthGuard]},
   { path: 'product-create', component: ProductCreateComponent,canActivate: [AuthGuard] },
   { path: 'product-delete', component: ProductDeleteComponent },
@@ -54,6 +55,7 @@ const routes: Routes = [
   { path: 'product-details/:id/:username', component: ProductDetailsComponent },
   { path: 'forgot-password', component: ChangePasswordComponent },
   { path: 'friends/:userId', component: FriendsComponent},
+  { path: 'admin-requests', component: AdminRequestsComponent},
   { path: '', redirectTo: '/home', pathMatch: 'full' }, 
   { path: '**', redirectTo: '/home' },
 ];

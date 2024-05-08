@@ -26,6 +26,9 @@ public class RoleServiceImpl implements RoleService {
     public String findByRoleDto(String role){
         return roleMapper.roleEntityToDto(roleRepository.findByRole(role));
     }
+    public Long findIDByRoleDto(String role){
+        return roleRepository.findByRole(role).getId();
+    }
 
     public List<String> getAllRoleDtos(){
         return roleMapper.roleListEntityToDto(roleRepository.findAll());

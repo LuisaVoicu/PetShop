@@ -1,0 +1,24 @@
+<div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Username</th>
+          <th>Status</th>
+          <th>Request Type</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let request of adminRequests">
+          <td>{{ request.username }}</td>
+          <td>{{ request.status }}</td>
+          <td>{{ request.request }}</td>
+          <td>
+            <button (click)="approveRequest(request)">Approve</button>
+            <!-- <button (click)="rejectRequest(request)">Reject</button> -->
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

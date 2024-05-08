@@ -1,9 +1,7 @@
 package com.petshop.petshop.service;
 
 import com.petshop.petshop.mappper.dto.PetDto;
-import com.petshop.petshop.mappper.dto.ProductDto;
 import com.petshop.petshop.model.Pet;
-
 import java.util.List;
 
 public interface PetService {

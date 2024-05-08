@@ -1,6 +1,6 @@
 package com.petshop.petshop.mappper.dto;
 
-import com.petshop.petshop.model.Color;
+import com.petshop.petshop.model.enums.Color;
 import com.petshop.petshop.model.PetType;
 import lombok.Builder;
 

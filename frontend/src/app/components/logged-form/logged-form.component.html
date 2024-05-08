@@ -33,4 +33,14 @@
     <button (click)="startChatting()">Start chatting</button>
   </div>
 
+
+  <div>
+    <select #roleSelect>
+      <option value="seller">Request SELLER</option>
+      <option value="foster">Request FOSTER</option>
+    </select>
+    <button (click)="handleRequest(roleSelect.value)">Request Role</button>
+  </div>
+
+
 </div>

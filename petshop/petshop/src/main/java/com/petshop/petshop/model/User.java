@@ -2,9 +2,7 @@ package com.petshop.petshop.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.NotFound;
 
-import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -82,13 +80,12 @@ public class User {
     @OneToOne(mappedBy = "sender")
     private ChatMessage senderChatMessage;
 
+    @Column(nullable = true)
+    @OneToMany(mappedBy = "user")
+    private List<AdminRequest> adminRequestS;
 
     @Column(nullable = true)
     @OneToMany(mappedBy = "user")
     private List<ProductReview> reviews;
 
-    public String toString(){
-       return lastName+ " "+ firstName +  " " + email_address + " " + password;
-
-    }
-}
+ }

@@ -75,20 +75,38 @@ export class LoggedFormComponent {
 
       this.axiosService.request('POST', '/chatroom', {first_userId: this.id1	, second_userId: this.id2})
       .then(response => {
-        console.log("%%%%%%%%%%%%%% Received response:", response.data); // roomId
         this.showStartChat = !this.showStartChat;
         this.roomId = response.data;
       })
       .catch(error => {
-        console.log("Error occurred while creating review:", error);
+        console.log("Error occurred while creating chatroom:", error);
       });
     }
-
     
- 
     startChatting(){
       this.router.navigate(['/chat', this.id1, this.roomId]);
 
     }
+
+
+    handleRequest(selectedRole: string) {
+      if (selectedRole === 'seller') {
+        this.requestRole("ROLE_SELLER");
+      } else if (selectedRole === 'foster') {
+        this.requestRole("ROLE_FOSTER");
+      }
+    }
+
+    requestRole(role: string){
+
+      this.axiosService.request('POST', '/request-role', {username: this.username	, request: role})
+      .then(response => {
+      })
+      .catch(error => {
+        console.log("Error occurred while creating seller/foster request:", error);
+      });
+
+    }
+
 
 }

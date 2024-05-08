@@ -10,7 +10,7 @@ public interface RoleService {
     public String getRoleDtoById(Long id);
 
     public String findByRoleDto(String role);
-
+    public Long findIDByRoleDto(String role);
     public List<String> getAllRoleDtos();
     public List<Role> getAllRoles();
 

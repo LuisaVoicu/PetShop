@@ -39,6 +39,7 @@ import { ProductReviewComponent } from './components/product-review/product-revi
 import { ProductDetailsComponent } from './products/product-details/product-details.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { FriendsComponent } from './components/friends/friends.component';
+import { AdminRequestsComponent } from './components/admin-requests/admin-requests.component';
 
 @NgModule({
   declarations: [
@@ -75,6 +76,7 @@ import { FriendsComponent } from './components/friends/friends.component';
     ProductDetailsComponent,
     ChangePasswordComponent,
     FriendsComponent,
+    AdminRequestsComponent,
   ],
   imports: [
     BrowserModule,

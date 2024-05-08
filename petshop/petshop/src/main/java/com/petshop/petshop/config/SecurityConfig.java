@@ -36,7 +36,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/pet-create", "/pet-delete", "/pet-edit").hasAuthority("CUSTOMER")
                         .requestMatchers(HttpMethod.POST, "/product-create", "/product-delete", "/product-edit").hasAuthority("SELLER")
                         .requestMatchers(HttpMethod.GET, "/product","/category","/pet").hasAuthority("CUSTOMER")
-                        .anyRequest().permitAll())
+                        .anyRequest().authenticated())
         ;
         return http.build();
     }

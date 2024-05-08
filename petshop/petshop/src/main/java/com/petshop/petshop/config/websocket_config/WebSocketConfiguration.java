@@ -1,4 +1,4 @@
-package com.petshop.petshop.websocket_config;
+package com.petshop.petshop.config.websocket_config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;

@@ -3,9 +3,8 @@ package com.petshop.petshop.controller;
 import com.petshop.petshop.controller.validation.GlobalExceptionHandlerController;
 import com.petshop.petshop.mappper.dto.*;
 import com.petshop.petshop.model.*;
-import com.petshop.petshop.service.ChatMessageService;
-import com.petshop.petshop.service.ProductService;
-import com.petshop.petshop.service.UserService;
+import com.petshop.petshop.model.enums.RequestType;
+import com.petshop.petshop.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -22,7 +21,8 @@ public class UserController extends GlobalExceptionHandlerController {
     private final UserService userService;
     private final ProductService productService;
     private final ChatMessageService chatMessageService;
-
+    private final AdminRequestService adminRequestService;
+    private final RoleService roleService;
 
 
     @PostMapping("/chatroom")
@@ -272,6 +272,74 @@ public class UserController extends GlobalExceptionHandlerController {
     }
 
     // roles assignment
+
+
+    @PostMapping("/request-role")
+    public ResponseEntity<?> requestRole(@RequestBody(required = false) AdminRequestDto adminRequestDto) {
+        Optional<User> user = userService.findByUsername(adminRequestDto.username());
+
+        if(user.isEmpty()){
+            return ResponseEntity.badRequest().build();
+        }
+
+        String requestType ;
+        if(adminRequestDto.request().equals("ROLE_FOSTER")){
+            requestType = "ROLE_FOSTER";
+        }
+        else{ //todo exceptie!! la role request daca nu e role_foster sau role_seller
+            requestType = "ROLE_SELLER";
+        }
+
+        AdminRequest adminRequest = adminRequestService.createAdminRequest(user.get(), requestType);
+
+        if(adminRequest == null){
+            return  ResponseEntity.badRequest().build();
+        }
+
+        System.out.println( "hello done here in role request seller! " + adminRequest.getRequest());
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/admin-aprove")
+    public ResponseEntity<?> approveRequest(@RequestBody(required = false) AdminRequestDto adminRequestDto) {
+        Optional<User> user = userService.findByUsername(adminRequestDto.username());
+
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~` here");
+        if(user.isEmpty()){
+            return ResponseEntity.badRequest().build();
+        }
+
+        if(adminRequestDto.request().equals("ROLE_FOSTER")){
+            Long roleId = roleService.findIDByRoleDto("FOSTER");
+            userService.assignRoleToUser(user.get(), roleId);
+            adminRequestService.deleteAdminRequestByUserAndRequestType(user.get(),"ROLE_FOSTER");
+        }
+        else if(adminRequestDto.request().equals("ROLE_SELLER")){
+            Long roleId = roleService.findIDByRoleDto("SELLER");
+            userService.assignRoleToUser(user.get(), roleId);
+            adminRequestService.deleteAdminRequestByUserAndRequestType(user.get(),"ROLE_SELLER");
+        }
+        else {
+            //todo: fostering approval
+        }
+
+        return ResponseEntity.ok().build();
+    }
+
+
+    @GetMapping("/admin-requests")
+    public ResponseEntity<List<AdminRequestDto>> getAllAdminRequests() {
+
+        List<AdminRequestDto> adminRequests = adminRequestService.getAllAdminRequests();
+
+
+        for(AdminRequestDto a : adminRequests){
+            System.out.println(a.request());
+        }
+        return ResponseEntity.ok(adminRequests);
+    }
+
+
     @PostMapping("/{userId}/roles/{roleId}")
     public ResponseEntity<?> assignRoleToUser(@PathVariable Long userId, @PathVariable Long roleId) {
         User user = userService.findUserByID(userId);
@@ -300,6 +368,8 @@ public class UserController extends GlobalExceptionHandlerController {
         System.out.println("products" + productDtos);
         return ResponseEntity.ok(productDtos);
     }
+
+
 
 
 }

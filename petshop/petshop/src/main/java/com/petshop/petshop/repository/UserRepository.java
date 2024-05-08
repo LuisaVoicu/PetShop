@@ -1,5 +1,6 @@
 package com.petshop.petshop.repository;
 
+import com.petshop.petshop.model.Role;
 import com.petshop.petshop.model.User;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.repository.CrudRepository;
@@ -13,6 +14,10 @@ public interface UserRepository extends CrudRepository<User,Long> {
     @EntityGraph(type = EntityGraph.EntityGraphType.FETCH,
             attributePaths = {"roles"})
     Optional<User> findByUsername(String username);
+
+//    @EntityGraph(type = EntityGraph.EntityGraphType.FETCH,
+//            attributePaths = {"roles"})
+//    Optional<User> findByRole(Role role);
 
     @EntityGraph(type = EntityGraph.EntityGraphType.FETCH,
             attributePaths = {"roles"})

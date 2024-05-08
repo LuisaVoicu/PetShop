@@ -72,6 +72,13 @@ public class UserServiceImpl implements UserService {
         return userRepository.findById(id).orElse(null);
     }
 
+
+//    @Override
+//    public User findUserByRole(String role) {
+//          Role userRole = roleRepository.findByRole(role);
+//          return userRepository.findByRole(userRole).orElse(null);
+//    }
+
     @Override
     public List<UserDto> getAllUserDtos() {
         return userMapper.userListEntityToDto(userRepository.findAll());

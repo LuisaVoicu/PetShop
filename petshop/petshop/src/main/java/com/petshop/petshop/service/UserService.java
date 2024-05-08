@@ -16,7 +16,7 @@ public interface UserService {
     UserDto getUserDtoById(Long id);
 
     User findUserByID(Long id);
-
+   // public User findUserByRole(String role);
     List<UserDto> getAllUserDtos();
 
     Optional<User> findByUsername(String username);

@@ -1,9 +1,8 @@
 package com.petshop.petshop.model;
 
+import com.petshop.petshop.model.enums.Color;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.List;
 
 @Entity
 @AllArgsConstructor
