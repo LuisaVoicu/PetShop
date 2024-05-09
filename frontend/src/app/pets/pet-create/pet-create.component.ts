@@ -3,6 +3,7 @@ import { Pet } from '../../models/Pet';
 import { PetService } from '../../services/pet/pet.service';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-pet-create',
@@ -19,7 +20,7 @@ export class PetCreateComponent {
     imageurl: ''
   };
 
-  constructor(private petService : PetService, private route:ActivatedRoute, private router: Router){
+  constructor(private snackBar: MatSnackBar, private petService : PetService, private route:ActivatedRoute, private router: Router){
 
   }
 
@@ -35,30 +36,33 @@ export class PetCreateComponent {
   }
 
 
-  create(): void {
+  createPet(): void {
+    this.create();
+  }
+  
+
+  private create(): void {
+  
     this.petService.createPet(this.newPet).subscribe(
       createdPet => {
-        console.log('Pet created successfully:', createdPet);
-        this.newPet = {
-          id:0,
-          name: '',
-          age: 0,
-          weight: 0,
-          imageurl: ''
-        };
-
+        console.log("Pet created successfully:", createdPet);
+        this.openSnackBar('Pet created successfully', 'Close');
+        this.router.navigateByUrl('/pet');
       },
       error => {
         console.error('Error creating pet:', error);
+        this.openSnackBar('Error creating pet. Please check your input and try again.', 'Close');
       }
     );
-
   }
+  
+  
 
-  createPet(): void {
-    // Call createPet method when the button is clicked
-    this.create();
-    this.router.navigateByUrl('/pet');
+openSnackBar(message: string, action: string): void {
+  const config = new MatSnackBarConfig();
+  config.duration = 3000;
+  config.verticalPosition = 'top';
+  this.snackBar.open(message, action, config);
+}
 
-  }
 }

@@ -3,6 +3,7 @@ import { User } from '../../models/User';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user/user.service';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-user-edit',
@@ -32,7 +33,7 @@ export class UserEditComponent {
     loginTime: new Date(),
     logoutTime: new Date()
   };
-  constructor(private userService : UserService, private route:ActivatedRoute, private router: Router){}
+  constructor(private snackBar: MatSnackBar, private userService : UserService, private route:ActivatedRoute, private router: Router){}
 
   ngOnInit(): void {
     // Access the selected user from the shared service
@@ -51,6 +52,8 @@ export class UserEditComponent {
         editedUser.id +  " " + 
         editedUser.birthdate);
         console.log('User editing successfully:', editedUser)
+        this.openSnackBar('User edited successfully', 'Close');
+
       },
       error => {
         console.error('Error editing user:', error);
@@ -64,6 +67,13 @@ export class UserEditComponent {
     this.edit(user);
     this.router.navigateByUrl('/user-delete');
 
+  }
+
+  openSnackBar(message: string, action: string): void {
+    const config = new MatSnackBarConfig();
+    config.duration = 3000;
+    config.verticalPosition = 'top';
+    this.snackBar.open(message, action, config);
   }
 
 }

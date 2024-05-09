@@ -1,26 +1,30 @@
+<app-header [pageTitle]="'AlphaTom'" [logoSrc]="'assets/logo.png'"></app-header>
+
 <form (ngSubmit)="editUser(user)" #userForm="ngForm">
   
-    <div>
-      <label for="firstName">First Name:</label>
-      <input type="text" id="firstName" name="firstName" [(ngModel)]="editedUser.firstName" required>
-    </div>
+  <div>
+    <label for="firstName">First Name:</label>
+    <input type="text" id="firstName" name="firstName" [(ngModel)]="editedUser.firstName" required>
+    <div *ngIf="userForm.controls['firstName']?.invalid && userForm.controls['firstName']?.touched" class="error-message">First Name is required</div>
+  </div>
 
-    <div>
-        <label for="lastName">Last Name:</label>
-        <input type="text" id="lastName" name="lastName" [(ngModel)]="editedUser.lastName" required>
-    </div>
+  <div>
+    <label for="lastName">Last Name:</label>
+    <input type="text" id="lastName" name="lastName" [(ngModel)]="editedUser.lastName" required>
+    <div *ngIf="userForm.controls['lastName']?.invalid && userForm.controls['lastName']?.touched" class="error-message">Last Name is required</div>
+  </div>
 
+  <div>
+    <label for="email_address">Email:</label>
+    <input type="text" id="email_address" name="email_address" [(ngModel)]="editedUser.email_address" required>
+    <div *ngIf="userForm.controls['email_address']?.invalid && userForm.controls['email_address']?.touched" class="error-message">Valid Email is required</div>
+  </div>
 
-    <div>
-       <label for="email_address">Email:</label>
-       <input type="text" id="email_address" name="email_address" [(ngModel)]="editedUser.email_address" required>
-    </div>
+  <div>
+    <label for="imageur">Image URL:</label>
+    <input type="text" id="imageur" name="imageur" [(ngModel)]="editedUser.imageurl">
+  </div>
 
-    <div>
-      <label for="imageur">Image URL:</label>
-      <input type="text" id="imageur" name="imageur" [(ngModel)]="editedUser.imageurl">
-    </div>
-
-    <button type="submit" [disabled]="userForm.invalid" (click)="editUser(user)">Edit User</button>
+  <button type="submit" [disabled]="userForm.invalid" (click)="editUser(user)">Edit User</button>
   
 </form>

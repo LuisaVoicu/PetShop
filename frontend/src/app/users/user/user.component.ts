@@ -3,6 +3,9 @@ import { User } from '../../models/User';
 import { UserService } from '../../services/user/user.service';
 import { ActivatedRoute } from '@angular/router';
 import { AxiosService } from '../../axios.service';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+
+
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
@@ -21,7 +24,7 @@ export class UserComponent {
     logoutTime: new Date()
   };
 
-  constructor(private axiosService: AxiosService, private userService : UserService, private route:ActivatedRoute){
+  constructor(private snackBar: MatSnackBar, private axiosService: AxiosService, private userService : UserService, private route:ActivatedRoute){
 
   }
 
@@ -97,10 +100,18 @@ export class UserComponent {
       {}).then(
       (response) => {
         console.log(response.data);
+        this.openSnackBar('User data exported successfully', 'Close');
       })
       .catch((error) => {
         console.error(error);
       });
+  }
+
+  openSnackBar(message: string, action: string): void {
+    const config = new MatSnackBarConfig();
+    config.duration = 3000;
+    config.verticalPosition = 'top';
+    this.snackBar.open(message, action, config);
   }
 
 }

@@ -18,3 +18,7 @@ body{
 a{
     text-decoration: none;
 }
+
+.mat-snack-bar-container {
+    top: 0;
+  }

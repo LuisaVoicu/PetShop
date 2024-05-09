@@ -3,6 +3,7 @@ import { User } from '../../models/User';
 import { UserService } from '../../services/user/user.service';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-user-delete',
@@ -12,7 +13,7 @@ import { Router } from '@angular/router';
 export class UserDeleteComponent {
   users: User[] = [];
 
-  constructor(private userService : UserService, private route:ActivatedRoute, private router:Router){
+  constructor(private snackBar: MatSnackBar, private userService : UserService, private route:ActivatedRoute, private router:Router){
 
   }
 
@@ -36,6 +37,7 @@ export class UserDeleteComponent {
     this.userService.deleteUser(user).subscribe(
       () => {
         console.log('User deleted successfully');
+        this.openSnackBar('User deleted successfully', 'Close');
         this.fetchUsers();
       },
       error => {
@@ -47,5 +49,12 @@ export class UserDeleteComponent {
   editUser(user: User):void{
     this.userService.setUserToEdit(user);
     this.router.navigate(['/user-edit', user]);
+  }
+
+  openSnackBar(message: string, action: string): void {
+    const config = new MatSnackBarConfig();
+    config.duration = 3000;
+    config.verticalPosition = 'top';
+    this.snackBar.open(message, action, config);
   }
 }

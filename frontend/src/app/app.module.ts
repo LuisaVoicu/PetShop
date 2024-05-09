@@ -40,6 +40,9 @@ import { ProductDetailsComponent } from './products/product-details/product-deta
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { FriendsComponent } from './components/friends/friends.component';
 import { AdminRequestsComponent } from './components/admin-requests/admin-requests.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar'; 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -83,6 +86,9 @@ import { AdminRequestsComponent } from './components/admin-requests/admin-reques
     AppRoutingModule,
     FormsModule,
     MatIconModule,
+    MatSnackBarModule,
+    BrowserAnimationsModule,
+    NoopAnimationsModule 
   ],
   providers: [AxiosService],
   bootstrap: [AppComponent]

@@ -1,22 +1,25 @@
 <app-header [pageTitle]="'AlphaTom'" [logoSrc]="'assets/logo.png'"></app-header>
 
 <form (ngSubmit)="createPet()" #petForm="ngForm">
-    <div>
-      <label for="name">Name:</label>
-      <input type="text" id="name" name="name" [(ngModel)]="newPet.name" required>
-    </div>
-    <div>
-      <label for="age">Age:</label>
-      <textarea id="age" name="age" [(ngModel)]="newPet.age" required></textarea>
-    </div>
-    <div>
-      <label for="weight">Weight:</label>
-      <input type="number" id="weight" name="weight" [(ngModel)]="newPet.weight" required>
-    </div>
-    <div>
-      <label for="imageUrl">Image URL:</label>
-      <input type="text" id="imageUrl" name="imageUrl" [(ngModel)]="newPet.imageurl">
-    </div>
-    <button type="submit" [disabled]="petForm.invalid" (click)="createPet()">Create Pet</button>
-  
-  </form>
+  <div>
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" [(ngModel)]="newPet.name" required>
+    <div *ngIf="petForm.controls['name']?.invalid && petForm.controls['name']?.touched" class="error-message">Name is required</div>
+  </div>
+  <div>
+    <label for="age">Age:</label>
+    <input type="number" id="age" name="age" [(ngModel)]="newPet.age" required>
+    <div *ngIf="petForm.controls['age']?.invalid && petForm.controls['age']?.touched" class="error-message">Age is required and must be a number</div>
+  </div>
+  <div>
+    <label for="weight">Weight:</label>
+    <input type="number" id="weight" name="weight" [(ngModel)]="newPet.weight" required>
+    <div *ngIf="petForm.controls['weight']?.invalid && petForm.controls['weight']?.touched" class="error-message">Weight is required and must be a number</div>
+  </div>
+  <div>
+    <label for="imageUrl">Image URL:</label>
+    <input type="text" id="imageUrl" name="imageUrl" [(ngModel)]="newPet.imageurl">
+  </div>
+  <button type="submit" [disabled]="petForm.invalid">Create Pet</button>
+</form>
+
