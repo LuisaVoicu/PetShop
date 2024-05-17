@@ -271,30 +271,16 @@ public class UserServiceImpl implements UserService {
 
     public UserDto login(CredentialsDto credentialsDto) {
 
-        //todo - hashing pe parole
-
-        System.out.println("@@@@@------------------------------------>>>> " + credentialsDto.getUsername());
         User user = userRepository.findByUsername(credentialsDto.getUsername())
                 .orElseThrow(() -> new AppException("Unknown user", HttpStatus.NOT_FOUND));
 
 
         String encodedPassword = passwordEncoder.encode(new String(credentialsDto.getPassword()));
 
-        System.out.println("parole:\npasswordEncoder: "+CharBuffer.wrap(credentialsDto.getPassword()).toString()+"\nuser password: "+user.getPassword()+"\n");
-
         if (!passwordEncoder.matches(CharBuffer.wrap(credentialsDto.getPassword()).toString(), user.getPassword())) {
             return null;
         }
 
-
-        System.out.println("PAROLEEEEEE");
-        System.out.println(CharBuffer.wrap(credentialsDto.getPassword()).toString()+ "-");
-        System.out.println("password credential: " + passwordEncoder.encode(CharBuffer.wrap(credentialsDto.getPassword())));
-        System.out.println("user password db: " + user.getPassword()+"-");
-        System.out.println(passwordEncoder.encode(CharBuffer.wrap(credentialsDto.getPassword())).equals(user.getPassword()));
-        System.out.println("end PAROLEEEEEE");
-
-        //login time:
         user.setLoginTime(LocalDateTime.now());
         System.out.println("time:"+user.getLoginTime());
         User saved = userRepository.save(user);
@@ -319,9 +305,6 @@ public class UserServiceImpl implements UserService {
 
         User user = userMapper.signUpToUser(userSignUp);
         user.setPassword(passwordEncoder.encode(CharBuffer.wrap(userSignUp.getPassword())));
-        System.out.println("%%%%% REGISTER PASSWORD--->"+user.getPassword());
-
-
 
         Role customer = roleRepository.findByRole("CUSTOMER");
         this.assignRoleToUser(user, customer.getId());
