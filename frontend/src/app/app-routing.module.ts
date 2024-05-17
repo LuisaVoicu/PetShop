@@ -27,6 +27,7 @@ import { ProductDetailsComponent } from './products/product-details/product-deta
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { FriendsComponent } from './components/friends/friends.component';
 import { AdminRequestsComponent } from './components/admin-requests/admin-requests.component';
+import { UserRequestsComponent } from './components/user-requests/user-requests.component';
 
 const routes: Routes = [
   { path: 'product', component: ProductComponent, canActivate: [AuthGuard]},
@@ -49,6 +50,7 @@ const routes: Routes = [
   { path: 'cart-product', component: CartComponent},
   { path: 'receipt', component: ReceiptComponent},
   { path: 'fav-prod', component: FavProdComponent, canActivate: [AuthGuard]},
+  { path: 'user-requests', component: UserRequestsComponent},
   { path: 'product-review', component: ProductReviewComponent},
   { path: 'login-activity', component: LoginActivityComponent},
   { path: 'chat/:userId/:roomId', component: ChatComponent},

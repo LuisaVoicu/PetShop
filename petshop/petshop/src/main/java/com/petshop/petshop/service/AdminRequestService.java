@@ -10,8 +10,9 @@ import java.util.List;
 public interface AdminRequestService {
 
     List<AdminRequestDto> getAllAdminRequests();
-    List<AdminRequest> getAdminRequestsByUserId(Long id);
+    List<AdminRequestDto> getAdminRequestsByUsername(String username);
     AdminRequest createAdminRequest(User user, String requestType);
 
     void deleteAdminRequestByUserAndRequestType(User user , String requestType);
+    void changeRequestStatus(User user , String requestType, String status);
 }

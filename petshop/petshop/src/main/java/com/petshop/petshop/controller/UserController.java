@@ -157,8 +157,6 @@ public class UserController extends GlobalExceptionHandlerController {
 
         stringBuilder.append("</users>\n");
 
-        System.out.println("STRING GENERATED:" + stringBuilder);
-
 
         xmlFileExporter.writeToFile(stringBuilder.toString(), path);
 
@@ -321,49 +319,93 @@ public class UserController extends GlobalExceptionHandlerController {
             return  ResponseEntity.badRequest().build();
         }
 
-        System.out.println( "hello done here in role request seller! " + adminRequest.getRequest());
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/admin-aprove")
+
+    @PostMapping("/admin-approve-reject")
     public ResponseEntity<?> approveRequest(@RequestBody(required = false) AdminRequestDto adminRequestDto) {
         Optional<User> user = userService.findByUsername(adminRequestDto.username());
 
-        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~` here");
-        if(user.isEmpty()){
+        if(user.isEmpty() || (!adminRequestDto.status().equals("APPROVED") && !adminRequestDto.status().equals("REJECTED"))){
             return ResponseEntity.badRequest().build();
         }
 
+        Long roleId = 0l;
         if(adminRequestDto.request().equals("ROLE_FOSTER")){
-            Long roleId = roleService.findIDByRoleDto("FOSTER");
-            userService.assignRoleToUser(user.get(), roleId);
-            adminRequestService.deleteAdminRequestByUserAndRequestType(user.get(),"ROLE_FOSTER");
+            roleId = roleService.findIDByRoleDto("FOSTER");
+            //adminRequestService.deleteAdminRequestByUserAndRequestType(user.get(),"ROLE_FOSTER");
+            adminRequestService.changeRequestStatus(user.get(),"ROLE_FOSTER", adminRequestDto.status());
+
         }
         else if(adminRequestDto.request().equals("ROLE_SELLER")){
-            Long roleId = roleService.findIDByRoleDto("SELLER");
-            userService.assignRoleToUser(user.get(), roleId);
-            adminRequestService.deleteAdminRequestByUserAndRequestType(user.get(),"ROLE_SELLER");
+            roleId = roleService.findIDByRoleDto("SELLER");
+            //adminRequestService.deleteAdminRequestByUserAndRequestType(user.get(),"ROLE_SELLER");
+            adminRequestService.changeRequestStatus(user.get(),"ROLE_SELLER", adminRequestDto.status());
         }
         else {
             //todo: fostering approval
         }
+        if(adminRequestDto.status().equals("APPROVED")){
+            userService.assignRoleToUser(user.get(), roleId);
+        }
 
         return ResponseEntity.ok().build();
     }
 
-
     @GetMapping("/admin-requests")
-    public ResponseEntity<List<AdminRequestDto>> getAllAdminRequests() {
+    public ResponseEntity<List<AdminRequestDto>> getPendingAdminRequests() {
 
         List<AdminRequestDto> adminRequests = adminRequestService.getAllAdminRequests();
 
-
+        List<AdminRequestDto> pendingRequests = new ArrayList<>();
         for(AdminRequestDto a : adminRequests){
-            System.out.println(a.request());
+            if(a.status().equals("PENDING")){
+                pendingRequests.add(a);
+            }
         }
-        return ResponseEntity.ok(adminRequests);
+
+        for(AdminRequestDto a : pendingRequests){
+            System.out.println("-----------"+a.request());
+        }
+        return ResponseEntity.ok(pendingRequests);
     }
 
+    @PostMapping("/user-requests")
+    public ResponseEntity<List<AdminRequestDto>> getAdminRequestsForUser(@RequestBody(required = false) String username) {
+
+        if (username == null) {
+            return ResponseEntity.badRequest().build();
+        }
+        String usernameTest = username.substring(13, username.length() - 2);
+
+
+        System.out.println("HELLOOOO!!!!!!!!!!!!!!" + usernameTest);
+        Optional<User> user = userService.findByUsername(usernameTest);
+
+        if(user.isEmpty()){
+            return ResponseEntity.badRequest().build();
+        }
+        List<AdminRequestDto> userRequests = adminRequestService.getAdminRequestsByUsername(usernameTest);
+        System.out.println("HELLOOOO!!!!!!!!!!!!!!" + userRequests);
+
+        return ResponseEntity.ok(userRequests);
+    }
+
+    @PostMapping("/delete-request")
+    public ResponseEntity<List<AdminRequestDto>> deleteUserRequest(@RequestBody(required = false) AdminRequestDto adminRequestDto) {
+
+        Optional<User> user = userService.findByUsername(adminRequestDto.username());
+
+        if(user.isEmpty()){
+            return ResponseEntity.badRequest().build();
+        }
+
+        adminRequestService.deleteAdminRequestByUserAndRequestType(user.get(), adminRequestDto.request());
+        System.out.println("Request deleted!" );
+
+        return ResponseEntity.ok().build();
+    }
 
     @PostMapping("/{userId}/roles/{roleId}")
     public ResponseEntity<?> assignRoleToUser(@PathVariable Long userId, @PathVariable Long roleId) {

@@ -31,12 +31,12 @@ nav {
 .menu {
   list-style-type: none;
   margin: 0;
-  padding: 0; /* Remove default padding */
-  display: flex; /* Display flex to align items horizontally */
+  padding: 0; 
+  display: flex;
 }
 
 .menu li {
-  margin-right: 20px; /* Add spacing between menu items */
+  margin-right: 20px;
 }
 
 
@@ -81,14 +81,6 @@ nav ul li a{
 }
 
 
-.dropdown-product{
-  position: left;
-}
-
-
-.dropdown-product {
-  order: 1;
-}
 
 .cart {
   order: 2; 
@@ -138,6 +130,45 @@ nav ul li a{
   order: 1;
 }
 
+.container .menu .authenticated .dropdown-user {
+  order: 1;
+}
+
 .container .menu .authenticated .cart {
   order: 2;
 }
+
+
+
+.container .menu .authenticated .admin-icon img {
+  width: 30px;
+  height: auto; 
+}
+
+.container .menu .authenticated .user-profile-icon {
+  width: 35px;
+  height: auto; 
+}
+
+.container .menu .authenticated .cart-icon {
+  width: 35px;
+  height: auto; 
+}
+
+
+.logout-button {
+  padding: 8px 16px;
+  background-color: #2e8b57; 
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.logout-button:hover {
+  background-color: #3cb371; 
+}
+

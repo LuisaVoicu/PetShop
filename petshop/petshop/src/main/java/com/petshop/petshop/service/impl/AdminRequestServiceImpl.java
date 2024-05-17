@@ -27,16 +27,19 @@ public class AdminRequestServiceImpl  implements AdminRequestService {
     @Override
     public List<AdminRequestDto> getAllAdminRequests() {
         List<AdminRequest> adminRequests =  adminRequestRepository.findAll();
-        return adminRequestMapper.categoryListEntityToDto(adminRequests);
+        return adminRequestMapper.adminRequestListEntityToDto(adminRequests);
     }
 
     @Override
-    public List<AdminRequest> getAdminRequestsByUserId(Long id) {
-        Optional<User> user = userRepository.findById(id);
+    public List<AdminRequestDto> getAdminRequestsByUsername(String username) {
+        Optional<User> user = userRepository.findByUsername(username);
         if(user.isEmpty()){
             return null;
         }
-        return user.get().getAdminRequestS();
+
+        List<AdminRequest> adminRequests =  adminRequestRepository.findByUser(user.get());
+
+        return adminRequestMapper.adminRequestListEntityToDto(adminRequests);
     }
 
     @Override
@@ -61,16 +64,30 @@ public class AdminRequestServiceImpl  implements AdminRequestService {
     @Override
     public void deleteAdminRequestByUserAndRequestType(User user , String requestType) {
         AdminRequest adminRequest = adminRequestRepository.findByUserAndRequest(user, requestType);
+
+        System.out.println(user.getUsername()+ " ==== " + requestType);
         if(adminRequest != null){
             adminRequestRepository.delete(adminRequest);
         }
+        else{
+            System.out.println("not found!!!!");
+        }
     }
 
+    @Override
+    public void changeRequestStatus(User user , String requestType, String status) {
+        AdminRequest adminRequest = adminRequestRepository.findByUserAndRequest(user, requestType);
+        adminRequest.setStatus(status);
+        if(adminRequest != null){
+            adminRequestRepository.save(adminRequest);
+        }
+    }
 
     private boolean requestAlreadyExists(User user, String requestType){
 
         AdminRequest adminRequest = adminRequestRepository.findByUserAndRequest(user,requestType);
         if(adminRequest != null){
+            System.out.println("AdminRequest already exists!");
             return true;
         }
         return false;

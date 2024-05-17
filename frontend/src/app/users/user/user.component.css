@@ -1,6 +1,11 @@
-.export-button {
-    margin-bottom: 20px; /* Add margin below button */
-}
+.container {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow for depth */
+    padding: 20px;
+    margin: auto;
+  }
 
 ul {
     display: flex;
@@ -88,3 +93,25 @@ img {
     width: 200px;
     height: auto;
 }
+
+.export {
+    padding: 10px 20px;
+    background-color: #2e8b57;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 20px;
+    text-align: center;
+    display: inline-block; /* Ensure button is displayed as inline-block */
+  }
+  
+  .export:hover {
+    background-color: #41a46e; 
+    border-color: #248b52;
+    margin: 0 auto;
+    color: white;
+  }

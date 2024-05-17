@@ -43,6 +43,7 @@ import { AdminRequestsComponent } from './components/admin-requests/admin-reques
 import { MatSnackBarModule } from '@angular/material/snack-bar'; 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { UserRequestsComponent } from './components/user-requests/user-requests.component';
 
 @NgModule({
   declarations: [
@@ -80,6 +81,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
     ChangePasswordComponent,
     FriendsComponent,
     AdminRequestsComponent,
+    UserRequestsComponent,
   ],
   imports: [
     BrowserModule,

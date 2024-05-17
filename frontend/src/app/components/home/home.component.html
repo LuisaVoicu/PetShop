@@ -1,2 +1,14 @@
 <app-header [pageTitle]="'AlphaTom'" [logoSrc]="'assets/logo.png'"></app-header>
 <app-content></app-content>
+<div class="slideshow-frame" >
+  <div class="slideshow-container">
+    <div class="slide" *ngFor="let imagePath of imagePaths; let i = index" [style.display]="i === currentIndex ? 'block' : 'none'">
+      <img [src]="imagePath" alt="Slide {{ i }}">
+    </div>
+    <div class="indicator-container">
+      <span class="indicator" *ngFor="let imagePath of imagePaths; let i = index" [class.active]="i === currentIndex" (click)="goToSlide(i)"></span>
+    </div>
+    <button class="prev" (click)="showPrevSlide()">&#10094;</button>
+    <button class="next" (click)="showNextSlide()">&#10095;</button>
+  </div>
+</div>

@@ -1,0 +1,68 @@
+/* carousel.component.css */
+.slideshow-container {
+    position: relative;
+    max-width: 800px; /* Adjust max-width as needed */
+    margin: auto;
+    border: 2px solid #ddd; /* Border around the frame */
+    background-color: white; /* Background color of the frame */
+    padding: 10px; /* Padding around the images */
+  }
+  
+  .slide {
+    display: none;
+  }
+  
+  .slide img {
+    width: 100%;
+    height: 300px; /* Specify a fixed height for the images */
+    object-fit: cover; /* Ensure images maintain aspect ratio and cover entire container */
+    display: block;
+  }
+  
+  .prev,
+  .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: auto;
+    padding: 16px;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    color: white;
+    font-size: 20px;
+    user-select: none; /* Prevent text selection */
+    cursor: pointer; /* Change cursor to pointer */
+  }
+  
+  .prev {
+    left: 0;
+  }
+  
+  .next {
+    right: 0;
+  }
+  
+  .prev:hover,
+  .next:hover {
+    background-color: rgba(0, 0, 0, 0.8); /* Darker background on hover */
+  }
+  
+  /* Indicator styles */
+  .indicators {
+    text-align: center;
+    margin-top: 10px;
+  }
+  
+  .indicator {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #bbb;
+    margin: 0 5px;
+    cursor: pointer; /* Change cursor to pointer */
+  }
+  
+  .indicator.active {
+    background-color: #333; /* Color for active indicator */
+  }
+  

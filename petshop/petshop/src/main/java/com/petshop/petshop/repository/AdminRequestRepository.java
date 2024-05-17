@@ -22,5 +22,6 @@ public interface AdminRequestRepository extends CrudRepository<AdminRequest,Long
 
     AdminRequest findByUserAndRequest(User user, String request);
 
+    List<AdminRequest> findByUser(User user);
 
 }

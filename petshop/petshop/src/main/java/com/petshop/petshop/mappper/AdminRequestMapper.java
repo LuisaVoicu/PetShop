@@ -24,7 +24,7 @@ public class AdminRequestMapper {
                 .build();
     }
 
-    public List<AdminRequestDto> categoryListEntityToDto(List<AdminRequest> adminRequestList){
+    public List<AdminRequestDto>  adminRequestListEntityToDto(List<AdminRequest> adminRequestList){
         return adminRequestList.stream()
                 .map(category -> adminRequestEntityToDto(category))
                 .toList();

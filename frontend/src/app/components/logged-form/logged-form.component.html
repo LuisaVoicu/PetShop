@@ -2,18 +2,19 @@
 
 <div class="container">
   <div class="welcome-message">
-    <p>Welcome, {{ loggedUser.firstName }}!</p>
+    <p></p>
   </div>
 
   <div class="logged-form">
     <div class="user-info">
-      <h2>About Me</h2>
+      <h2>Welcome, {{ loggedUser.firstName }}!</h2>
       <div class="user-details">
         <p class="username">Username: {{ loggedUser.username }}</p>
         <p class="name">Name: {{ loggedUser.firstName }} {{ loggedUser.lastName }}</p>
         <p class="email">Email: {{ loggedUser.email_address }}</p>
         <div class="roles">
-          <p class="role" *ngFor="let role of loggedUser.roles">Role: {{ role }}</p>
+          <a>Roles: </a>
+          <a class="role" *ngFor="let role of loggedUser.roles">{{ role }} </a>
         </div>
       </div>
     </div>
@@ -32,15 +33,5 @@
     <input type="text" [(ngModel)]="id2" placeholder="roomId">
     <button (click)="startChatting()">Start chatting</button>
   </div>
-
-
-  <div>
-    <select #roleSelect>
-      <option value="seller">Request SELLER</option>
-      <option value="foster">Request FOSTER</option>
-    </select>
-    <button (click)="handleRequest(roleSelect.value)">Request Role</button>
-  </div>
-
 
 </div>

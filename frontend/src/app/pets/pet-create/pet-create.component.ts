@@ -61,7 +61,7 @@ export class PetCreateComponent {
 openSnackBar(message: string, action: string): void {
   const config = new MatSnackBarConfig();
   config.duration = 3000;
-  config.verticalPosition = 'top';
+  config.panelClass = ['snackbar-overlay'];
   this.snackBar.open(message, action, config);
 }
 

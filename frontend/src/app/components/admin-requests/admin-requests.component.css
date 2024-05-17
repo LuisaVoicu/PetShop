@@ -28,9 +28,40 @@
   tr:hover {
     background-color: #f5f5f5; /* Change row background color on hover */
   }
-  
-  button {
-    padding: 5px 10px;
-    margin-right: 5px;
+
+  .approve {
+    padding: 8px 16px;
+    background-color: #2e8b57; 
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+    font-size: 14px;
   }
   
+  .approve:hover {
+    background-color: #41a46e; 
+    border-color: #248b52;
+    color: white;
+  }
+
+   
+  .reject {
+    padding: 8px 16px;
+    background-color: #d61935;
+    color: white;
+    border: 1px solid #c61933;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+    font-size: 14px;
+  }
+  
+  .reject:hover {
+    background-color: #ff696c;
+    border-color: #ff699b;
+    color: white;
+  }

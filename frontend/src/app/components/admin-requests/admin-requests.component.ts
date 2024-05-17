@@ -11,13 +11,15 @@ import { AdminRequest } from '../../models/AdminRequest';
 export class AdminRequestsComponent {
 
   constructor(private axiosService: AxiosService, private route:ActivatedRoute){
-
   }
 
   adminRequests: AdminRequest[] = [];
 
   ngOnInit(): void {
+    this.fetchRequests();
+  }
 
+  fetchRequests():void{
 
     this.axiosService.request(
       "GET",
@@ -31,13 +33,20 @@ export class AdminRequestsComponent {
       });
 
 
-
   }
 
   approveRequest(request: AdminRequest){
-    this.axiosService.request('POST', '/admin-aprove', request)
+    request.status = 'APPROVED';
+    this.sendRequest(request);
+  }
+  rejectRequest(request: AdminRequest){
+    request.status = 'REJECTED';
+    this.sendRequest(request);
+  }
+  sendRequest(request: AdminRequest){
+    this.axiosService.request('POST', '/admin-approve-reject', request)
     .then(response => {
-      
+      this.fetchRequests();
     })
     .catch(error => {
       console.log("Error occurred while creating seller/foster request:", error);

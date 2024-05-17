@@ -1,3 +1,5 @@
+<app-header [pageTitle]="'AlphaTom'" [logoSrc]="'assets/logo.png'"></app-header>
+
 <div class="table-container">
     <table>
       <thead>
@@ -14,7 +16,8 @@
           <td>{{ request.status }}</td>
           <td>{{ request.request }}</td>
           <td>
-            <button (click)="approveRequest(request)">Approve</button>
+            <button type=button class="approve" (click)="approveRequest(request)">Approve</button>
+            <button type=button class="reject" (click)="rejectRequest(request)">Reject</button>
             <!-- <button (click)="rejectRequest(request)">Reject</button> -->
           </td>
         </tr>

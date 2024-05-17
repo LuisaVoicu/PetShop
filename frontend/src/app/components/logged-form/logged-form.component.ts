@@ -89,24 +89,5 @@ export class LoggedFormComponent {
     }
 
 
-    handleRequest(selectedRole: string) {
-      if (selectedRole === 'seller') {
-        this.requestRole("ROLE_SELLER");
-      } else if (selectedRole === 'foster') {
-        this.requestRole("ROLE_FOSTER");
-      }
-    }
-
-    requestRole(role: string){
-
-      this.axiosService.request('POST', '/request-role', {username: this.username	, request: role})
-      .then(response => {
-      })
-      .catch(error => {
-        console.log("Error occurred while creating seller/foster request:", error);
-      });
-
-    }
-
 
 }
