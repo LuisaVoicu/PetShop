@@ -1,74 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <users>
 <user>
-    <email_address>lauraluisavoicu@ggggmail.com</email_address>
-    <firstName>ssssssaura-Luisa</firstName>
-    <id>1</id>
-    <lastName>saaaaaaa</lastName>
-    <loginTime/>
-    <logoutTime/>
-    <roles>CUSTOMER</roles>
-    <roles>SELLER</roles>
-    <roles>FOSTER</roles>
-    <roles>ADMIN</roles>
-    <roles>FOSTER</roles>
-    <roles>FOSTER</roles>
-    <roles>SELLER</roles>
-    <username>luisa</username>
-</user><user>
-    <email_address>lauraluisavoicu@gmail.com</email_address>
+    <email_address>admin@admin.com</email_address>
     <firstName>Admin</firstName>
-    <id>4</id>
-    <lastName>admin</lastName>
+    <id>1</id>
+    <lastName>Admin</lastName>
     <loginTime/>
     <logoutTime/>
     <roles>CUSTOMER</roles>
-    <roles>ADMIN</roles>
-    <roles>SELLER</roles>
-    <roles>FOSTER</roles>
     <roles>ADMIN</roles>
     <username>admin</username>
 </user><user>
     <email_address>lauraluisavoicu@gmail.com</email_address>
-    <firstName>test</firstName>
-    <id>5</id>
-    <lastName>trest</lastName>
+    <firstName>Laura-Luisa</firstName>
+    <id>2</id>
+    <lastName>Voicu</lastName>
     <loginTime/>
     <logoutTime/>
     <roles>CUSTOMER</roles>
     <roles>SELLER</roles>
-    <roles>SELLER</roles>
-    <roles>SELLER</roles>
+    <roles>FOSTER</roles>
+    <username>luisa</username>
+</user><user>
+    <email_address>test@test.com</email_address>
+    <firstName>test</firstName>
+    <id>3</id>
+    <lastName>test</lastName>
+    <loginTime/>
+    <logoutTime/>
+    <roles>CUSTOMER</roles>
     <roles>FOSTER</roles>
     <username>test</username>
 </user><user>
-    <email_address>lauraluisavoicu@gmail.com</email_address>
-    <firstName>Laura-Luisa</firstName>
-    <id>6</id>
-    <lastName>Voicu</lastName>
+    <email_address>test@test.com</email_address>
+    <firstName>test2</firstName>
+    <id>4</id>
+    <lastName>test2</lastName>
     <loginTime/>
-    <logoutTime/>
     <roles>CUSTOMER</roles>
-    <roles>FOSTER</roles>
     <username>test2</username>
 </user><user>
-    <email_address>lauraluisavoicu@gmail.com</email_address>
-    <firstName>Laura-Luisa</firstName>
-    <id>7</id>
-    <lastName>Voicu</lastName>
+    <email_address>test3@test.com</email_address>
+    <firstName>test3</firstName>
+    <id>5</id>
+    <lastName>test3</lastName>
     <loginTime/>
-    <logoutTime/>
     <roles>CUSTOMER</roles>
     <roles>SELLER</roles>
     <username>test3</username>
-</user><user>
-    <email_address>lauraluisavoicu@gmail.com</email_address>
-    <firstName>Laura-Luisa</firstName>
-    <id>8</id>
-    <lastName>Voicu</lastName>
-    <loginTime/>
-    <logoutTime/>
-    <roles>CUSTOMER</roles>
-    <roles>FOSTER</roles>
-    <username>test4</username>
 </user></users>
